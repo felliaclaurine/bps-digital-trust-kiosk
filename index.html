@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Statistics for Digital Trust — BPS Interactive Kiosk</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #040B16;
+      overflow: hidden;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <iframe
+    id="kiosk-app"
+    src="PASTE_URL_WEB_APP_ANDA_DI_SINI"
+    allow="camera *; microphone *; fullscreen *"
+    allowfullscreen>
+  </iframe>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const qrToken = urlParams.get('token');
+    if (qrToken) {
+      const iframe = document.getElementById('kiosk-app');
+      const baseSrc = iframe.getAttribute('src').split('?')[0];
+      iframe.src = `${baseSrc}?token=${encodeURIComponent(qrToken)}`;
+    }
+  </script>
+</body>
+</html>

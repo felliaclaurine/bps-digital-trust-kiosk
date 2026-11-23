@@ -3,39 +3,1862 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Statistics for Digital Trust — BPS Interactive Kiosk</title>
+  <title>Statistics for Digital Trust — Badan Pusat Statistik</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      box-sizing: border-box;
+    }
     html, body {
+      margin: 0;
+      padding: 0;
       width: 100%;
       height: 100%;
-      background-color: #040B16;
+      background-color: #030814;
+      color: #f8fafc;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow: hidden;
+      touch-action: manipulation;
+    }
+    .font-display { font-family: 'Space Grotesk', sans-serif; }
+    .font-mono-num { font-family: 'JetBrains Mono', monospace; }
+    input { user-select: text; -webkit-user-select: text; }
+
+    /* Frame Kiosk Portrait 9:16 — Nuansa Booth BPS (Deep Navy, Royal Blue, Warm Gold/Amber Glow) */
+    #kiosk-frame {
+      width: 100%;
+      max-width: 56.25vh;
+      height: 100%;
+      margin: 0 auto;
+      position: relative;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(29, 78, 216, 0.55) 0%, transparent 55%),
+        radial-gradient(ellipse at 0% 50%, rgba(245, 158, 11, 0.16) 0%, transparent 40%),
+        radial-gradient(ellipse at 100% 50%, rgba(245, 158, 11, 0.16) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 100%, rgba(245, 158, 11, 0.22) 0%, transparent 45%),
+        linear-gradient(180deg, #0B2A6B 0%, #071942 52%, #040E26 100%);
+      border-left: 2px solid rgba(251, 191, 36, 0.35);
+      border-right: 2px solid rgba(251, 191, 36, 0.35);
+      box-shadow: 0 0 85px rgba(29, 78, 216, 0.38), inset 0 0 40px rgba(245, 158, 11, 0.08);
+      display: flex;
+      flex-direction: column;
       overflow: hidden;
     }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
+    @media (orientation: portrait) {
+      #kiosk-frame { max-width: 100%; border: none; }
     }
+
+    /* Pilar Garis Cahaya Emas/Amber di Sisi Kiri & Kanan seperti Booth Pameran */
+    .booth-pillar-left, .booth-pillar-right {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, rgba(251, 191, 36, 0.1), rgba(245, 158, 11, 0.85), rgba(251, 191, 36, 0.15));
+      box-shadow: 0 0 18px rgba(245, 158, 11, 0.7);
+      pointer-events: none;
+      z-index: 15;
+    }
+    .booth-pillar-left { left: 0; }
+    .booth-pillar-right { right: 0; }
+
+    .tech-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(125, 211, 252, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(125, 211, 252, 0.06) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(circle at 50% 45%, black 55%, transparent 95%);
+      pointer-events: none;
+    }
+
+    .glass-panel {
+      background: rgba(10, 31, 74, 0.62);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(125, 211, 252, 0.28);
+      box-shadow: 0 10px 30px rgba(2, 8, 20, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .glass-card-elevated {
+      background: linear-gradient(155deg, rgba(17, 52, 116, 0.85) 0%, rgba(8, 25, 62, 0.92) 100%);
+      backdrop-filter: blur(22px);
+      border: 1.5px solid rgba(125, 211, 252, 0.42);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.52), 0 0 25px rgba(245, 158, 11, 0.12);
+    }
+
+    .btn-primary-glow {
+      background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #FDE68A 100%);
+      box-shadow: 0 12px 30px rgba(245, 158, 11, 0.42), inset 0 1.5px 0 rgba(255, 255, 255, 0.65);
+    }
+
+    .mirror-video { transform: scaleX(-1); }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+    .animate-float { animation: floatSlow 3.5s infinite ease-in-out; }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.018); }
+    }
+    .animate-pulse-glow { animation: pulseGlow 2.4s infinite ease-in-out; }
+
+    @keyframes scanLine {
+      0% { top: 0%; opacity: 0.2; }
+      50% { top: 92%; opacity: 0.9; }
+      100% { top: 0%; opacity: 0.2; }
+    }
+    .camera-scanline {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #FBBF24, transparent);
+      animation: scanLine 2.8s infinite linear;
+      pointer-events: none;
+    }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
-<body>
-  <iframe
-    id="kiosk-app"
-    src="PASTE_URL_WEB_APP_ANDA_DI_SINI"
-    allow="camera *; microphone *; fullscreen *"
-    allowfullscreen>
-  </iframe>
+<body oncontextmenu="return false;">
 
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const qrToken = urlParams.get('token');
-    if (qrToken) {
-      const iframe = document.getElementById('kiosk-app');
-      const baseSrc = iframe.getAttribute('src').split('?')[0];
-      iframe.src = `${baseSrc}?token=${encodeURIComponent(qrToken)}`;
+<div id="kiosk-frame">
+  <div class="booth-pillar-left"></div>
+  <div class="booth-pillar-right"></div>
+  <div class="tech-grid"></div>
+
+  <!-- HEADER: HANYA LOGO BPS + TULISAN PUTIH "BADAN PUSAT STATISTIK" + KAMERA + BAHASA + SETTING -->
+  <header class="px-4 pt-3.5 pb-2.5 flex items-center justify-between border-b border-amber-400/25 bg-[#061538]/90 backdrop-blur-md z-20 shrink-0">
+    <div class="flex items-center gap-2.5 min-w-0">
+      <!-- Logo Resmi BPS -->
+      <div class="w-10 h-10 rounded-xl bg-white p-1.5 flex items-center justify-center shadow-md shrink-0">
+        <svg viewBox="0 0 220 200" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <path d="M55 68 C18 92, 16 135, 58 148 C98 160, 148 144, 178 122 C145 140, 96 150, 62 138 C32 127, 34 93, 62 74 Z" fill="#008FD5"/>
+          <path d="M68 58 C105 38, 158 36, 188 58 C215 78, 202 115, 165 135 C190 112, 198 82, 176 66 C150 48, 104 49, 68 58 Z" fill="#F39200"/>
+          <path d="M62 28 H92 C95 28, 97 30, 96 33 L88 68 H115 C118 68, 120 70, 119 73 L110 112 C109 115, 106 117, 103 117 H64 L74 111 L82 78 H54 C51 78, 49 76, 50 73 L59 32 C60 29, 61 28, 62 28 Z" fill="#008FD5"/>
+          <path d="M126 28 H166 L156 34 L148 68 H175 C178 68, 180 70, 179 73 L170 112 C169 115, 166 117, 163 117 H138 C135 117, 133 115, 134 112 L142 78 H115 C112 78, 110 76, 111 73 L120 32 C121 29, 123 28, 126 28 Z" fill="#F39200"/>
+          <path d="M104 82 H134 C137 82, 139 84, 138 87 L130 120 C129 123, 126 125, 123 125 H96 L88 160 C87 163, 84 165, 81 165 H53 C50 165, 48 163, 49 160 L58 120 C59 117, 62 115, 65 115 H92 L100 86 C101 83, 102 82, 104 82 Z" fill="#76B82A"/>
+        </svg>
+      </div>
+      <div class="font-display text-[11px] sm:text-xs font-extrabold italic tracking-wide text-white uppercase leading-tight">
+        BADAN PUSAT STATISTIK
+      </div>
+    </div>
+
+    <div class="flex items-center gap-1.5 shrink-0">
+      <div id="camera-badge" class="flex items-center gap-1 px-2 py-1 rounded-full bg-slate-950/90 border border-sky-400/30 text-[10px] font-bold text-sky-200">
+        <span id="camera-dot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+        <span id="camera-status-text">Kamera...</span>
+      </div>
+
+      <!-- Sakelar Bahasa ID / EN -->
+      <button id="btn-lang-toggle" title="Switch Language (ID / EN)" class="px-2 py-1.5 rounded-xl glass-panel border border-amber-400/40 text-[10px] font-extrabold text-amber-300 flex items-center gap-1 active:scale-95">
+        <span>🌐</span>
+        <span id="lang-label">ID</span>
+      </button>
+
+      <button id="btn-fullscreen" title="Fullscreen" class="w-7 h-7 rounded-xl glass-panel text-sky-300 flex items-center justify-center text-xs active:scale-95">
+        ⛶
+      </button>
+      <button id="btn-admin-trigger" title="Panel Panitia BPS" class="w-7 h-7 rounded-xl glass-panel text-slate-300 flex items-center justify-center text-xs active:scale-95">
+        ⚙️
+      </button>
+    </div>
+  </header>
+
+  <!-- CERMIN SENSOR GESTUR REAL-TIME -->
+  <div id="pip-camera-box" class="hidden w-full px-5 mt-2.5 z-10 shrink-0">
+    <div class="rounded-2xl glass-panel p-2.5 flex items-center gap-3 shadow-xl border border-amber-400/35">
+      <div class="relative w-28 h-24 rounded-xl overflow-hidden bg-slate-950 border-2 border-amber-400/70 shrink-0 shadow-inner">
+        <video id="webcam-video" autoplay playsinline muted class="w-full h-full object-cover mirror-video"></video>
+        <div class="camera-scanline"></div>
+        <div id="hand-bbox-indicator" class="hidden absolute inset-1.5 border-2 border-emerald-400 rounded-lg pointer-events-none shadow-[0_0_12px_rgba(52,211,153,0.7)]"></div>
+        <div class="absolute bottom-1 left-1 px-1.5 py-0.5 rounded bg-black/80 text-[9px] font-extrabold text-amber-300 flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> AI VISION
+        </div>
+      </div>
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center justify-between gap-2">
+          <span data-i18n="cam_title" class="text-[10px] font-extrabold uppercase tracking-wider text-amber-300">Kontrol Gestur Tangan</span>
+          <span id="fps-counter" class="text-[10px] font-mono-num text-slate-300 bg-slate-950/80 px-1.5 py-0.5 rounded border border-sky-400/20">-- FPS</span>
+        </div>
+        <p id="gesture-live-feedback" class="text-xs sm:text-sm text-white font-bold mt-1 leading-snug">
+          Angkat 👍 (Benar) atau ✋ (Salah)
+        </p>
+        <div class="flex items-center gap-2 text-[10px] font-extrabold mt-1.5">
+          <span id="badge-gest-true" class="bg-emerald-950/90 border border-emerald-400/40 px-2 py-0.5 rounded-md text-emerald-300">👍 BENAR</span>
+          <span id="badge-gest-false" class="bg-rose-950/90 border border-rose-400/40 px-2 py-0.5 rounded-md text-rose-300">✋ SALAH</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- PAGE 01: LANDING PAGE                                                 -->
+  <!-- ===================================================================== -->
+  <main id="screen-idle" class="flex-1 w-full flex flex-col justify-between p-5 text-center z-10 overflow-y-auto no-scrollbar">
+    <div class="my-auto flex flex-col items-center space-y-4">
+      <span data-i18n="hero_badge" class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 text-[10px] font-extrabold tracking-widest uppercase">
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-300 animate-ping"></span>
+        Interactive Exhibition Experience
+      </span>
+
+      <h1 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.08] bg-gradient-to-b from-white via-sky-100 to-amber-200 bg-clip-text text-transparent">
+        STATISTICS FOR<br>DIGITAL TRUST
+      </h1>
+
+      <div class="w-36 h-36 rounded-[2rem] glass-card-elevated flex flex-col items-center justify-center shadow-2xl relative my-1 animate-float border-amber-400/40">
+        <div class="w-16 h-16 rounded-2xl bg-white p-2 flex items-center justify-center shadow-md mb-2">
+          <svg viewBox="0 0 220 200" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <path d="M55 68 C18 92, 16 135, 58 148 C98 160, 148 144, 178 122 C145 140, 96 150, 62 138 C32 127, 34 93, 62 74 Z" fill="#008FD5"/>
+            <path d="M68 58 C105 38, 158 36, 188 58 C215 78, 202 115, 165 135 C190 112, 198 82, 176 66 C150 48, 104 49, 68 58 Z" fill="#F39200"/>
+            <path d="M62 28 H92 C95 28, 97 30, 96 33 L88 68 H115 C118 68, 120 70, 119 73 L110 112 C109 115, 106 117, 103 117 H64 L74 111 L82 78 H54 C51 78, 49 76, 50 73 L59 32 C60 29, 61 28, 62 28 Z" fill="#008FD5"/>
+            <path d="M126 28 H166 L156 34 L148 68 H175 C178 68, 180 70, 179 73 L170 112 C169 115, 166 117, 163 117 H138 C135 117, 133 115, 134 112 L142 78 H115 C112 78, 110 76, 111 73 L120 32 C121 29, 123 28, 126 28 Z" fill="#F39200"/>
+            <path d="M104 82 H134 C137 82, 139 84, 138 87 L130 120 C129 123, 126 125, 123 125 H96 L88 160 C87 163, 84 165, 81 165 H53 C50 165, 48 163, 49 160 L58 120 C59 117, 62 115, 65 115 H92 L100 86 C101 83, 102 82, 104 82 Z" fill="#76B82A"/>
+          </svg>
+        </div>
+        <div class="px-2.5 py-0.5 rounded-full bg-amber-400/20 border border-amber-300/40 text-amber-200 text-[10px] font-extrabold uppercase tracking-wider">
+          #SadarStatistik
+        </div>
+        <div class="absolute -left-6 -bottom-2 bg-emerald-950/95 border border-emerald-400/60 px-2.5 py-1 rounded-xl shadow-lg flex items-center gap-1">
+          <span class="text-base">👍</span>
+          <span data-i18n="word_true" class="text-[10px] font-extrabold text-emerald-200">BENAR</span>
+        </div>
+        <div class="absolute -right-6 -bottom-2 bg-rose-950/95 border border-rose-400/60 px-2.5 py-1 rounded-xl shadow-lg flex items-center gap-1">
+          <span class="text-base">✋</span>
+          <span data-i18n="word_false" class="text-[10px] font-extrabold text-rose-200">SALAH</span>
+        </div>
+      </div>
+
+      <p class="text-xs sm:text-sm text-amber-200 max-w-sm leading-relaxed font-bold">
+        "Explore the Data. Discover the Facts. Build the Trust."
+      </p>
+      <p data-i18n="hero_sub" class="text-xs text-slate-200/90 max-w-xs leading-relaxed">
+        Tebak fakta ekonomi & dunia digital Indonesia pakai gerakan tanganmu, lalu bawa pulang kartu digitalmu!
+      </p>
+
+      <button id="btn-to-select" class="btn-primary-glow animate-pulse-glow w-full py-5 px-6 rounded-2xl text-slate-950 font-display font-extrabold text-xl tracking-wide shadow-xl flex items-center justify-center gap-3 active:scale-95 transition">
+        <span data-i18n="btn_start">MULAI BERMAIN</span>
+        <span class="text-2xl">🚀</span>
+      </button>
+    </div>
+
+    <div class="mt-2 glass-panel rounded-2xl p-2.5 flex items-start gap-2 text-left w-full border-amber-400/25">
+      <span class="text-sm shrink-0 mt-0.5">🛡️</span>
+      <p data-i18n="privacy_note" class="text-[10px] text-slate-200 leading-relaxed">
+        <strong class="text-amber-300">Aman & Privat:</strong> Kamera hanya membaca gestur tangan secara langsung dan tidak merekam wajah atau menyimpan data pribadi.
+      </p>
+    </div>
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- PAGE 02: PILIHAN DUA GAME                                             -->
+  <!-- ===================================================================== -->
+  <section id="screen-select" class="hidden flex-1 w-full flex flex-col justify-between p-5 z-10 overflow-y-auto no-scrollbar">
+    <div class="text-center mt-1">
+      <span data-i18n="step_1_of_2" class="text-[10px] font-extrabold uppercase tracking-[0.2em] text-amber-300">Langkah 1 dari 2</span>
+      <h2 data-i18n="select_title" class="font-display text-2xl sm:text-3xl font-extrabold text-white mt-0.5">Pilih Tantanganmu</h2>
+      <p data-i18n="select_sub" class="text-xs text-sky-200 mt-1">5 pernyataan singkat & mudah dipahami • 20 detik per soal</p>
+    </div>
+
+    <div class="flex flex-col gap-4 my-auto py-2">
+      <!-- GAME 01 -->
+      <button id="btn-pick-financial" class="glass-card-elevated rounded-3xl p-5 text-left hover:border-amber-300 active:scale-98 transition group">
+        <div class="flex items-center justify-between mb-2">
+          <span class="px-3 py-0.5 rounded-full bg-amber-500/25 border border-amber-400/50 text-amber-200 text-[11px] font-extrabold tracking-wider">GAME 01</span>
+          <span class="text-2xl">💰</span>
+        </div>
+        <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white group-hover:text-amber-300 transition">FINANCIAL AWARENESS</h3>
+        <p data-i18n="g1_tagline" class="text-xs sm:text-sm font-bold text-sky-300 mt-0.5">Seberapa Melek Kamu dengan Keuangan Indonesia?</p>
+        <p data-i18n="g1_desc" class="text-xs text-slate-200 mt-2 leading-relaxed">
+          Kupas fakta inflasi, harga barang, kemiskinan, ekspor-impor, hingga daya beli masyarakat Indonesia.
+        </p>
+        <div class="mt-3 pt-2.5 border-t border-amber-400/20 flex justify-between items-center text-[11px] font-extrabold text-amber-300">
+          <span data-i18n="all_ages">Cocok untuk Semua Kalangan</span>
+          <span data-i18n="play_now" class="px-2.5 py-1 rounded-lg bg-amber-400/15">MAIN SEKARANG →</span>
+        </div>
+      </button>
+
+      <!-- GAME 02 -->
+      <button id="btn-pick-digital" class="glass-card-elevated rounded-3xl p-5 text-left hover:border-amber-300 active:scale-98 transition group">
+        <div class="flex items-center justify-between mb-2">
+          <span class="px-3 py-0.5 rounded-full bg-sky-500/30 border border-sky-400/50 text-cyan-200 text-[11px] font-extrabold tracking-wider">GAME 02</span>
+          <span class="text-2xl">🕵️‍♂️</span>
+        </div>
+        <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white group-hover:text-amber-300 transition">DIGITAL TRUST DETECTIVE</h3>
+        <p data-i18n="g2_tagline" class="text-xs sm:text-sm font-bold text-sky-300 mt-0.5">Seberapa Paham Kamu dengan Dunia Digital Indonesia?</p>
+        <p data-i18n="g2_desc" class="text-xs text-slate-200 mt-2 leading-relaxed">
+          Ungkap fakta pengguna internet, kepemilikan HP, belanja online (e-commerce), dan dompet digital Indonesia.
+        </p>
+        <div class="mt-3 pt-2.5 border-t border-amber-400/20 flex justify-between items-center text-[11px] font-extrabold text-amber-300">
+          <span data-i18n="all_ages">Cocok untuk Semua Kalangan</span>
+          <span data-i18n="play_now" class="px-2.5 py-1 rounded-lg bg-amber-400/15">MAIN SEKARANG →</span>
+        </div>
+      </button>
+    </div>
+
+    <button id="btn-back-idle" data-i18n="btn_back_home" class="py-2 text-xs font-semibold text-slate-300 hover:text-white">
+      ← Kembali ke Layar Awal
+    </button>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- PAGE 03: LATIHAN GESTUR SEBELUM MAIN                                  -->
+  <!-- ===================================================================== -->
+  <section id="screen-verify" class="hidden flex-1 w-full flex flex-col justify-between p-5 text-center z-10">
+    <div class="mt-1">
+      <span id="verify-game-label" class="inline-block px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-[10px] font-extrabold uppercase tracking-wider">
+        Latihan Kontrol • Langkah 1/2
+      </span>
+      <h2 data-i18n="prac_heading" class="font-display text-2xl sm:text-3xl font-extrabold text-white mt-1">
+        Coba Gestur Dulu Yuk!
+      </h2>
+      <p data-i18n="prac_sub" class="text-xs text-sky-200 mt-0.5">
+        Tahan gestur ±0,6 detik di depan kamera atas atau tekan tombol sentuh
+      </p>
+    </div>
+
+    <div class="my-auto py-2">
+      <div id="verify-card" class="glass-card-elevated border-2 border-emerald-400/60 rounded-3xl p-6 w-full shadow-2xl transition-all duration-300">
+        <div id="verify-emoji" class="text-6xl mb-3 animate-bounce">👍</div>
+        <h3 id="verify-title" class="font-display text-xl font-extrabold text-emerald-300">
+          Latihan 1: Acungkan Jempol (BENAR)
+        </h3>
+        <p id="verify-desc" class="text-xs sm:text-sm text-slate-200 mt-2 leading-relaxed">
+          Tunjukkan <strong class="text-white">Jempol ke Atas (👍)</strong> ke kamera jika pernyataan statistik menurutmu <strong class="text-emerald-300">BENAR</strong>.
+        </p>
+
+        <div class="mt-5">
+          <div class="flex justify-between text-xs font-bold mb-1.5">
+            <span data-i18n="prac_meter" class="text-slate-300">Indikator Kunci Gestur</span>
+            <span id="verify-hold-pct" class="text-amber-300 font-mono-num">0%</span>
+          </div>
+          <div class="w-full h-3.5 bg-slate-900 rounded-full overflow-hidden p-0.5 border border-sky-400/30">
+            <div id="verify-hold-bar" class="h-full w-0 bg-gradient-to-r from-emerald-400 to-amber-300 rounded-full transition-all duration-75"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-2.5 w-full">
+      <button id="btn-verify-touch" class="w-full py-4 px-5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-display font-extrabold text-base shadow-lg border border-emerald-300/40 flex items-center justify-center gap-3 active:scale-95 transition">
+        <span id="btn-verify-icon" class="text-2xl">👍</span>
+        <span id="btn-verify-label">COBA JAWAB BENAR (SENTUH)</span>
+      </button>
+      <button id="btn-skip-verify" data-i18n="btn_skip_prac" class="w-full py-2 text-xs font-bold text-amber-300 hover:text-white underline">
+        Sudah paham, langsung mulai game sekarang →
+      </button>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- PAGE 04: QUIZ SCREEN (TIMER 20 DETIK PER SOAL)                        -->
+  <!-- ===================================================================== -->
+  <section id="screen-play" class="hidden flex-1 w-full flex flex-col justify-between p-5 z-10">
+    <!-- Top Bar -->
+    <div class="glass-panel rounded-2xl p-3.5 border-amber-400/25">
+      <div class="flex items-center justify-between">
+        <div>
+          <div id="play-game-title" class="text-[10px] font-extrabold uppercase tracking-wider text-amber-300">FINANCIAL AWARENESS</div>
+          <div class="font-display text-lg font-extrabold text-white">
+            <span data-i18n="q_label">Pertanyaan</span> <span id="display-round-num" class="text-amber-300">1</span> / 5
+          </div>
+        </div>
+        <div class="text-right">
+          <div data-i18n="timer_label" class="text-[10px] font-bold uppercase tracking-wider text-slate-300">Waktu Baca & Jawab</div>
+          <div id="display-timer-text" class="font-mono-num text-xl font-extrabold text-amber-300">20.0s</div>
+        </div>
+      </div>
+      <div class="w-full h-2.5 bg-slate-950 rounded-full overflow-hidden mt-2">
+        <div id="display-timer-bar" class="h-full w-full bg-gradient-to-r from-amber-400 via-sky-400 to-cyan-300 rounded-full transition-all duration-100"></div>
+      </div>
+    </div>
+
+    <!-- Kartu Pertanyaan Statistik -->
+    <div class="my-auto py-3 flex flex-col justify-center flex-1">
+      <div class="glass-card-elevated rounded-3xl p-6 flex-1 flex flex-col justify-center items-center text-center relative overflow-hidden">
+        <span id="question-level-badge" class="px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-[10px] font-extrabold uppercase tracking-widest mb-4">
+          💡 Konsep & Fakta Populer BPS
+        </span>
+
+        <p id="scenario-text" class="text-lg sm:text-2xl font-bold text-white leading-snug">
+          Memuat pernyataan statistik...
+        </p>
+
+        <!-- Overlay Feedback Jawaban -->
+        <div id="round-feedback-overlay" class="hidden absolute inset-0 bg-[#05122E]/96 backdrop-blur-md p-5 flex flex-col items-center justify-center text-center z-20">
+          <div id="feedback-badge-icon" class="text-5xl mb-1.5">✅</div>
+          <h3 id="feedback-title" class="font-display text-2xl font-extrabold text-emerald-400">Jawaban Benar!</h3>
+          <p id="feedback-subtitle" class="text-xs font-bold text-amber-200 mt-0.5">Kunci Fakta: BENAR</p>
+
+          <div class="mt-3 bg-slate-950/90 border border-sky-400/30 rounded-2xl p-4 w-full text-left">
+            <div data-i18n="fb_exp_title" class="text-[10px] font-extrabold text-amber-300 uppercase mb-1">Penjelasan Data Resmi BPS:</div>
+            <p id="feedback-explanation" class="text-xs sm:text-sm text-white leading-relaxed font-medium">
+              Penjelasan statistik...
+            </p>
+            <div class="mt-2.5 pt-2 border-t border-white/10 text-[11px] text-sky-300 font-semibold" id="feedback-source">
+              Sumber: BRS BPS
+            </div>
+          </div>
+
+          <button id="btn-next-question" data-i18n="btn_next_q" class="mt-3.5 w-full py-3.5 rounded-xl btn-primary-glow text-slate-950 font-display font-extrabold text-sm active:scale-95 transition">
+            LANJUTKAN SOAL BERIKUTNYA →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tombol Jawaban Besar -->
+    <div class="grid grid-cols-2 gap-3.5 mb-1">
+      <button id="btn-answer-benar" class="relative overflow-hidden rounded-2xl bg-gradient-to-b from-emerald-500 to-emerald-700 border-2 border-emerald-300/50 p-4 text-white shadow-xl flex flex-col items-center justify-center gap-1 min-h-[100px] active:scale-95 transition">
+        <div id="hold-fill-benar" class="absolute bottom-0 left-0 right-0 h-0 bg-white/35 pointer-events-none transition-all duration-75"></div>
+        <span class="text-3xl relative z-10">👍</span>
+        <div class="text-center relative z-10">
+          <div data-i18n="word_true" class="font-display text-xl font-extrabold tracking-wide">BENAR</div>
+          <div data-i18n="hold_true_hint" class="text-[11px] text-emerald-100 font-medium">Tahan 👍 / Sentuh</div>
+        </div>
+      </button>
+
+      <button id="btn-answer-salah" class="relative overflow-hidden rounded-2xl bg-gradient-to-b from-rose-500 to-rose-700 border-2 border-rose-300/50 p-4 text-white shadow-xl flex flex-col items-center justify-center gap-1 min-h-[100px] active:scale-95 transition">
+        <div id="hold-fill-salah" class="absolute bottom-0 left-0 right-0 h-0 bg-white/35 pointer-events-none transition-all duration-75"></div>
+        <span class="text-3xl relative z-10">✋</span>
+        <div class="text-center relative z-10">
+          <div data-i18n="word_false" class="font-display text-xl font-extrabold tracking-wide">SALAH</div>
+          <div data-i18n="hold_false_hint" class="text-[11px] text-rose-100 font-medium">Tahan ✋ / Sentuh</div>
+        </div>
+      </button>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- PAGE 06 & 07: KARTU HASIL DIGITAL & QR CODE KARTU PESERTA             -->
+  <!-- ===================================================================== -->
+  <section id="screen-card" class="hidden flex-1 w-full flex flex-col justify-between p-4 sm:p-5 overflow-y-auto no-scrollbar z-10">
+    <div class="flex flex-col items-center space-y-3 my-auto">
+      <div id="qr-shared-banner" class="hidden w-full py-1.5 px-3 rounded-xl bg-amber-500/20 border border-amber-400/40 text-center text-[11px] font-bold text-amber-200">
+        🪪 Digital Result Card — Statistics for Digital Trust BPS
+      </div>
+
+      <div class="w-full max-w-[315px] rounded-2xl overflow-hidden shadow-2xl border border-amber-400/45 bg-slate-950">
+        <canvas id="result-card-canvas" width="720" height="1080" class="w-full h-auto block"></canvas>
+      </div>
+
+      <div id="name-input-box" class="w-full glass-panel rounded-2xl p-3 flex items-center gap-2 border-amber-400/30">
+        <input id="input-participant-name" type="text" maxlength="24" placeholder="Ketik namamu di kartu (opsional)..."
+          class="flex-1 px-3 py-2.5 rounded-xl bg-slate-950/90 border border-sky-400/35 text-white text-xs sm:text-sm focus:outline-none focus:border-amber-300">
+        <button id="btn-download-card" class="px-3.5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-display font-extrabold text-xs shrink-0 active:scale-95">
+          ⬇️ <span data-i18n="btn_download">UNDUH</span>
+        </button>
+      </div>
+
+      <div class="w-full glass-panel rounded-2xl p-3 flex items-center gap-3.5 border-amber-400/30">
+        <div class="bg-white p-1.5 rounded-xl shrink-0 shadow-md">
+          <div id="qrcode-container" class="w-20 h-20 flex items-center justify-center"></div>
+        </div>
+        <div class="flex-1 text-left">
+          <div data-i18n="qr_title" class="text-xs font-extrabold text-amber-300 uppercase">Scan QR Kartu Hasilmu</div>
+          <p data-i18n="qr_desc" class="text-[11px] text-slate-200 leading-snug mt-0.5">
+            Pindai QR ini dengan kamera HP untuk membuka & mengunduh kartu digital milikmu!
+          </p>
+          <div class="flex gap-2 mt-2">
+            <button id="btn-replay-same" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-bold text-white">🔄 <span data-i18n="btn_replay">Main Lagi</span></button>
+            <button id="btn-switch-game" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-bold text-amber-300">🎮 <span data-i18n="btn_other_game">Game Lain</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pt-2.5 shrink-0">
+      <button id="btn-finish-session" class="w-full py-3.5 px-5 rounded-2xl btn-primary-glow text-slate-950 font-display font-extrabold text-base shadow-lg flex items-center justify-center gap-2 active:scale-95">
+        <span data-i18n="btn_finish">SELESAI & KEMBALI KE AWAL</span>
+        <span id="card-auto-reset-timer" class="text-xs font-mono-num bg-slate-950/20 px-2 py-0.5 rounded-lg">(30s)</span>
+      </button>
+    </div>
+  </section>
+
+</div>
+
+<!-- MODAL DASHBOARD PANITIA BPS -->
+<div id="modal-admin" class="hidden fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4">
+  <div class="bg-[#081F4D] border border-amber-400/35 rounded-3xl w-full max-w-md max-h-[88vh] flex flex-col overflow-hidden shadow-2xl">
+    <div class="px-5 py-4 border-b border-amber-400/20 flex items-center justify-between bg-[#051436]">
+      <div>
+        <h3 class="font-display text-base font-extrabold text-amber-300">Dashboard Panitia Pameran BPS</h3>
+        <p class="text-[11px] text-slate-300">Rekapitulasi Pengunjung & Kalibrasi Gestur</p>
+      </div>
+      <button id="btn-close-admin" class="w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-bold">✕</button>
+    </div>
+
+    <div class="p-5 overflow-y-auto space-y-4 text-sm">
+      <div class="grid grid-cols-2 gap-3 text-center">
+        <div class="bg-slate-950/80 border border-sky-400/20 p-3 rounded-2xl">
+          <div class="text-xs text-slate-400">Total Sesi</div>
+          <div id="stat-total-sessions" class="font-display text-2xl font-extrabold text-white mt-0.5">0</div>
+        </div>
+        <div class="bg-slate-950/80 border border-sky-400/20 p-3 rounded-2xl">
+          <div class="text-xs text-slate-400">Rata-rata Skor</div>
+          <div id="stat-avg-score" class="font-display text-2xl font-extrabold text-amber-300 mt-0.5">0.0/5</div>
+        </div>
+      </div>
+
+      <div class="bg-slate-950/80 border border-sky-400/20 rounded-2xl p-3.5 space-y-2 text-xs">
+        <div class="font-bold text-amber-300 uppercase">Distribusi 4 Kategori Kartu</div>
+        <div class="flex justify-between"><span>🔴 The Curious Explorer (0-1):</span><strong id="dist-RED">0</strong></div>
+        <div class="flex justify-between"><span>🟠 The Growing Learner (2):</span><strong id="dist-ORANGE">0</strong></div>
+        <div class="flex justify-between"><span>🔵 The Data Detective (3-4):</span><strong id="dist-BLUE">0</strong></div>
+        <div class="flex justify-between"><span>🟢 The Statistics Insider (5):</span><strong id="dist-GREEN">0</strong></div>
+      </div>
+
+      <div class="bg-slate-950/80 border border-sky-400/20 rounded-2xl p-3.5 space-y-2 text-xs">
+        <div class="flex justify-between">
+          <span>Durasi Tahan Gestur:</span>
+          <strong id="cfg-hold-label" class="text-amber-300">650 ms</strong>
+        </div>
+        <input id="input-hold-ms" type="range" min="300" max="1200" step="50" value="650" class="w-full accent-amber-400">
+      </div>
+
+      <div class="flex gap-2.5">
+        <button id="btn-export-csv" class="flex-1 py-3 rounded-xl bg-amber-400 text-slate-950 font-extrabold text-xs">
+          📥 Ekspor Hasil (CSV)
+        </button>
+        <button id="btn-clear-stats" class="py-3 px-4 rounded-xl bg-rose-950 border border-rose-700 text-rose-200 font-bold text-xs">
+          🗑️ Reset
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { FilesetResolver, GestureRecognizer } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/+esm";
+
+  // URL Publik untuk QR Code agar langsung bisa dipindai kamera HP pengunjung
+  const PUBLIC_QR_BASE_URL = "https://felliclaurine.github.io/bps-digital-trust-kiosk/";
+
+  // =========================================================
+  // KAMUS BILINGUAL (BAHASA INDONESIA & ENGLISH)
+  // =========================================================
+  const I18N = {
+    ID: {
+      cam_title: "Kontrol Gestur Tangan",
+      word_true: "BENAR",
+      word_false: "SALAH",
+      hero_badge: "Interactive Exhibition Experience",
+      hero_sub: "Tebak fakta ekonomi & dunia digital Indonesia pakai gerakan tanganmu, lalu bawa pulang kartu digitalmu!",
+      btn_start: "MULAI BERMAIN",
+      privacy_note: '<strong class="text-amber-300">Aman & Privat:</strong> Kamera hanya membaca gestur tangan secara langsung dan tidak merekam wajah atau menyimpan data pribadi.',
+      step_1_of_2: "Langkah 1 dari 2",
+      select_title: "Pilih Tantanganmu",
+      select_sub: "5 pernyataan singkat & mudah dipahami • 20 detik per soal",
+      g1_tagline: "Seberapa Melek Kamu dengan Keuangan Indonesia?",
+      g1_desc: "Kupas fakta inflasi, harga barang, kemiskinan, ekspor-impor, hingga daya beli masyarakat Indonesia.",
+      g2_tagline: "Seberapa Paham Kamu dengan Dunia Digital Indonesia?",
+      g2_desc: "Ungkap fakta pengguna internet, kepemilikan HP, belanja online (e-commerce), dan dompet digital Indonesia.",
+      all_ages: "Cocok untuk Semua Kalangan",
+      play_now: "MAIN SEKARANG →",
+      btn_back_home: "← Kembali ke Layar Awal",
+      prac_heading: "Coba Gestur Dulu Yuk!",
+      prac_sub: "Tahan gestur ±0,6 detik di depan kamera atas atau tekan tombol sentuh",
+      prac_meter: "Indikator Kunci Gestur",
+      btn_skip_prac: "Sudah paham, langsung mulai game sekarang →",
+      q_label: "Pertanyaan",
+      timer_label: "Waktu Baca & Jawab",
+      fb_exp_title: "Penjelasan Data Resmi BPS:",
+      btn_next_q: "LANJUTKAN SOAL BERIKUTNYA →",
+      hold_true_hint: "Tahan 👍 / Sentuh",
+      hold_false_hint: "Tahan ✋ / Sentuh",
+      name_placeholder: "Ketik namamu di kartu (opsional)...",
+      btn_download: "UNDUH",
+      qr_title: "Scan QR Kartu Hasilmu",
+      qr_desc: "Pindai QR ini dengan kamera HP untuk membuka & mengunduh kartu digital milikmu!",
+      btn_replay: "Main Lagi",
+      btn_other_game: "Game Lain",
+      btn_finish: "SELESAI & KEMBALI KE AWAL",
+      badge_easy: "💡 Konsep & Fakta Populer BPS",
+      badge_fact: "📊 Fakta Angka Statistik BPS",
+      fb_timeout: "Waktu Habis!",
+      fb_correct: "Jawaban Kamu Benar!",
+      fb_wrong: "Kurang Tepat!",
+      card_given_to: "DIBERIKAN KEPADA:",
+      card_final_score: "SKOR AKHIR",
+      card_scan_hint: "Pindai QR di Kiosk untuk simpan di HP"
+    },
+    EN: {
+      cam_title: "AI Hand Gesture Control",
+      word_true: "TRUE",
+      word_false: "FALSE",
+      hero_badge: "Interactive Exhibition Experience",
+      hero_sub: "Guess Indonesia's economic & digital facts using your hand gestures, then take home your digital card!",
+      btn_start: "START PLAYING",
+      privacy_note: '<strong class="text-amber-300">Safe & Private:</strong> The camera only detects hand gestures in real time and never records faces or personal data.',
+      step_1_of_2: "Step 1 of 2",
+      select_title: "Choose Your Challenge",
+      select_sub: "5 clear & engaging statements • 20 seconds per question",
+      g1_tagline: "How Well Do You Know Indonesia's Economy?",
+      g1_desc: "Explore official facts on inflation, consumer prices, poverty, trade, and household purchasing power.",
+      g2_tagline: "How Well Do You Know Digital Indonesia?",
+      g2_desc: "Uncover official facts on internet usage, mobile ownership, e-commerce, and digital wallets in Indonesia.",
+      all_ages: "Suitable for Everyone",
+      play_now: "PLAY NOW →",
+      btn_back_home: "← Back to Home Screen",
+      prac_heading: "Try the Gestures First!",
+      prac_sub: "Hold your gesture for ~0.6s in front of the camera or tap the button below",
+      prac_meter: "Gesture Lock Progress",
+      btn_skip_prac: "Got it, start the game right away →",
+      q_label: "Question",
+      timer_label: "Time Remaining",
+      fb_exp_title: "Official BPS Data Explanation:",
+      btn_next_q: "NEXT QUESTION →",
+      hold_true_hint: "Hold 👍 / Tap",
+      hold_false_hint: "Hold ✋ / Tap",
+      name_placeholder: "Enter your name on card (optional)...",
+      btn_download: "DOWNLOAD",
+      qr_title: "Scan Your Result Card QR",
+      qr_desc: "Scan this QR with your phone camera to open & download your personal digital card!",
+      btn_replay: "Play Again",
+      btn_other_game: "Other Game",
+      btn_finish: "FINISH & RETURN TO HOME",
+      badge_easy: "💡 Popular Concept & BPS Fact",
+      badge_fact: "📊 Official BPS Statistical Fact",
+      fb_timeout: "Time's Up!",
+      fb_correct: "Correct Answer!",
+      fb_wrong: "Not Quite Right!",
+      card_given_to: "AWARDED TO:",
+      card_final_score: "FINAL SCORE",
+      card_scan_hint: "Scan QR at Kiosk to save on mobile"
     }
-  </script>
+  };
+
+  /**
+   * EFEK SUARA SINTETIS TONE.JS
+   */
+  const SoundFX = {
+    initialized: false,
+    muted: false,
+    synth: null,
+    async init() {
+      if (this.initialized) return;
+      try {
+        await Tone.start();
+        this.synth = new Tone.PolySynth(Tone.Synth, {
+          oscillator: { type: "triangle" },
+          envelope: { attack: 0.015, decay: 0.18, sustain: 0.12, release: 0.45 }
+        }).toDestination();
+        this.synth.volume.value = -7;
+        this.initialized = true;
+      } catch (e) {}
+    },
+    async playClick() {
+      if (this.muted) return;
+      await this.init();
+      if (!this.synth) return;
+      this.synth.triggerAttackRelease("G5", "32n", Tone.now());
+    },
+    async playCorrect() {
+      if (this.muted) return;
+      await this.init();
+      if (!this.synth) return;
+      const now = Tone.now();
+      this.synth.triggerAttackRelease("E5", "16n", now);
+      this.synth.triggerAttackRelease("G5", "16n", now + 0.09);
+      this.synth.triggerAttackRelease("C6", "8n", now + 0.18);
+    },
+    async playWrong() {
+      if (this.muted) return;
+      await this.init();
+      if (!this.synth) return;
+      const now = Tone.now();
+      this.synth.triggerAttackRelease("Eb4", "16n", now);
+      this.synth.triggerAttackRelease("Bb3", "8n", now + 0.13);
+    },
+    async playFanfare(score) {
+      if (this.muted) return;
+      await this.init();
+      if (!this.synth) return;
+      const now = Tone.now();
+      if (score >= 3) {
+        this.synth.triggerAttackRelease(["C4", "E4", "G4"], "16n", now);
+        this.synth.triggerAttackRelease(["E4", "G4", "C5"], "16n", now + 0.14);
+        this.synth.triggerAttackRelease(["G4", "B4", "D5"], "16n", now + 0.28);
+        this.synth.triggerAttackRelease(["C5", "E5", "G5", "C6"], "2n", now + 0.44);
+      } else {
+        this.synth.triggerAttackRelease(["F4", "A4", "C5"], "8n", now);
+        this.synth.triggerAttackRelease(["G4", "B4", "D5"], "8n", now + 0.18);
+        this.synth.triggerAttackRelease(["C5", "E5", "G5"], "4n", now + 0.36);
+      }
+    }
+  };
+
+  const CONFIG = {
+    TOTAL_ROUNDS: 5,
+    ROUND_DURATION_MS: 20000,
+    FEEDBACK_AUTO_MS: 7000,
+    CARD_AUTO_RESET_SEC: 30,
+    HOLD_MS: 650,
+    RELEASE_MS: 400,
+    MIN_SCORE: 0.60,
+    MIN_HAND_SIZE: 0.06
+  };
+
+  // BANK SOAL BILINGUAL (ID & EN) — RAMAH AWAM + SOAL MUDAH TERJAMIN DI SETIAP SESI
+  const QUESTION_BANK = {
+    FINANCIAL: [
+      { id: 'FIN-E01', level: 'MUDAH', a: 'BENAR',
+        q_ID: 'Tingkat Pengangguran Terbuka (TPT) — yaitu persentase penduduk usia kerja yang sedang mencari pekerjaan — menurun pada Februari 2024 menjadi 4,82 persen.',
+        exp_ID: 'TPT mengukur berapa persen angkatan kerja yang belum bekerja. Pada Februari 2024 angkanya turun menjadi 4,82%, artinya penyerapan tenaga kerja membaik.',
+        q_EN: 'Indonesia’s Open Unemployment Rate (TPT)—the percentage of working-age people actively looking for work—declined to 4.82 percent in February 2024.',
+        exp_EN: 'The Open Unemployment Rate fell to 4.82% in February 2024 (down 0.63 percentage points from Feb 2023), indicating stronger job creation.',
+        src: 'BRS Keadaan Ketenagakerjaan Indonesia (Februari 2024)' },
+      { id: 'FIN-E02', level: 'MUDAH', a: 'BENAR',
+        q_ID: 'Inflasi adalah kondisi ketika harga barang dan jasa secara umum mengalami kenaikan terus-menerus dalam periode tertentu.',
+        exp_ID: 'Tepat! Jika harga kebutuhan pokok seperti beras, cabai, dan tarif listrik naik secara umum, itulah yang dicatat BPS sebagai inflasi.',
+        q_EN: 'Inflation occurs when the general price level of goods and services rises continuously over a given period.',
+        exp_EN: 'Correct! BPS measures inflation using the Consumer Price Index (CPI) across essential household goods and services.',
+        src: 'Statistik Harga Konsumen BPS' },
+      { id: 'FIN-E03', level: 'MUDAH', a: 'BENAR',
+        q_ID: 'Deflasi terjadi ketika harga barang dan jasa secara umum mengalami penurunan (nilai inflasi negatif).',
+        exp_ID: 'Deflasi adalah kebalikan dari inflasi, yakni saat indeks harga konsumen turun dibandingkan periode sebelumnya.',
+        q_EN: 'Deflation occurs when the general price level of goods and services declines (resulting in a negative inflation rate).',
+        exp_EN: 'Deflation is the opposite of inflation, reflecting an overall drop in the Consumer Price Index compared to the previous period.',
+        src: 'Statistik Harga Konsumen BPS' },
+      { id: 'FIN-E04', level: 'MUDAH', a: 'SALAH',
+        q_ID: 'Dalam menghitung Garis Kemiskinan, BPS hanya menghitung pengeluaran untuk makanan saja tanpa menghitung biaya tempat tinggal, listrik, dan pendidikan.',
+        exp_ID: 'Garis Kemiskinan BPS mencakup kebutuhan makanan (setara 2.100 kalori per hari) DAN kebutuhan bukan makanan seperti perumahan, sandang, pendidikan, dan kesehatan.',
+        q_EN: 'When calculating the Poverty Line, BPS only counts food expenditures and excludes housing, electricity, and education costs.',
+        exp_EN: 'BPS’s Poverty Line combines both the Food Poverty Line (2,100 kcal/capita/day) and the Non-Food Poverty Line (housing, clothing, education, health).',
+        src: 'Konsep & Definisi Kemiskinan BPS' },
+      { id: 'FIN-E05', level: 'MUDAH', a: 'BENAR',
+        q_ID: 'Gini Ratio adalah angka ukur ketimpangan pengeluaran penduduk (skala 0 sampai 1), di mana angka 0 berarti pemerataan sempurna.',
+        exp_ID: 'Semakin mendekati 0 artinya pengeluaran masyarakat makin merata, sedangkan semakin mendekati 1 artinya ketimpangan makin tinggi.',
+        q_EN: 'The Gini Ratio measures expenditure inequality on a scale from 0 to 1, where 0 represents perfect equality.',
+        exp_EN: 'A Gini Ratio closer to 0 indicates more equal spending distribution across the population, while 1 indicates complete inequality.',
+        src: 'BRS Tingkat Ketimpangan Pengeluaran Penduduk BPS' },
+      { id: 'FIN-E06', level: 'MUDAH', a: 'BENAR',
+        q_ID: 'Nilai Tukar Petani (NTP) di atas angka 100 berarti harga jual hasil panen petani naik lebih tinggi daripada biaya hidup dan biaya bertaninya.',
+        exp_ID: 'Jika NTP > 100, petani mengalami surplus pendapatan karena kenaikan harga jual hasil pertanian melampaui kenaikan biaya produksi dan konsumsi.',
+        q_EN: 'A Farmer’s Terms of Trade (NTP) index above 100 means prices received by farmers rose faster than prices they paid for living and production costs.',
+        exp_EN: 'When NTP > 100, farmers experience a surplus as agricultural output prices outpace consumption and farming input costs.',
+        src: 'BRS Perkembangan Nilai Tukar Petani BPS' },
+      { id: 'FIN-E07', level: 'MUDAH', a: 'BENAR',
+        q_ID: 'Pengeluaran Konsumsi Rumah Tangga (belanja masyarakat sehari-hari) merupakan penyumbang terbesar bagi ekonomi Indonesia, mencapai lebih dari separuh PDB.',
+        exp_ID: 'Belanja masyarakat menyumbang 53,18% terhadap Produk Domestik Bruto (PDB) Indonesia pada tahun 2023—menjadi motor utama ekonomi kita.',
+        q_EN: 'Household Consumption Expenditure is the largest contributor to Indonesia’s economy, accounting for over half of total GDP.',
+        exp_EN: 'Household spending contributed 53.18% to Indonesia’s GDP in 2023, serving as the main engine of national economic growth.',
+        src: 'BRS Pertumbuhan Ekonomi Indonesia (Tahun 2023)' },
+      { id: 'FIN-E08', level: 'MUDAH', a: 'BENAR',
+        q_ID: 'Indeks Pembangunan Manusia (IPM) mengukur kualitas hidup warga dari 3 sisi: umur panjang & sehat, pengetahuan/pendidikan, serta standar hidup layak.',
+        exp_ID: 'IPM Indonesia pada tahun 2023 mencapai 74,39 dan masuk dalam kategori Pembangunan Manusia Tinggi.',
+        q_EN: 'The Human Development Index (HDI) measures quality of life across three dimensions: a long and healthy life, knowledge, and a decent standard of living.',
+        exp_EN: 'Indonesia’s HDI reached 74.39 in 2023, placing the country in the High Human Development category.',
+        src: 'BRS Indeks Pembangunan Manusia BPS (Tahun 2023)' },
+      { id: 'FIN-E09', level: 'MUDAH', a: 'SALAH',
+        q_ID: 'Persentase penduduk miskin di wilayah pedesaan lebih rendah dibandingkan di wilayah perkotaan pada Maret 2024.',
+        exp_ID: 'Pada Maret 2024, persentase penduduk miskin di perdesaan tercatat 11,79%, masih lebih tinggi dibandingkan di perkotaan yang sebesar 7,09%.',
+        q_EN: 'The poverty rate in rural areas was lower than in urban areas in March 2024.',
+        exp_EN: 'In March 2024, rural poverty stood at 11.79%, remaining higher than the urban poverty rate of 7.09%.',
+        src: 'BRS Profil Kemiskinan di Indonesia (Maret 2024)' },
+      { id: 'FIN-E10', level: 'MUDAH', a: 'BENAR',
+        q_ID: 'Seluruh data statistik, tabel ekonomi, dan publikasi resmi di situs bps.go.id dapat diunduh masyarakat secara gratis tanpa berbayar.',
+        exp_ID: 'BPS menyediakan layanan data terbuka melalui bps.go.id dan aplikasi AllStats BPS secara gratis untuk seluruh masyarakat.',
+        q_EN: 'All statistical tables, economic indicators, and official publications on bps.go.id can be accessed and downloaded by the public for free.',
+        exp_EN: 'BPS provides open access to official statistics via bps.go.id and the AllStats BPS app free of charge.',
+        src: 'Portal Resmi BPS (bps.go.id)' },
+
+      { id: 'FIN-F01', level: 'FAKTA', a: 'BENAR',
+        q_ID: 'Inflasi tahunan (year-on-year) Indonesia pada Desember 2023 tercatat terkendali di angka 2,61 persen.',
+        exp_ID: 'Inflasi Desember 2023 sebesar 2,61% (y-on-y), jauh lebih rendah dibanding tahun 2022 yang mencapai 5,51%.',
+        q_EN: 'Indonesia’s year-on-year inflation in December 2023 was well-contained at 2.61 percent.',
+        exp_EN: 'Annual inflation stood at 2.61% in December 2023, down significantly from 5.51% in 2022.',
+        src: 'BRS Perkembangan IHK BPS (Desember 2023)' },
+      { id: 'FIN-F02', level: 'FAKTA', a: 'BENAR',
+        q_ID: 'Ekonomi Indonesia pada tahun 2023 tumbuh positif sebesar 5,05 persen dibandingkan tahun 2022.',
+        exp_ID: 'Pertumbuhan ekonomi Indonesia 2023 mencapai 5,05% dengan nilai PDB atas dasar harga berlaku sebesar Rp20.892,4 triliun.',
+        q_EN: 'Indonesia’s economy grew by 5.05 percent in 2023 compared to 2022.',
+        exp_EN: 'Indonesia’s GDP expanded by 5.05% in 2023, reaching IDR 20,892.4 trillion at current prices.',
+        src: 'BRS Pertumbuhan Ekonomi Indonesia (Tahun 2023)' },
+      { id: 'FIN-F03', level: 'FAKTA', a: 'BENAR',
+        q_ID: 'Persentase penduduk miskin Indonesia pada Maret 2024 turun menjadi 9,03 persen dari total populasi.',
+        exp_ID: 'Jumlah penduduk miskin Maret 2024 tercatat 25,22 juta orang (9,03%), menurun 0,68 juta orang dibanding Maret 2023.',
+        q_EN: 'Indonesia’s poverty rate dropped to 9.03 percent of the total population in March 2024.',
+        exp_EN: 'The number of people living below the poverty line fell to 25.22 million (9.03%) in March 2024.',
+        src: 'BRS Profil Kemiskinan di Indonesia (Maret 2024)' },
+      { id: 'FIN-F04', level: 'FAKTA', a: 'BENAR',
+        q_ID: 'Lebih dari 90 persen nilai ekspor Indonesia sepanjang tahun 2023 berasal dari komoditas nonmigas (bukan minyak dan gas).',
+        exp_ID: 'Ekspor nonmigas menyumbang 93,85% (US$242,90 miliar) dari total ekspor Indonesia tahun 2023.',
+        q_EN: 'More than 90 percent of Indonesia’s total export value in 2023 came from non-oil and gas commodities.',
+        exp_EN: 'Non-oil and gas exports accounted for 93.85% (US$242.90 billion) of Indonesia’s total exports in 2023.',
+        src: 'BRS Perkembangan Ekspor & Impor BPS (Tahun 2023)' },
+      { id: 'FIN-F05', level: 'FAKTA', a: 'BENAR',
+        q_ID: 'Neraca perdagangan barang Indonesia mencatatkan surplus (ekspor lebih besar dari impor) selama 44 bulan berturut-turut hingga Desember 2023.',
+        exp_ID: 'Sejak Mei 2020 hingga Desember 2023, neraca perdagangan Indonesia selalu membukukan surplus setiap bulannya.',
+        q_EN: 'Indonesia’s merchandise trade balance recorded 44 consecutive months of surplus through December 2023.',
+        exp_EN: 'From May 2020 through December 2023, Indonesia’s exports consistently exceeded imports every single month.',
+        src: 'BRS Perkembangan Ekspor & Impor BPS (Desember 2023)' }
+    ],
+
+    DIGITAL: [
+      { id: 'DIG-E01', level: 'MUDAH', a: 'BENAR',
+        q_ID: 'Lebih dari 98 persen masyarakat Indonesia yang mengakses internet menggunakan telepon seluler (HP) sebagai perangkat utamanya.',
+        exp_ID: 'HP adalah perangkat favorit masyarakat Indonesia untuk berselancar di internet (digunakan oleh 98,35% pengguna internet).',
+        q_EN: 'More than 98 percent of internet users in Indonesia use mobile phones as their primary device to go online.',
+        exp_EN: 'Mobile phones are by far the dominant device for internet access in Indonesia, used by 98.35% of internet users.',
+        src: 'Statistik Telekomunikasi Indonesia 2023 (BPS)' },
+      { id: 'DIG-E02', level: 'MUDAH', a: 'BENAR',
+        q_ID: 'Mengakses media sosial (seperti WhatsApp, Instagram, TikTok) merupakan tujuan utama masyarakat Indonesia menggunakan internet.',
+        exp_ID: 'Sebanyak 82,68% pengguna internet mengakses media sosial, mengungguli tujuan mencari berita (73,41%) maupun hiburan (72,22%).',
+        q_EN: 'Accessing social media is the number one purpose for internet usage among Indonesians.',
+        exp_EN: '82.68% of internet users go online for social media, ahead of reading news/information (73.41%) and entertainment (72.22%).',
+        src: 'Statistik Telekomunikasi Indonesia 2023 (BPS)' },
+      { id: 'DIG-E03', level: 'MUDAH', a: 'SALAH',
+        q_ID: 'Menurut Survei E-Commerce BPS, sebagian besar pedagang online di Indonesia sudah memiliki website toko sendiri yang berbayar.',
+        exp_ID: 'Mayoritas pelaku usaha online di Indonesia berjualan memanfaatkan aplikasi pesan instan (seperti WhatsApp) dan media sosial, bukan website mandiri.',
+        q_EN: 'According to BPS’s E-Commerce Survey, the majority of online sellers in Indonesia operate their own standalone websites.',
+        exp_EN: 'Most e-commerce businesses in Indonesia sell via instant messaging apps (like WhatsApp) and social media rather than standalone websites.',
+        src: 'Statistik E-Commerce 2023 (BPS)' },
+      { id: 'DIG-E04', level: 'MUDAH', a: 'BENAR',
+        q_ID: 'Metode pembayaran Cash on Delivery (COD / bayar tunai saat barang sampai) masih menjadi metode pembayaran yang paling banyak dipakai usaha e-commerce di Indonesia.',
+        exp_ID: 'Sebanyak 83,11% usaha e-commerce menyediakan layanan bayar di tempat (COD) karena sangat diminati pembeli di Indonesia.',
+        q_EN: 'Cash on Delivery (COD) remains the most widely used payment method among e-commerce businesses in Indonesia.',
+        exp_EN: '83.11% of surveyed e-commerce businesses offer Cash on Delivery (COD) due to strong consumer preference.',
+        src: 'Statistik E-Commerce 2023 (BPS)' },
+      { id: 'DIG-E05', level: 'MUDAH', a: 'BENAR',
+        q_ID: 'Makanan, minuman, dan bahan makanan merupakan jenis produk yang paling banyak dijual oleh pelaku usaha online (e-commerce) di Indonesia.',
+        exp_ID: 'Kategori makanan dan minuman mendominasi jualan online masyarakat (lebih dari 40% usaha), diikuti produk fesyen/pakaian.',
+        q_EN: 'Food, beverages, and groceries are the most commonly sold product categories among Indonesian e-commerce sellers.',
+        exp_EN: 'Food and beverages account for over 40% of e-commerce businesses in Indonesia, followed by fashion and apparel.',
+        src: 'Statistik E-Commerce 2023 (BPS)' },
+      { id: 'DIG-E06', level: 'MUDAH', a: 'BENAR',
+        q_ID: 'Mayoritas usaha belanja online (e-commerce) di Indonesia merupakan usaha skala mikro/kecil yang dikelola oleh 1 sampai 4 orang saja.',
+        exp_ID: 'Lebih dari 85% pelaku usaha e-commerce di Indonesia adalah UMKM skala mikro dengan tenaga kerja 1–4 orang.',
+        q_EN: 'The majority of e-commerce businesses in Indonesia are micro-enterprises employing only 1 to 4 workers.',
+        exp_EN: 'More than 85% of e-commerce businesses in Indonesia are micro-scale enterprises with 1–4 workers.',
+        src: 'Statistik E-Commerce 2023 (BPS)' },
+      { id: 'DIG-E07', level: 'MUDAH', a: 'BENAR',
+        q_ID: 'Lebih dari separuh penduduk di wilayah pedesaan Indonesia (59,03 persen) kini sudah mengakses internet.',
+        exp_ID: 'Akses internet di desa terus berkembang hingga mencapai 59,03% pada tahun 2023, sementara di kota mencapai 76,33%.',
+        q_EN: 'More than half of Indonesia’s rural population (59.03 percent) now accesses the internet.',
+        exp_EN: 'Rural internet penetration reached 59.03% in 2023, while urban penetration stood at 76.33%.',
+        src: 'Statistik Telekomunikasi Indonesia 2023 (BPS)' },
+      { id: 'DIG-E08', level: 'MUDAH', a: 'BENAR',
+        q_ID: 'Kelompok anak muda usia 19–24 tahun (Gen Z) merupakan kelompok usia dengan tingkat penggunaan internet paling tinggi di Indonesia.',
+        exp_ID: 'Lebih dari 93% penduduk Indonesia berusia 19–24 tahun aktif mengakses internet pada tahun 2023.',
+        q_EN: 'Young adults aged 19–24 (Gen Z) have the highest internet penetration rate of any age group in Indonesia.',
+        exp_EN: 'Over 93% of Indonesians aged 19–24 actively accessed the internet in 2023.',
+        src: 'Statistik Telekomunikasi Indonesia 2023 (BPS)' },
+      { id: 'DIG-E09', level: 'MUDAH', a: 'SALAH',
+        q_ID: 'Sebagian besar pengguna internet di Indonesia mengandalkan Wi-Fi gratis di tempat umum sebagai akses utama dibanding paket data seluler.',
+        exp_ID: 'Mayoritas pengguna internet Indonesia mengakses internet melalui jaringan seluler/paket data di HP masing-masing.',
+        q_EN: 'Most internet users in Indonesia rely on free public Wi-Fi rather than mobile cellular data as their primary connection.',
+        exp_EN: 'The vast majority of Indonesian internet users connect via mobile cellular networks on their smartphones.',
+        src: 'Statistik Telekomunikasi Indonesia 2023 (BPS)' },
+      { id: 'DIG-E10', level: 'MUDAH', a: 'BENAR',
+        q_ID: 'Hampir seluruh desa/kelurahan di Indonesia (lebih dari 96 persen) sudah terjangkau sinyal telepon seluler.',
+        exp_ID: 'Berdasarkan Pendataan Potensi Desa (Podes), lebih dari 96% desa/kelurahan di Indonesia telah menerima sinyal seluler.',
+        q_EN: 'Nearly all villages in Indonesia (over 96 percent) are covered by mobile cellular signals.',
+        exp_EN: 'According to BPS’s Village Potential Census (Podes), more than 96% of villages across Indonesia receive cellular coverage.',
+        src: 'Statistik Telekomunikasi Indonesia 2023 (BPS)' },
+
+      { id: 'DIG-F01', level: 'FAKTA', a: 'BENAR',
+        q_ID: 'Persentase penduduk Indonesia usia 5 tahun ke atas yang mengakses internet pada tahun 2023 mencapai 69,21 persen.',
+        exp_ID: 'Angka akses internet penduduk Indonesia naik dari 66,48% (2022) menjadi 69,21% pada tahun 2023.',
+        q_EN: 'The percentage of Indonesians aged 5 and above accessing the internet reached 69.21 percent in 2023.',
+        exp_EN: 'Individual internet access rose from 66.48% in 2022 to 69.21% in 2023.',
+        src: 'Statistik Telekomunikasi Indonesia 2023 (BPS)' },
+      { id: 'DIG-F02', level: 'FAKTA', a: 'BENAR',
+        q_ID: 'Persentase rumah tangga di Indonesia yang memiliki komputer/laptop di rumah pada tahun 2023 masih di bawah 20 persen (17,29 persen).',
+        exp_ID: 'Kepemilikan komputer di rumah tangga tercatat 17,29%, jauh lebih rendah dibandingkan rumah tangga yang memiliki HP.',
+        q_EN: 'The percentage of Indonesian households owning a computer at home was under 20 percent (17.29 percent) in 2023.',
+        exp_EN: 'Household computer ownership stood at 17.29% in 2023, far lower than mobile phone ownership.',
+        src: 'Statistik Telekomunikasi Indonesia 2023 (BPS)' },
+      { id: 'DIG-F03', level: 'FAKTA', a: 'BENAR',
+        q_ID: 'Sebanyak 87,09 persen rumah tangga di Indonesia telah memiliki anggota keluarga yang mengakses internet di dalam rumah pada tahun 2023.',
+        exp_ID: 'Hampir 9 dari 10 rumah tangga di Indonesia (87,09%) sudah terhubung dengan internet pada tahun 2023.',
+        q_EN: '87.09 percent of households in Indonesia had internet access at home in 2023.',
+        exp_EN: 'Nearly 9 out of 10 Indonesian households (87.09%) were connected to the internet in 2023.',
+        src: 'Statistik Telekomunikasi Indonesia 2023 (BPS)' },
+      { id: 'DIG-F04', level: 'FAKTA', a: 'BENAR',
+        q_ID: 'Sektor Informasi dan Komunikasi tumbuh sebesar 7,59 persen pada tahun 2023, jauh lebih tinggi dibanding pertumbuhan ekonomi nasional.',
+        exp_ID: 'Digitalisasi mendorong sektor Informasi dan Komunikasi tumbuh 7,59% pada 2023 (di atas PDB nasional 5,05%).',
+        q_EN: 'The Information and Communication sector grew by 7.59 percent in 2023, outpacing overall national GDP growth.',
+        exp_EN: 'Digital transformation propelled the ICT sector to grow 7.59% in 2023, well above the 5.05% national GDP growth.',
+        src: 'BRS Pertumbuhan Ekonomi Indonesia (Tahun 2023)' },
+      { id: 'DIG-F05', level: 'FAKTA', a: 'SALAH',
+        q_ID: 'Lebih dari 75 persen pengguna internet di Indonesia menggunakan internet untuk berbelanja online pada tahun 2023.',
+        exp_ID: 'Penggunaan internet untuk membeli barang/jasa berada di kisaran 19,20% dari total pengakses internet pada tahun 2023.',
+        q_EN: 'More than 75 percent of internet users in Indonesia used the internet for online shopping in 2023.',
+        exp_EN: 'Online purchasing accounted for 19.20% of internet users in 2023—far below social media usage.',
+        src: 'Statistik Telekomunikasi Indonesia 2023 (BPS)' }
+    ]
+  };
+
+  const RESULT_CATEGORIES = {
+    RED: {
+      key: 'RED', hex: '#EF4444', bg: ['#7F1D1D', '#061538'],
+      title: 'THE CURIOUS EXPLORER',
+      msg_ID: 'Masih banyak fakta menarik yang belum kamu ketahui. Saatnya menjelajahi lebih banyak informasi dan statistik resmi BPS!',
+      msg_EN: 'There are still many fascinating facts waiting for you. Time to explore more official statistics from BPS!'
+    },
+    ORANGE: {
+      key: 'ORANGE', hex: '#F59E0B', bg: ['#78350F', '#061538'],
+      title: 'THE GROWING LEARNER',
+      msg_ID: 'Kamu sudah mulai mengenal fakta dan statistik. Terus kembangkan wawasanmu dengan data akurat!',
+      msg_EN: 'You are starting to recognize key facts and figures. Keep expanding your knowledge with reliable data!'
+    },
+    BLUE: {
+      key: 'BLUE', hex: '#3B82F6', bg: ['#1E3A8A', '#061538'],
+      title: 'THE DATA DETECTIVE',
+      msg_ID: 'Kamu cukup jeli membaca data dan memahami informasi. Pertahankan rasa ingin tahumu!',
+      msg_EN: 'You have a sharp eye for reading data and understanding facts. Keep your curiosity alive!'
+    },
+    GREEN: {
+      key: 'GREEN', hex: '#22C55E', bg: ['#14532D', '#061538'],
+      title: 'THE STATISTICS INSIDER',
+      msg_ID: 'Excellent! Kamu berhasil menjawab seluruh pertanyaan dengan tepat. Terus jadikan data sebagai dasar pengetahuanmu!',
+      msg_EN: 'Excellent! You answered every single question accurately. Keep using trusted data as your foundation!'
+    }
+  };
+
+  const appState = {
+    lang: 'ID', // 'ID' | 'EN'
+    screen: 'idle',
+    selectedGame: 'FINANCIAL',
+    recentIds: { FINANCIAL: [], DIGITAL: [] },
+    sessionQuestions: [],
+    currentRoundIdx: 0,
+    score: 0,
+    lastAnswerMeta: null,
+    roundStartTime: 0,
+    roundTimerInterval: null,
+    feedbackTimeout: null,
+    cardResetInterval: null,
+    isRoundLocked: false,
+    verifyStep: 1,
+    cameraReady: false,
+    gestureRecognizer: null,
+    activeGesture: null,
+    gestureHoldStart: 0,
+    mustReleaseGesture: false,
+    releaseStartTime: 0,
+    latestResult: null,
+    isSharedCardView: false,
+    analyticsLogs: []
+  };
+
+  // =========================================================
+  // FUNGSI TERJEMAHAN UI REAL-TIME (ID <-> EN)
+  // =========================================================
+  function applyLanguage() {
+    const dict = I18N[appState.lang];
+    document.getElementById('lang-label').textContent = appState.lang;
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key]) {
+        el.innerHTML = dict[key];
+      }
+    });
+
+    document.getElementById('badge-gest-true').textContent = `👍 ${dict.word_true}`;
+    document.getElementById('badge-gest-false').textContent = `✋ ${dict.word_false}`;
+    document.getElementById('input-participant-name').placeholder = dict.name_placeholder;
+
+    // Perbarui status kamera
+    const camStatus = document.getElementById('camera-status-text');
+    if (appState.cameraReady) {
+      camStatus.textContent = appState.lang === 'EN' ? 'Gesture Ready' : 'Gestur Aktif';
+    } else {
+      camStatus.textContent = appState.lang === 'EN' ? 'Touch Mode' : 'Mode Sentuh';
+    }
+
+    // Perbarui layar aktif jika sedang di latihan, soal, atau kartu hasil
+    if (appState.screen === 'verify') renderVerifyStep();
+    if (appState.screen === 'play' && appState.sessionQuestions[appState.currentRoundIdx]) {
+      const qObj = appState.sessionQuestions[appState.currentRoundIdx];
+      document.getElementById('question-level-badge').textContent =
+        qObj.level === 'MUDAH' ? dict.badge_easy : dict.badge_fact;
+      document.getElementById('scenario-text').textContent = appState.lang === 'EN' ? qObj.q_EN : qObj.q_ID;
+
+      if (appState.isRoundLocked && appState.lastAnswerMeta) {
+        renderFeedbackOverlayContent();
+      }
+    }
+    if (appState.screen === 'card' && appState.latestResult) {
+      renderResultCanvas();
+      renderCardQrCode();
+    }
+  }
+
+  const screens = {
+    idle: document.getElementById('screen-idle'),
+    select: document.getElementById('screen-select'),
+    verify: document.getElementById('screen-verify'),
+    play: document.getElementById('screen-play'),
+    card: document.getElementById('screen-card')
+  };
+
+  function switchScreen(target) {
+    appState.screen = target;
+    Object.entries(screens).forEach(([k, el]) => {
+      if (k === target) el.classList.remove('hidden');
+      else el.classList.add('hidden');
+    });
+
+    const pipBox = document.getElementById('pip-camera-box');
+    if ((target === 'idle' || target === 'verify' || target === 'play') && appState.cameraReady) {
+      pipBox.classList.remove('hidden');
+    } else {
+      pipBox.classList.add('hidden');
+    }
+  }
+
+  function resetToIdle() {
+    clearInterval(appState.roundTimerInterval);
+    clearTimeout(appState.feedbackTimeout);
+    clearInterval(appState.cardResetInterval);
+    appState.sessionQuestions = [];
+    appState.currentRoundIdx = 0;
+    appState.score = 0;
+    appState.isRoundLocked = false;
+    appState.activeGesture = null;
+    appState.mustReleaseGesture = false;
+    appState.isSharedCardView = false;
+    document.getElementById('input-participant-name').value = '';
+    document.getElementById('qr-shared-banner').classList.add('hidden');
+    document.getElementById('name-input-box').classList.remove('hidden');
+
+    if (window.location.search.includes('card=1')) {
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+    switchScreen('idle');
+  }
+
+  // =========================================================
+  // CEK JIKA DIBUKA DARI HASIL SCAN QR CODE KARTU PESERTA
+  // =========================================================
+  function checkSharedCardFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('card') === '1') {
+      const score = Math.min(5, Math.max(0, Number(params.get('s')) || 0));
+      const catKey = params.get('c') || getCategoryForScore(score).key;
+      const cat = RESULT_CATEGORIES[catKey] || getCategoryForScore(score);
+      const name = params.get('n') || 'Data Explorer';
+      const gameTitle = params.get('g') || 'Financial Awareness';
+      const dateStr = params.get('d') || new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+      const token = params.get('id') || 'BPS2026';
+      const urlLang = params.get('l');
+      if (urlLang === 'EN' || urlLang === 'ID') {
+        appState.lang = urlLang;
+        applyLanguage();
+      }
+
+      appState.isSharedCardView = true;
+      appState.latestResult = {
+        score,
+        category: cat,
+        gameTitle,
+        token,
+        dateStr,
+        participantName: name
+      };
+
+      document.getElementById('qr-shared-banner').classList.remove('hidden');
+      document.getElementById('name-input-box').classList.add('hidden');
+      document.getElementById('btn-finish-session').innerHTML =
+        appState.lang === 'EN' ? '<span>PLAY THIS GAME NOW 🚀</span>' : '<span>COBA MAIN GAME SEKARANG 🚀</span>';
+
+      renderResultCanvas();
+      renderCardQrCode();
+      switchScreen('card');
+      return true;
+    }
+    return false;
+  }
+
+  // =========================================================
+  // KAMERA & MEDIAPIPE GESTURE RECOGNIZER
+  // =========================================================
+  async function initCameraAndGesture() {
+    const badgeText = document.getElementById('camera-status-text');
+    const badgeDot = document.getElementById('camera-dot');
+
+    try {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error('Camera unavailable');
+      }
+
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { width: { ideal: 640 }, height: { ideal: 480 }, facingMode: 'user' },
+        audio: false
+      });
+
+      const videoEl = document.getElementById('webcam-video');
+      videoEl.srcObject = stream;
+      await new Promise((resolve) => {
+        videoEl.onloadedmetadata = () => { videoEl.play(); resolve(); };
+      });
+
+      badgeText.textContent = 'AI...';
+
+      const vision = await FilesetResolver.forVisionTasks(
+        'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm'
+      );
+      const modelAssetPath = 'https://storage.googleapis.com/mediapipe-models/gesture_recognizer/gesture_recognizer/float16/1/gesture_recognizer.task';
+
+      try {
+        appState.gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
+          baseOptions: { modelAssetPath, delegate: 'GPU' },
+          runningMode: 'VIDEO',
+          numHands: 2
+        });
+      } catch (e) {
+        appState.gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
+          baseOptions: { modelAssetPath, delegate: 'CPU' },
+          runningMode: 'VIDEO',
+          numHands: 2
+        });
+      }
+
+      appState.cameraReady = true;
+      badgeDot.className = 'w-2 h-2 rounded-full bg-emerald-400';
+      badgeText.textContent = appState.lang === 'EN' ? 'Gesture Ready' : 'Gestur Aktif';
+
+      if (appState.screen === 'idle' || appState.screen === 'verify' || appState.screen === 'play') {
+        document.getElementById('pip-camera-box').classList.remove('hidden');
+      }
+
+      requestAnimationFrame(gestureDetectionLoop);
+    } catch (err) {
+      appState.cameraReady = false;
+      badgeDot.className = 'w-2 h-2 rounded-full bg-sky-400';
+      badgeText.textContent = appState.lang === 'EN' ? 'Touch Mode' : 'Mode Sentuh';
+    }
+  }
+
+  let lastVideoTime = -1;
+  let frameCount = 0;
+  let lastFpsUpdate = performance.now();
+
+  function gestureDetectionLoop(now) {
+    if (!appState.cameraReady || !appState.gestureRecognizer) return;
+    const videoEl = document.getElementById('webcam-video');
+
+    if (videoEl.readyState >= 2 && videoEl.currentTime !== lastVideoTime) {
+      lastVideoTime = videoEl.currentTime;
+      frameCount++;
+      if (now - lastFpsUpdate >= 1000) {
+        document.getElementById('fps-counter').textContent = `${frameCount} FPS`;
+        frameCount = 0;
+        lastFpsUpdate = now;
+      }
+
+      try {
+        const results = appState.gestureRecognizer.recognizeForVideo(videoEl, now);
+        processHandResults(results, now);
+      } catch (e) {}
+    }
+    requestAnimationFrame(gestureDetectionLoop);
+  }
+
+  function processHandResults(results, now) {
+    const feedbackEl = document.getElementById('gesture-live-feedback');
+    const bboxEl = document.getElementById('hand-bbox-indicator');
+    const isEn = appState.lang === 'EN';
+
+    if (!results.landmarks || results.landmarks.length === 0) {
+      bboxEl.classList.add('hidden');
+      handleNoGestureDetected(now);
+      feedbackEl.textContent = isEn ? 'Show 👍 (True) or ✋ (False) to camera' : 'Angkat 👍 (Benar) atau ✋ (Salah) ke kamera';
+      return;
+    }
+
+    let largestIdx = -1;
+    let maxArea = 0;
+    results.landmarks.forEach((landmarks, idx) => {
+      let minX = 1, maxX = 0, minY = 1, maxY = 0;
+      for (const pt of landmarks) {
+        if (pt.x < minX) minX = pt.x;
+        if (pt.x > maxX) maxX = pt.x;
+        if (pt.y < minY) minY = pt.y;
+        if (pt.y > maxY) maxY = pt.y;
+      }
+      const area = (maxX - minX) * (maxY - minY);
+      if (area > maxArea) { maxArea = area; largestIdx = idx; }
+    });
+
+    if (largestIdx === -1 || maxArea < CONFIG.MIN_HAND_SIZE * 0.25) {
+      bboxEl.classList.add('hidden');
+      handleNoGestureDetected(now);
+      return;
+    }
+
+    bboxEl.classList.remove('hidden');
+    const topGesture = results.gestures?.[largestIdx]?.[0];
+    if (!topGesture || topGesture.score < CONFIG.MIN_SCORE) {
+      handleNoGestureDetected(now);
+      feedbackEl.textContent = isEn ? 'Hand detected — form 👍 or ✋' : 'Tangan terdeteksi — bentuk 👍 atau ✋';
+      return;
+    }
+
+    let mappedAction = null;
+    if (topGesture.categoryName === 'Thumb_Up') {
+      mappedAction = 'BENAR';
+      feedbackEl.textContent = isEn ? '👍 Detected: TRUE (Hold steady...)' : '👍 Terdeteksi: BENAR (Tahan sebentar...)';
+    } else if (topGesture.categoryName === 'Open_Palm') {
+      mappedAction = 'SALAH';
+      feedbackEl.textContent = isEn ? '✋ Detected: FALSE (Hold steady...)' : '✋ Terdeteksi: SALAH (Tahan sebentar...)';
+    } else {
+      handleNoGestureDetected(now);
+      feedbackEl.textContent = isEn ? 'Use 👍 (True) or ✋ (False)' : 'Gunakan 👍 (Benar) atau ✋ (Salah)';
+      return;
+    }
+
+    if (appState.mustReleaseGesture) {
+      feedbackEl.textContent = isEn ? 'Lower your hand briefly before continuing...' : 'Turunkan tangan sejenak sebelum lanjut...';
+      return;
+    }
+
+    if (appState.activeGesture !== mappedAction) {
+      appState.activeGesture = mappedAction;
+      appState.gestureHoldStart = now;
+    }
+
+    const elapsed = now - appState.gestureHoldStart;
+    const progress = Math.min(1, elapsed / CONFIG.HOLD_MS);
+    updateHoldProgressUI(mappedAction, progress);
+
+    if (progress >= 1) {
+      appState.mustReleaseGesture = true;
+      appState.activeGesture = null;
+      updateHoldProgressUI(null, 0);
+      triggerActionFromInput(mappedAction);
+    }
+  }
+
+  function handleNoGestureDetected(now) {
+    appState.activeGesture = null;
+    appState.gestureHoldStart = 0;
+    updateHoldProgressUI(null, 0);
+
+    if (appState.mustReleaseGesture) {
+      if (!appState.releaseStartTime) appState.releaseStartTime = now;
+      else if (now - appState.releaseStartTime >= CONFIG.RELEASE_MS) {
+        appState.mustReleaseGesture = false;
+        appState.releaseStartTime = 0;
+      }
+    }
+  }
+
+  function updateHoldProgressUI(action, progress) {
+    const pct = Math.round(progress * 100);
+    if (appState.screen === 'verify') {
+      const expected = appState.verifyStep === 1 ? 'BENAR' : 'SALAH';
+      const bar = document.getElementById('verify-hold-bar');
+      const pctText = document.getElementById('verify-hold-pct');
+      if (action === expected) {
+        bar.style.width = `${pct}%`;
+        pctText.textContent = `${pct}%`;
+      } else {
+        bar.style.width = '0%';
+        pctText.textContent = '0%';
+      }
+    }
+    if (appState.screen === 'play') {
+      document.getElementById('hold-fill-benar').style.height = action === 'BENAR' ? `${pct}%` : '0%';
+      document.getElementById('hold-fill-salah').style.height = action === 'SALAH' ? `${pct}%` : '0%';
+    }
+  }
+
+  function triggerActionFromInput(action) {
+    if (appState.screen === 'verify') {
+      if (appState.verifyStep === 1 && action === 'BENAR') {
+        SoundFX.playClick();
+        appState.verifyStep = 2;
+        renderVerifyStep();
+      } else if (appState.verifyStep === 2 && action === 'SALAH') {
+        SoundFX.playClick();
+        startQuizSession();
+      }
+    } else if (appState.screen === 'play' && !appState.isRoundLocked) {
+      submitRoundAnswer(action, false);
+    }
+  }
+
+  // =========================================================
+  // LATIHAN GESTUR SEBELUM BERMAIN (PAGE 03)
+  // =========================================================
+  function enterPracticeScreen(gameType) {
+    SoundFX.playClick();
+    appState.selectedGame = gameType;
+    appState.verifyStep = 1;
+    renderVerifyStep();
+    switchScreen('verify');
+  }
+
+  function renderVerifyStep() {
+    const card = document.getElementById('verify-card');
+    const emoji = document.getElementById('verify-emoji');
+    const title = document.getElementById('verify-title');
+    const desc = document.getElementById('verify-desc');
+    const bar = document.getElementById('verify-hold-bar');
+    const btnTouch = document.getElementById('btn-verify-touch');
+    const btnIcon = document.getElementById('btn-verify-icon');
+    const btnLabel = document.getElementById('btn-verify-label');
+    const isEn = appState.lang === 'EN';
+
+    const gamePrefix = appState.selectedGame === 'DIGITAL' ? 'GAME 02 • DIGITAL TRUST DETECTIVE' : 'GAME 01 • FINANCIAL AWARENESS';
+    document.getElementById('verify-game-label').textContent = `${gamePrefix} (${appState.verifyStep}/2)`;
+
+    document.getElementById('verify-hold-pct').textContent = '0%';
+    bar.style.width = '0%';
+
+    if (appState.verifyStep === 1) {
+      emoji.textContent = '👍';
+      title.textContent = isEn ? 'Practice 1: Thumbs Up (TRUE)' : 'Latihan 1: Acungkan Jempol (BENAR)';
+      title.className = 'font-display text-xl font-extrabold text-emerald-300';
+      desc.innerHTML = isEn
+        ? 'Show <strong class="text-white">Thumbs Up (👍)</strong> to the camera if you think the statistical statement is <strong class="text-emerald-300">TRUE</strong>.'
+        : 'Tunjukkan <strong class="text-white">Jempol ke Atas (👍)</strong> ke kamera jika pernyataan statistik menurutmu <strong class="text-emerald-300">BENAR</strong>.';
+      card.className = 'glass-card-elevated border-2 border-emerald-400/60 rounded-3xl p-6 w-full shadow-2xl transition-all';
+      bar.className = 'h-full w-0 bg-gradient-to-r from-emerald-400 to-amber-300 rounded-full transition-all duration-75';
+      btnTouch.className = 'w-full py-4 px-5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-display font-extrabold text-base shadow-lg border border-emerald-300/40 flex items-center justify-center gap-3';
+      btnIcon.textContent = '👍';
+      btnLabel.textContent = isEn ? 'TEST TRUE ANSWER (TAP)' : 'COBA JAWAB BENAR (SENTUH)';
+    } else {
+      emoji.textContent = '✋';
+      title.textContent = isEn ? 'Practice 2: Open Palm (FALSE)' : 'Latihan 2: Telapak Terbuka (SALAH)';
+      title.className = 'font-display text-xl font-extrabold text-rose-300';
+      desc.innerHTML = isEn
+        ? 'Show an <strong class="text-white">Open Palm (✋)</strong> to the camera if you think the statistical statement is <strong class="text-rose-300">FALSE</strong>.'
+        : 'Tunjukkan <strong class="text-white">5 Jari Terbuka (✋)</strong> ke kamera jika pernyataan statistik menurutmu <strong class="text-rose-300">SALAH</strong>.';
+      card.className = 'glass-card-elevated border-2 border-rose-400/60 rounded-3xl p-6 w-full shadow-2xl transition-all';
+      bar.className = 'h-full w-0 bg-gradient-to-r from-rose-500 to-amber-400 rounded-full transition-all duration-75';
+      btnTouch.className = 'w-full py-4 px-5 rounded-2xl bg-rose-600 hover:bg-rose-500 text-white font-display font-extrabold text-base shadow-lg border border-rose-300/40 flex items-center justify-center gap-3';
+      btnIcon.textContent = '✋';
+      btnLabel.textContent = isEn ? 'TEST FALSE ANSWER (TAP)' : 'COBA JAWAB SALAH (SENTUH)';
+    }
+  }
+
+  // =========================================================
+  // PENGACAKAN 5 SOAL TERSTRUKTUR (3 MUDAH + 2 FAKTA)
+  // =========================================================
+  function pickFiveQuestions(gameType) {
+    const pool = QUESTION_BANK[gameType];
+    const recent = appState.recentIds[gameType] || [];
+    const shuffle = (arr) => [...arr].sort(() => Math.random() - 0.5);
+
+    const easyPool = pool.filter(item => item.level === 'MUDAH');
+    const factPool = pool.filter(item => item.level === 'FAKTA');
+
+    const freshEasy = shuffle(easyPool.filter(i => !recent.includes(i.id)));
+    const staleEasy = shuffle(easyPool.filter(i => recent.includes(i.id)));
+    const selectedEasy = [...freshEasy, ...staleEasy].slice(0, 3);
+
+    const freshFact = shuffle(factPool.filter(i => !recent.includes(i.id)));
+    const staleFact = shuffle(factPool.filter(i => recent.includes(i.id)));
+    const selectedFact = [...freshFact, ...staleFact].slice(0, 2);
+
+    const firstEasy = selectedEasy[0];
+    const remainingFour = shuffle([...selectedEasy.slice(1), ...selectedFact]);
+    const chosen = [firstEasy, ...remainingFour];
+
+    appState.recentIds[gameType] = [...chosen.map(c => c.id), ...recent].slice(0, 10);
+    return chosen;
+  }
+
+  function startQuizSession() {
+    appState.sessionQuestions = pickFiveQuestions(appState.selectedGame);
+    appState.currentRoundIdx = 0;
+    appState.score = 0;
+    document.getElementById('play-game-title').textContent =
+      appState.selectedGame === 'DIGITAL' ? 'DIGITAL TRUST DETECTIVE' : 'FINANCIAL AWARENESS';
+    switchScreen('play');
+    loadRound(0);
+  }
+
+  function loadRound(idx) {
+    if (idx >= CONFIG.TOTAL_ROUNDS) {
+      finishGameAndShowCard();
+      return;
+    }
+
+    const qObj = appState.sessionQuestions[idx];
+    const dict = I18N[appState.lang];
+    appState.isRoundLocked = false;
+    appState.lastAnswerMeta = null;
+    appState.roundStartTime = performance.now();
+
+    document.getElementById('display-round-num').textContent = String(idx + 1);
+    document.getElementById('question-level-badge').textContent =
+      qObj.level === 'MUDAH' ? dict.badge_easy : dict.badge_fact;
+    document.getElementById('scenario-text').textContent = appState.lang === 'EN' ? qObj.q_EN : qObj.q_ID;
+    document.getElementById('round-feedback-overlay').classList.add('hidden');
+    updateHoldProgressUI(null, 0);
+
+    clearInterval(appState.roundTimerInterval);
+    const timerBar = document.getElementById('display-timer-bar');
+    const timerText = document.getElementById('display-timer-text');
+
+    appState.roundTimerInterval = setInterval(() => {
+      const elapsed = performance.now() - appState.roundStartTime;
+      const remaining = Math.max(0, CONFIG.ROUND_DURATION_MS - elapsed);
+      const pct = (remaining / CONFIG.ROUND_DURATION_MS) * 100;
+
+      timerBar.style.width = `${pct}%`;
+      timerText.textContent = `${(remaining / 1000).toFixed(1)}s`;
+
+      if (remaining <= 5000) {
+        timerBar.className = 'h-full bg-rose-500 rounded-full transition-all duration-100';
+        timerText.className = 'font-mono-num text-xl font-extrabold text-rose-400';
+      } else {
+        timerBar.className = 'h-full bg-gradient-to-r from-amber-400 via-sky-400 to-cyan-300 rounded-full transition-all duration-100';
+        timerText.className = 'font-mono-num text-xl font-extrabold text-amber-300';
+      }
+
+      if (remaining <= 0) {
+        clearInterval(appState.roundTimerInterval);
+        submitRoundAnswer('TIMEOUT', true);
+      }
+    }, 100);
+  }
+
+  function submitRoundAnswer(userAnswer, timedOut) {
+    if (appState.isRoundLocked) return;
+    appState.isRoundLocked = true;
+    clearInterval(appState.roundTimerInterval);
+
+    const qObj = appState.sessionQuestions[appState.currentRoundIdx];
+    const isCorrect = userAnswer === qObj.a;
+
+    if (isCorrect) {
+      appState.score++;
+      SoundFX.playCorrect();
+    } else {
+      SoundFX.playWrong();
+    }
+
+    appState.lastAnswerMeta = { userAnswer, timedOut, isCorrect, qObj };
+    renderFeedbackOverlayContent();
+    document.getElementById('round-feedback-overlay').classList.remove('hidden');
+
+    clearTimeout(appState.feedbackTimeout);
+    appState.feedbackTimeout = setTimeout(() => {
+      goToNextRound();
+    }, CONFIG.FEEDBACK_AUTO_MS);
+  }
+
+  function renderFeedbackOverlayContent() {
+    if (!appState.lastAnswerMeta) return;
+    const { userAnswer, timedOut, isCorrect, qObj } = appState.lastAnswerMeta;
+    const dict = I18N[appState.lang];
+    const isEn = appState.lang === 'EN';
+
+    const iconEl = document.getElementById('feedback-badge-icon');
+    const titleEl = document.getElementById('feedback-title');
+
+    if (timedOut) {
+      iconEl.textContent = '⏰';
+      titleEl.textContent = dict.fb_timeout;
+      titleEl.className = 'font-display text-2xl font-extrabold text-amber-400';
+    } else if (isCorrect) {
+      iconEl.textContent = '✅';
+      titleEl.textContent = dict.fb_correct;
+      titleEl.className = 'font-display text-2xl font-extrabold text-emerald-400';
+    } else {
+      iconEl.textContent = '❌';
+      titleEl.textContent = dict.fb_wrong;
+      titleEl.className = 'font-display text-2xl font-extrabold text-rose-400';
+    }
+
+    const userAnsText = timedOut
+      ? (isEn ? 'TIME OUT' : 'WAKTU HABIS')
+      : (userAnswer === 'BENAR' ? dict.word_true : dict.word_false);
+    const keyAnsText = qObj.a === 'BENAR' ? dict.word_true : dict.word_false;
+
+    document.getElementById('feedback-subtitle').textContent = isEn
+      ? `Your Answer: ${userAnsText} • Official Fact: ${keyAnsText}`
+      : `Jawabanmu: ${userAnsText} • Fakta BPS: ${keyAnsText}`;
+
+    document.getElementById('feedback-explanation').textContent = isEn ? qObj.exp_EN : qObj.exp_ID;
+    document.getElementById('feedback-source').textContent = isEn ? `Source: ${qObj.src}` : `Sumber: ${qObj.src}`;
+  }
+
+  function goToNextRound() {
+    clearTimeout(appState.feedbackTimeout);
+    appState.currentRoundIdx++;
+    loadRound(appState.currentRoundIdx);
+  }
+
+  // =========================================================
+  // KARTU HASIL DIGITAL & QR CODE LANGSUNG KE KARTU PESERTA
+  // =========================================================
+  function getCategoryForScore(score) {
+    if (score <= 1) return RESULT_CATEGORIES.RED;
+    if (score === 2) return RESULT_CATEGORIES.ORANGE;
+    if (score <= 4) return RESULT_CATEGORIES.BLUE;
+    return RESULT_CATEGORIES.GREEN;
+  }
+
+  function finishGameAndShowCard() {
+    clearInterval(appState.roundTimerInterval);
+    const cat = getCategoryForScore(appState.score);
+    const gameTitle = appState.selectedGame === 'DIGITAL' ? 'Digital Trust Detective' : 'Financial Awareness';
+    const token = Math.random().toString(36).substring(2, 9).toUpperCase();
+    const dateStr = new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+
+    appState.latestResult = {
+      score: appState.score,
+      category: cat,
+      gameTitle,
+      token,
+      dateStr,
+      participantName: 'Data Explorer'
+    };
+
+    appState.analyticsLogs.push({
+      timestamp: new Date().toISOString(),
+      game: gameTitle,
+      score: appState.score,
+      category: cat.key
+    });
+
+    renderResultCanvas();
+    renderCardQrCode();
+    switchScreen('card');
+    SoundFX.playFanfare(appState.score);
+    startCardAutoReset();
+  }
+
+  function renderCardQrCode() {
+    const res = appState.latestResult;
+    if (!res) return;
+    const qrContainer = document.getElementById('qrcode-container');
+    qrContainer.innerHTML = '';
+
+    // Gunakan URL publik HTTPS agar kamera HP langsung membuka halaman kartu peserta (bukan file://)
+    const isHttp = window.location.protocol === 'http:' || window.location.protocol === 'https:';
+    const baseUrl = isHttp
+      ? `${window.location.origin}${window.location.pathname}`
+      : PUBLIC_QR_BASE_URL;
+
+    const params = new URLSearchParams({
+      card: '1',
+      n: res.participantName || 'Data Explorer',
+      g: res.gameTitle,
+      s: String(res.score),
+      c: res.category.key,
+      d: res.dateStr,
+      id: res.token,
+      l: appState.lang
+    });
+
+    const cardShareUrl = `${baseUrl}?${params.toString()}`;
+
+    new QRCode(qrContainer, {
+      text: cardShareUrl,
+      width: 80,
+      height: 80,
+      colorDark: '#061538',
+      colorLight: '#FFFFFF',
+      correctLevel: QRCode.CorrectLevel.L
+    });
+  }
+
+  function renderResultCanvas() {
+    const res = appState.latestResult;
+    if (!res) return;
+    const dict = I18N[appState.lang];
+    const canvas = document.getElementById('result-card-canvas');
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width;
+    const H = canvas.height;
+
+    ctx.clearRect(0, 0, W, H);
+    const grad = ctx.createLinearGradient(0, 0, W, H);
+    grad.addColorStop(0, res.category.bg[0]);
+    grad.addColorStop(0.55, '#071942');
+    grad.addColorStop(1, '#040E26');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    // Bingkai kartu dengan aksen emas booth
+    ctx.strokeStyle = res.category.hex;
+    ctx.lineWidth = 8;
+    ctx.strokeRect(20, 20, W - 40, H - 40);
+
+    ctx.strokeStyle = 'rgba(251, 191, 36, 0.45)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(32, 32, W - 64, H - 64);
+
+    // Header BPS
+    ctx.fillStyle = '#FBBF24';
+    ctx.font = 'italic 800 22px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('BADAN PUSAT STATISTIK', 54, 82);
+
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = '800 32px "Space Grotesk", sans-serif';
+    ctx.fillText('STATISTICS FOR DIGITAL TRUST', 54, 124);
+
+    ctx.fillStyle = '#7DD3FC';
+    ctx.font = '700 24px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText(res.gameTitle, 54, 162);
+
+    // Kotak Logo Resmi BPS di Pojok Kanan Atas Kartu (Presisi Vektor Path2D)
+    ctx.fillStyle = '#FFFFFF';
+    ctx.beginPath();
+    ctx.roundRect(W - 142, 50, 88, 88, 18);
+    ctx.fill();
+    drawAccurateBpsLogoOnCanvas(ctx, W - 134, 58, 72);
+
+    // Badge Skor Besar
+    ctx.fillStyle = res.category.hex + '33';
+    ctx.beginPath();
+    ctx.arc(W / 2, 345, 124, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = res.category.hex;
+    ctx.beginPath();
+    ctx.arc(W / 2, 345, 104, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#FFFFFF';
+    ctx.textAlign = 'center';
+    ctx.font = '800 72px "Space Grotesk", sans-serif';
+    ctx.fillText(`${res.score}/5`, W / 2, 360);
+    ctx.font = '700 20px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText(dict.card_final_score, W / 2, 396);
+
+    // Nama Peserta
+    ctx.fillStyle = '#94A3B8';
+    ctx.font = '700 21px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText(dict.card_given_to, W / 2, 515);
+
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = '800 44px "Space Grotesk", sans-serif';
+    ctx.fillText(res.participantName || 'Data Explorer', W / 2, 570);
+
+    // Pill Kategori Julukan
+    ctx.fillStyle = res.category.hex;
+    ctx.beginPath();
+    ctx.roundRect(85, 610, W - 170, 62, 16);
+    ctx.fill();
+
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = '800 28px "Space Grotesk", sans-serif';
+    ctx.fillText(res.category.title, W / 2, 650);
+
+    // Pesan Motivasi Bilingual
+    const msgText = appState.lang === 'EN' ? res.category.msg_EN : res.category.msg_ID;
+    ctx.fillStyle = '#E2E8F0';
+    ctx.font = '500 24px "Plus Jakarta Sans", sans-serif';
+    wrapText(ctx, msgText, W / 2, 738, W - 120, 34);
+
+    // Footer Tanggal & Token
+    ctx.fillStyle = '#FBBF24';
+    ctx.font = '700 20px "JetBrains Mono", monospace';
+    ctx.fillText(`${res.dateStr}  •  CARD #${res.token}`, W / 2, H - 80);
+
+    ctx.fillStyle = '#94A3B8';
+    ctx.font = '600 18px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('Explore the Data. Discover the Facts. Build the Trust.', W / 2, H - 46);
+    ctx.textAlign = 'left';
+  }
+
+  // Menggambar Logo Resmi BPS (3 Batang Zig-Zag Biru, Hijau, Oranye + Orbit) secara presisi pada Canvas
+  function drawAccurateBpsLogoOnCanvas(ctx, x, y, size) {
+    const scale = size / 220;
+    ctx.save();
+    ctx.translate(x, y + size * 0.04);
+    ctx.scale(scale, scale);
+
+    // Orbit Biru Kiri
+    ctx.fillStyle = '#008FD5';
+    ctx.fill(new Path2D('M55 68 C18 92, 16 135, 58 148 C98 160, 148 144, 178 122 C145 140, 96 150, 62 138 C32 127, 34 93, 62 74 Z'));
+
+    // Orbit Oranye Kanan
+    ctx.fillStyle = '#F39200';
+    ctx.fill(new Path2D('M68 58 C105 38, 158 36, 188 58 C215 78, 202 115, 165 135 C190 112, 198 82, 176 66 C150 48, 104 49, 68 58 Z'));
+
+    // Batang Biru Kiri Atas
+    ctx.fillStyle = '#008FD5';
+    ctx.fill(new Path2D('M62 28 H92 C95 28, 97 30, 96 33 L88 68 H115 C118 68, 120 70, 119 73 L110 112 C109 115, 106 117, 103 117 H64 L74 111 L82 78 H54 C51 78, 49 76, 50 73 L59 32 C60 29, 61 28, 62 28 Z'));
+
+    // Batang Oranye Kanan Atas
+    ctx.fillStyle = '#F39200';
+    ctx.fill(new Path2D('M126 28 H166 L156 34 L148 68 H175 C178 68, 180 70, 179 73 L170 112 C169 115, 166 117, 163 117 H138 C135 117, 133 115, 134 112 L142 78 H115 C112 78, 110 76, 111 73 L120 32 C121 29, 123 28, 126 28 Z'));
+
+    // Batang Hijau Bawah Tengah
+    ctx.fillStyle = '#76B82A';
+    ctx.fill(new Path2D('M104 82 H134 C137 82, 139 84, 138 87 L130 120 C129 123, 126 125, 123 125 H96 L88 160 C87 163, 84 165, 81 165 H53 C50 165, 48 163, 49 160 L58 120 C59 117, 62 115, 65 115 H92 L100 86 C101 83, 102 82, 104 82 Z'));
+
+    ctx.restore();
+  }
+
+  function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+    const words = text.split(' ');
+    let line = '';
+    let currY = y;
+    for (let n = 0; n < words.length; n++) {
+      const testLine = line + words[n] + ' ';
+      if (ctx.measureText(testLine).width > maxWidth && n > 0) {
+        ctx.fillText(line.trim(), x, currY);
+        line = words[n] + ' ';
+        currY += lineHeight;
+      } else {
+        line = testLine;
+      }
+    }
+    ctx.fillText(line.trim(), x, currY);
+  }
+
+  function startCardAutoReset() {
+    clearInterval(appState.cardResetInterval);
+    if (appState.isSharedCardView) return;
+    let sec = CONFIG.CARD_AUTO_RESET_SEC;
+    const el = document.getElementById('card-auto-reset-timer');
+    el.textContent = `(${sec}s)`;
+    appState.cardResetInterval = setInterval(() => {
+      sec--;
+      el.textContent = `(${sec}s)`;
+      if (sec <= 0) resetToIdle();
+    }, 1000);
+  }
+
+  // =========================================================
+  // EVENT LISTENERS (TERMASUK SAKELAR BAHASA ID / EN)
+  // =========================================================
+  document.getElementById('btn-lang-toggle').addEventListener('click', () => {
+    appState.lang = appState.lang === 'ID' ? 'EN' : 'ID';
+    SoundFX.playClick();
+    applyLanguage();
+  });
+
+  document.getElementById('btn-to-select').addEventListener('click', () => {
+    SoundFX.playClick();
+    switchScreen('select');
+  });
+  document.getElementById('btn-back-idle').addEventListener('click', () => {
+    SoundFX.playClick();
+    switchScreen('idle');
+  });
+  document.getElementById('btn-pick-financial').addEventListener('click', () => enterPracticeScreen('FINANCIAL'));
+  document.getElementById('btn-pick-digital').addEventListener('click', () => enterPracticeScreen('DIGITAL'));
+
+  document.getElementById('btn-verify-touch').addEventListener('click', () => {
+    triggerActionFromInput(appState.verifyStep === 1 ? 'BENAR' : 'SALAH');
+  });
+  document.getElementById('btn-skip-verify').addEventListener('click', () => {
+    SoundFX.playClick();
+    startQuizSession();
+  });
+
+  document.getElementById('btn-answer-benar').addEventListener('click', () => triggerActionFromInput('BENAR'));
+  document.getElementById('btn-answer-salah').addEventListener('click', () => triggerActionFromInput('SALAH'));
+  document.getElementById('btn-next-question').addEventListener('click', () => {
+    SoundFX.playClick();
+    goToNextRound();
+  });
+
+  document.getElementById('input-participant-name').addEventListener('input', (e) => {
+    if (!appState.latestResult) return;
+    appState.latestResult.participantName = e.target.value.trim() || 'Data Explorer';
+    renderResultCanvas();
+    renderCardQrCode();
+  });
+
+  document.getElementById('btn-download-card').addEventListener('click', () => {
+    SoundFX.playClick();
+    const canvas = document.getElementById('result-card-canvas');
+    const link = document.createElement('a');
+    link.download = `BPS-Digital-Trust-Card-${appState.latestResult?.token || 'BPS'}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+
+  document.getElementById('btn-replay-same').addEventListener('click', () => {
+    SoundFX.playClick();
+    appState.isSharedCardView = false;
+    document.getElementById('qr-shared-banner').classList.add('hidden');
+    document.getElementById('name-input-box').classList.remove('hidden');
+    startQuizSession();
+  });
+  document.getElementById('btn-switch-game').addEventListener('click', () => {
+    SoundFX.playClick();
+    appState.isSharedCardView = false;
+    document.getElementById('qr-shared-banner').classList.add('hidden');
+    document.getElementById('name-input-box').classList.remove('hidden');
+    switchScreen('select');
+  });
+  document.getElementById('btn-finish-session').addEventListener('click', () => {
+    SoundFX.playClick();
+    resetToIdle();
+  });
+
+  document.getElementById('btn-fullscreen').addEventListener('click', () => {
+    SoundFX.playClick();
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
+    else document.exitFullscreen().catch(() => {});
+  });
+
+  document.getElementById('btn-admin-trigger').addEventListener('click', () => {
+    SoundFX.playClick();
+    const logs = appState.analyticsLogs;
+    document.getElementById('stat-total-sessions').textContent = String(logs.length);
+    const avg = logs.length ? (logs.reduce((s, x) => s + x.score, 0) / logs.length).toFixed(1) : '0.0';
+    document.getElementById('stat-avg-score').textContent = `${avg}/5`;
+
+    const dist = { RED: 0, ORANGE: 0, BLUE: 0, GREEN: 0 };
+    logs.forEach(l => dist[l.category]++);
+    ['RED', 'ORANGE', 'BLUE', 'GREEN'].forEach(k => {
+      document.getElementById(`dist-${k}`).textContent = String(dist[k]);
+    });
+    document.getElementById('modal-admin').classList.remove('hidden');
+  });
+
+  document.getElementById('btn-close-admin').addEventListener('click', () => {
+    SoundFX.playClick();
+    document.getElementById('modal-admin').classList.add('hidden');
+  });
+
+  document.getElementById('input-hold-ms').addEventListener('input', (e) => {
+    CONFIG.HOLD_MS = Number(e.target.value);
+    document.getElementById('cfg-hold-label').textContent = `${CONFIG.HOLD_MS} ms`;
+  });
+
+  document.getElementById('btn-export-csv').addEventListener('click', () => {
+    SoundFX.playClick();
+    const rows = [['waktu', 'game', 'skor', 'kategori'], ...appState.analyticsLogs.map(l => [l.timestamp, l.game, l.score, l.category])];
+    const blob = new Blob([rows.map(r => r.join(',')).join('\n')], { type: 'text/csv;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `rekap-kiosk-bps-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+  });
+
+  document.getElementById('btn-clear-stats').addEventListener('click', () => {
+    SoundFX.playClick();
+    appState.analyticsLogs = [];
+    document.getElementById('btn-admin-trigger').click();
+  });
+
+  window.addEventListener('load', () => {
+    const openedFromQr = checkSharedCardFromUrl();
+    if (!openedFromQr) {
+      initCameraAndGesture();
+    }
+  });
+</script>
 </body>
 </html>

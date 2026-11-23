@@ -21,7 +21,7 @@
       padding: 0;
       width: 100%;
       height: 100%;
-      background-color: #030814;
+      background-color: #030712;
       color: #f8fafc;
       font-family: 'Plus Jakarta Sans', sans-serif;
       overflow: hidden;
@@ -31,7 +31,7 @@
     .font-mono-num { font-family: 'JetBrains Mono', monospace; }
     input { user-select: text; -webkit-user-select: text; }
 
-    /* Frame Kiosk Portrait 9:16 — Nuansa Booth BPS (Deep Navy, Royal Blue, Warm Gold/Amber Glow) */
+    /* Frame Kiosk Portrait 9:16 — Nuansa Deep Navy, Royal Blue & Electric Purple Glow */
     #kiosk-frame {
       width: 100%;
       max-width: 56.25vh;
@@ -39,14 +39,14 @@
       margin: 0 auto;
       position: relative;
       background:
-        radial-gradient(ellipse at 50% 0%, rgba(29, 78, 216, 0.55) 0%, transparent 55%),
-        radial-gradient(ellipse at 0% 50%, rgba(245, 158, 11, 0.16) 0%, transparent 40%),
-        radial-gradient(ellipse at 100% 50%, rgba(245, 158, 11, 0.16) 0%, transparent 40%),
-        radial-gradient(ellipse at 50% 100%, rgba(245, 158, 11, 0.22) 0%, transparent 45%),
-        linear-gradient(180deg, #0B2A6B 0%, #071942 52%, #040E26 100%);
-      border-left: 2px solid rgba(251, 191, 36, 0.35);
-      border-right: 2px solid rgba(251, 191, 36, 0.35);
-      box-shadow: 0 0 85px rgba(29, 78, 216, 0.38), inset 0 0 40px rgba(245, 158, 11, 0.08);
+        radial-gradient(ellipse at 50% 0%, rgba(37, 99, 235, 0.52) 0%, transparent 55%),
+        radial-gradient(ellipse at 0% 50%, rgba(168, 85, 247, 0.22) 0%, transparent 45%),
+        radial-gradient(ellipse at 100% 50%, rgba(168, 85, 247, 0.22) 0%, transparent 45%),
+        radial-gradient(ellipse at 50% 100%, rgba(124, 58, 237, 0.28) 0%, transparent 50%),
+        linear-gradient(180deg, #0A2563 0%, #07173D 52%, #040D24 100%);
+      border-left: 2px solid rgba(192, 132, 252, 0.4);
+      border-right: 2px solid rgba(192, 132, 252, 0.4);
+      box-shadow: 0 0 85px rgba(124, 58, 237, 0.35), inset 0 0 40px rgba(168, 85, 247, 0.1);
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -55,14 +55,14 @@
       #kiosk-frame { max-width: 100%; border: none; }
     }
 
-    /* Pilar Garis Cahaya Emas/Amber di Sisi Kiri & Kanan seperti Booth Pameran */
+    /* Pilar Garis Cahaya Ungu di Sisi Kiri & Kanan */
     .booth-pillar-left, .booth-pillar-right {
       position: absolute;
       top: 0;
       bottom: 0;
       width: 4px;
-      background: linear-gradient(180deg, rgba(251, 191, 36, 0.1), rgba(245, 158, 11, 0.85), rgba(251, 191, 36, 0.15));
-      box-shadow: 0 0 18px rgba(245, 158, 11, 0.7);
+      background: linear-gradient(180deg, rgba(192, 132, 252, 0.15), rgba(168, 85, 247, 0.95), rgba(192, 132, 252, 0.2));
+      box-shadow: 0 0 18px rgba(168, 85, 247, 0.85);
       pointer-events: none;
       z-index: 15;
     }
@@ -73,31 +73,47 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(to right, rgba(125, 211, 252, 0.06) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(125, 211, 252, 0.06) 1px, transparent 1px);
+        linear-gradient(to right, rgba(167, 139, 250, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(167, 139, 250, 0.06) 1px, transparent 1px);
       background-size: 32px 32px;
       mask-image: radial-gradient(circle at 50% 45%, black 55%, transparent 95%);
       pointer-events: none;
     }
 
     .glass-panel {
-      background: rgba(10, 31, 74, 0.62);
+      background: rgba(11, 31, 74, 0.65);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(125, 211, 252, 0.28);
+      border: 1px solid rgba(167, 139, 250, 0.28);
       box-shadow: 0 10px 30px rgba(2, 8, 20, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
 
     .glass-card-elevated {
-      background: linear-gradient(155deg, rgba(17, 52, 116, 0.85) 0%, rgba(8, 25, 62, 0.92) 100%);
+      background: linear-gradient(155deg, rgba(18, 48, 110, 0.86) 0%, rgba(9, 24, 62, 0.93) 100%);
       backdrop-filter: blur(22px);
-      border: 1.5px solid rgba(125, 211, 252, 0.42);
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.52), 0 0 25px rgba(245, 158, 11, 0.12);
+      border: 1.5px solid rgba(167, 139, 250, 0.42);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.52), 0 0 28px rgba(168, 85, 247, 0.16);
+    }
+
+    /* Kartu Game 01 (Navy - Indigo Ungu) */
+    .card-game-financial {
+      background: linear-gradient(150deg, rgba(30, 41, 115, 0.9) 0%, rgba(15, 23, 72, 0.95) 100%);
+      backdrop-filter: blur(22px);
+      border: 1.5px solid rgba(192, 132, 252, 0.48);
+      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.5), 0 0 24px rgba(139, 92, 246, 0.2);
+    }
+
+    /* Kartu Game 02 (Biru Lebih Terang / Electric Sky-Royal Blue) */
+    .card-game-digital {
+      background: linear-gradient(150deg, rgba(14, 116, 195, 0.85) 0%, rgba(23, 68, 158, 0.92) 100%);
+      backdrop-filter: blur(22px);
+      border: 1.5px solid rgba(103, 232, 249, 0.55);
+      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.48), 0 0 24px rgba(56, 189, 248, 0.25);
     }
 
     .btn-primary-glow {
-      background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #FDE68A 100%);
-      box-shadow: 0 12px 30px rgba(245, 158, 11, 0.42), inset 0 1.5px 0 rgba(255, 255, 255, 0.65);
+      background: linear-gradient(135deg, #7C3AED 0%, #9333EA 50%, #C084FC 100%);
+      box-shadow: 0 12px 30px rgba(147, 51, 234, 0.48), inset 0 1.5px 0 rgba(255, 255, 255, 0.45);
     }
 
     .mirror-video { transform: scaleX(-1); }
@@ -116,7 +132,7 @@
 
     @keyframes scanLine {
       0% { top: 0%; opacity: 0.2; }
-      50% { top: 92%; opacity: 0.9; }
+      50% { top: 92%; opacity: 0.95; }
       100% { top: 0%; opacity: 0.2; }
     }
     .camera-scanline {
@@ -124,7 +140,7 @@
       left: 0;
       right: 0;
       height: 2px;
-      background: linear-gradient(90deg, transparent, #FBBF24, transparent);
+      background: linear-gradient(90deg, transparent, #C084FC, transparent);
       animation: scanLine 2.8s infinite linear;
       pointer-events: none;
     }
@@ -140,10 +156,9 @@
   <div class="booth-pillar-right"></div>
   <div class="tech-grid"></div>
 
-  <!-- HEADER: HANYA LOGO BPS + TULISAN PUTIH "BADAN PUSAT STATISTIK" + KAMERA + BAHASA + SETTING -->
-  <header class="px-4 pt-3.5 pb-2.5 flex items-center justify-between border-b border-amber-400/25 bg-[#061538]/90 backdrop-blur-md z-20 shrink-0">
+  <!-- HEADER -->
+  <header class="px-4 pt-3.5 pb-2.5 flex items-center justify-between border-b border-purple-400/25 bg-[#061436]/90 backdrop-blur-md z-20 shrink-0">
     <div class="flex items-center gap-2.5 min-w-0">
-      <!-- Logo Resmi BPS -->
       <div class="w-10 h-10 rounded-xl bg-white p-1.5 flex items-center justify-center shadow-md shrink-0">
         <svg viewBox="0 0 220 200" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <path d="M55 68 C18 92, 16 135, 58 148 C98 160, 148 144, 178 122 C145 140, 96 150, 62 138 C32 127, 34 93, 62 74 Z" fill="#008FD5"/>
@@ -159,13 +174,13 @@
     </div>
 
     <div class="flex items-center gap-1.5 shrink-0">
-      <div id="camera-badge" class="flex items-center gap-1 px-2 py-1 rounded-full bg-slate-950/90 border border-sky-400/30 text-[10px] font-bold text-sky-200">
-        <span id="camera-dot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+      <button id="camera-badge" title="Klik untuk aktifkan ulang kamera" class="flex items-center gap-1 px-2 py-1 rounded-full bg-slate-950/90 border border-purple-400/35 text-[10px] font-bold text-purple-200 active:scale-95">
+        <span id="camera-dot" class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
         <span id="camera-status-text">Kamera...</span>
-      </div>
+      </button>
 
       <!-- Sakelar Bahasa ID / EN -->
-      <button id="btn-lang-toggle" title="Switch Language (ID / EN)" class="px-2 py-1.5 rounded-xl glass-panel border border-amber-400/40 text-[10px] font-extrabold text-amber-300 flex items-center gap-1 active:scale-95">
+      <button id="btn-lang-toggle" title="Switch Language (ID / EN)" class="px-2 py-1.5 rounded-xl glass-panel border border-purple-400/45 text-[10px] font-extrabold text-purple-200 flex items-center gap-1 active:scale-95">
         <span>🌐</span>
         <span id="lang-label">ID</span>
       </button>
@@ -179,21 +194,28 @@
     </div>
   </header>
 
-  <!-- CERMIN SENSOR GESTUR REAL-TIME -->
-  <div id="pip-camera-box" class="hidden w-full px-5 mt-2.5 z-10 shrink-0">
-    <div class="rounded-2xl glass-panel p-2.5 flex items-center gap-3 shadow-xl border border-amber-400/35">
-      <div class="relative w-28 h-24 rounded-xl overflow-hidden bg-slate-950 border-2 border-amber-400/70 shrink-0 shadow-inner">
+  <!-- CERMIN SENSOR GESTUR REAL-TIME (Selalu tampil agar kamera bisa diuji & dinyalakan dari file lokal maupun web) -->
+  <div id="pip-camera-box" class="w-full px-5 mt-2.5 z-10 shrink-0">
+    <div class="rounded-2xl glass-panel p-2.5 flex items-center gap-3 shadow-xl border border-purple-400/35">
+      <div class="relative w-28 h-24 rounded-xl overflow-hidden bg-slate-950 border-2 border-purple-400/70 shrink-0 shadow-inner">
         <video id="webcam-video" autoplay playsinline muted class="w-full h-full object-cover mirror-video"></video>
         <div class="camera-scanline"></div>
+        <!-- Overlay Tombol Aktifkan Kamera Jika Dibuka dari File Lokal & Belum Diizinkan -->
+        <div id="camera-enable-overlay" class="absolute inset-0 bg-slate-950/90 flex flex-col items-center justify-center p-1.5 text-center">
+          <span class="text-base mb-1">📷</span>
+          <button id="btn-manual-cam" class="px-2 py-1 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-[9px] font-extrabold leading-tight shadow">
+            Nyalakan Kamera
+          </button>
+        </div>
         <div id="hand-bbox-indicator" class="hidden absolute inset-1.5 border-2 border-emerald-400 rounded-lg pointer-events-none shadow-[0_0_12px_rgba(52,211,153,0.7)]"></div>
-        <div class="absolute bottom-1 left-1 px-1.5 py-0.5 rounded bg-black/80 text-[9px] font-extrabold text-amber-300 flex items-center gap-1">
+        <div class="absolute bottom-1 left-1 px-1.5 py-0.5 rounded bg-black/80 text-[9px] font-extrabold text-purple-300 flex items-center gap-1">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> AI VISION
         </div>
       </div>
       <div class="flex-1 min-w-0">
         <div class="flex items-center justify-between gap-2">
-          <span data-i18n="cam_title" class="text-[10px] font-extrabold uppercase tracking-wider text-amber-300">Kontrol Gestur Tangan</span>
-          <span id="fps-counter" class="text-[10px] font-mono-num text-slate-300 bg-slate-950/80 px-1.5 py-0.5 rounded border border-sky-400/20">-- FPS</span>
+          <span data-i18n="cam_title" class="text-[10px] font-extrabold uppercase tracking-wider text-purple-300">Kontrol Gestur Tangan</span>
+          <span id="fps-counter" class="text-[10px] font-mono-num text-slate-300 bg-slate-950/80 px-1.5 py-0.5 rounded border border-purple-400/25">-- FPS</span>
         </div>
         <p id="gesture-live-feedback" class="text-xs sm:text-sm text-white font-bold mt-1 leading-snug">
           Angkat 👍 (Benar) atau ✋ (Salah)
@@ -211,16 +233,16 @@
   <!-- ===================================================================== -->
   <main id="screen-idle" class="flex-1 w-full flex flex-col justify-between p-5 text-center z-10 overflow-y-auto no-scrollbar">
     <div class="my-auto flex flex-col items-center space-y-4">
-      <span data-i18n="hero_badge" class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 text-[10px] font-extrabold tracking-widest uppercase">
-        <span class="w-1.5 h-1.5 rounded-full bg-amber-300 animate-ping"></span>
+      <span data-i18n="hero_badge" class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-purple-500/20 border border-purple-400/45 text-purple-200 text-[10px] font-extrabold tracking-widest uppercase">
+        <span class="w-1.5 h-1.5 rounded-full bg-purple-300 animate-ping"></span>
         Interactive Exhibition Experience
       </span>
 
-      <h1 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.08] bg-gradient-to-b from-white via-sky-100 to-amber-200 bg-clip-text text-transparent">
+      <h1 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.08] bg-gradient-to-b from-white via-sky-100 to-purple-200 bg-clip-text text-transparent">
         STATISTICS FOR<br>DIGITAL TRUST
       </h1>
 
-      <div class="w-36 h-36 rounded-[2rem] glass-card-elevated flex flex-col items-center justify-center shadow-2xl relative my-1 animate-float border-amber-400/40">
+      <div class="w-36 h-36 rounded-[2rem] glass-card-elevated flex flex-col items-center justify-center shadow-2xl relative my-1 animate-float border-purple-400/45">
         <div class="w-16 h-16 rounded-2xl bg-white p-2 flex items-center justify-center shadow-md mb-2">
           <svg viewBox="0 0 220 200" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <path d="M55 68 C18 92, 16 135, 58 148 C98 160, 148 144, 178 122 C145 140, 96 150, 62 138 C32 127, 34 93, 62 74 Z" fill="#008FD5"/>
@@ -230,7 +252,7 @@
             <path d="M104 82 H134 C137 82, 139 84, 138 87 L130 120 C129 123, 126 125, 123 125 H96 L88 160 C87 163, 84 165, 81 165 H53 C50 165, 48 163, 49 160 L58 120 C59 117, 62 115, 65 115 H92 L100 86 C101 83, 102 82, 104 82 Z" fill="#76B82A"/>
           </svg>
         </div>
-        <div class="px-2.5 py-0.5 rounded-full bg-amber-400/20 border border-amber-300/40 text-amber-200 text-[10px] font-extrabold uppercase tracking-wider">
+        <div class="px-2.5 py-0.5 rounded-full bg-purple-500/25 border border-purple-300/45 text-purple-200 text-[10px] font-extrabold uppercase tracking-wider">
           #SadarStatistik
         </div>
         <div class="absolute -left-6 -bottom-2 bg-emerald-950/95 border border-emerald-400/60 px-2.5 py-1 rounded-xl shadow-lg flex items-center gap-1">
@@ -243,69 +265,69 @@
         </div>
       </div>
 
-      <p class="text-xs sm:text-sm text-amber-200 max-w-sm leading-relaxed font-bold">
+      <p class="text-xs sm:text-sm text-purple-200 max-w-sm leading-relaxed font-bold">
         "Explore the Data. Discover the Facts. Build the Trust."
       </p>
       <p data-i18n="hero_sub" class="text-xs text-slate-200/90 max-w-xs leading-relaxed">
         Tebak fakta ekonomi & dunia digital Indonesia pakai gerakan tanganmu, lalu bawa pulang kartu digitalmu!
       </p>
 
-      <button id="btn-to-select" class="btn-primary-glow animate-pulse-glow w-full py-5 px-6 rounded-2xl text-slate-950 font-display font-extrabold text-xl tracking-wide shadow-xl flex items-center justify-center gap-3 active:scale-95 transition">
+      <button id="btn-to-select" class="btn-primary-glow animate-pulse-glow w-full py-5 px-6 rounded-2xl text-white font-display font-extrabold text-xl tracking-wide shadow-xl flex items-center justify-center gap-3 active:scale-95 transition">
         <span data-i18n="btn_start">MULAI BERMAIN</span>
         <span class="text-2xl">🚀</span>
       </button>
     </div>
 
-    <div class="mt-2 glass-panel rounded-2xl p-2.5 flex items-start gap-2 text-left w-full border-amber-400/25">
+    <div class="mt-2 glass-panel rounded-2xl p-2.5 flex items-start gap-2 text-left w-full border-purple-400/25">
       <span class="text-sm shrink-0 mt-0.5">🛡️</span>
       <p data-i18n="privacy_note" class="text-[10px] text-slate-200 leading-relaxed">
-        <strong class="text-amber-300">Aman & Privat:</strong> Kamera hanya membaca gestur tangan secara langsung dan tidak merekam wajah atau menyimpan data pribadi.
+        <strong class="text-purple-300">Aman & Privat:</strong> Kamera hanya membaca gestur tangan secara langsung dan tidak merekam wajah atau menyimpan data pribadi.
       </p>
     </div>
   </main>
 
   <!-- ===================================================================== -->
-  <!-- PAGE 02: PILIHAN DUA GAME                                             -->
+  <!-- PAGE 02: PILIHAN DUA GAME (WARNA KARTU DIBEDAKAN)                     -->
   <!-- ===================================================================== -->
   <section id="screen-select" class="hidden flex-1 w-full flex flex-col justify-between p-5 z-10 overflow-y-auto no-scrollbar">
     <div class="text-center mt-1">
-      <span data-i18n="step_1_of_2" class="text-[10px] font-extrabold uppercase tracking-[0.2em] text-amber-300">Langkah 1 dari 2</span>
+      <span data-i18n="step_1_of_2" class="text-[10px] font-extrabold uppercase tracking-[0.2em] text-purple-300">Langkah 1 dari 2</span>
       <h2 data-i18n="select_title" class="font-display text-2xl sm:text-3xl font-extrabold text-white mt-0.5">Pilih Tantanganmu</h2>
       <p data-i18n="select_sub" class="text-xs text-sky-200 mt-1">5 pernyataan singkat & mudah dipahami • 20 detik per soal</p>
     </div>
 
     <div class="flex flex-col gap-4 my-auto py-2">
-      <!-- GAME 01 -->
-      <button id="btn-pick-financial" class="glass-card-elevated rounded-3xl p-5 text-left hover:border-amber-300 active:scale-98 transition group">
+      <!-- GAME 01: Deep Navy - Indigo Ungu -->
+      <button id="btn-pick-financial" class="card-game-financial rounded-3xl p-5 text-left hover:border-purple-300 active:scale-98 transition group">
         <div class="flex items-center justify-between mb-2">
-          <span class="px-3 py-0.5 rounded-full bg-amber-500/25 border border-amber-400/50 text-amber-200 text-[11px] font-extrabold tracking-wider">GAME 01</span>
+          <span class="px-3 py-0.5 rounded-full bg-purple-500/30 border border-purple-300/50 text-purple-200 text-[11px] font-extrabold tracking-wider">GAME 01</span>
           <span class="text-2xl">💰</span>
         </div>
-        <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white group-hover:text-amber-300 transition">FINANCIAL AWARENESS</h3>
-        <p data-i18n="g1_tagline" class="text-xs sm:text-sm font-bold text-sky-300 mt-0.5">Seberapa Melek Kamu dengan Keuangan Indonesia?</p>
+        <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white group-hover:text-purple-200 transition">FINANCIAL AWARENESS</h3>
+        <p data-i18n="g1_tagline" class="text-xs sm:text-sm font-bold text-purple-200 mt-0.5">Seberapa Melek Kamu dengan Keuangan Indonesia?</p>
         <p data-i18n="g1_desc" class="text-xs text-slate-200 mt-2 leading-relaxed">
           Kupas fakta inflasi, harga barang, kemiskinan, ekspor-impor, hingga daya beli masyarakat Indonesia.
         </p>
-        <div class="mt-3 pt-2.5 border-t border-amber-400/20 flex justify-between items-center text-[11px] font-extrabold text-amber-300">
+        <div class="mt-3 pt-2.5 border-t border-purple-400/25 flex justify-between items-center text-[11px] font-extrabold text-purple-200">
           <span data-i18n="all_ages">Cocok untuk Semua Kalangan</span>
-          <span data-i18n="play_now" class="px-2.5 py-1 rounded-lg bg-amber-400/15">MAIN SEKARANG →</span>
+          <span data-i18n="play_now" class="px-2.5 py-1 rounded-lg bg-purple-500/25">MAIN SEKARANG →</span>
         </div>
       </button>
 
-      <!-- GAME 02 -->
-      <button id="btn-pick-digital" class="glass-card-elevated rounded-3xl p-5 text-left hover:border-amber-300 active:scale-98 transition group">
+      <!-- GAME 02: Royal Blue - Sky Cyan Lebih Terang -->
+      <button id="btn-pick-digital" class="card-game-digital rounded-3xl p-5 text-left hover:border-cyan-200 active:scale-98 transition group">
         <div class="flex items-center justify-between mb-2">
-          <span class="px-3 py-0.5 rounded-full bg-sky-500/30 border border-sky-400/50 text-cyan-200 text-[11px] font-extrabold tracking-wider">GAME 02</span>
+          <span class="px-3 py-0.5 rounded-full bg-sky-300/25 border border-cyan-200/60 text-cyan-100 text-[11px] font-extrabold tracking-wider">GAME 02</span>
           <span class="text-2xl">🕵️‍♂️</span>
         </div>
-        <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white group-hover:text-amber-300 transition">DIGITAL TRUST DETECTIVE</h3>
-        <p data-i18n="g2_tagline" class="text-xs sm:text-sm font-bold text-sky-300 mt-0.5">Seberapa Paham Kamu dengan Dunia Digital Indonesia?</p>
-        <p data-i18n="g2_desc" class="text-xs text-slate-200 mt-2 leading-relaxed">
+        <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white group-hover:text-cyan-200 transition">DIGITAL TRUST DETECTIVE</h3>
+        <p data-i18n="g2_tagline" class="text-xs sm:text-sm font-bold text-cyan-100 mt-0.5">Seberapa Paham Kamu dengan Dunia Digital Indonesia?</p>
+        <p data-i18n="g2_desc" class="text-xs text-sky-50/90 mt-2 leading-relaxed">
           Ungkap fakta pengguna internet, kepemilikan HP, belanja online (e-commerce), dan dompet digital Indonesia.
         </p>
-        <div class="mt-3 pt-2.5 border-t border-amber-400/20 flex justify-between items-center text-[11px] font-extrabold text-amber-300">
+        <div class="mt-3 pt-2.5 border-t border-cyan-300/25 flex justify-between items-center text-[11px] font-extrabold text-cyan-100">
           <span data-i18n="all_ages">Cocok untuk Semua Kalangan</span>
-          <span data-i18n="play_now" class="px-2.5 py-1 rounded-lg bg-amber-400/15">MAIN SEKARANG →</span>
+          <span data-i18n="play_now" class="px-2.5 py-1 rounded-lg bg-sky-400/25">MAIN SEKARANG →</span>
         </div>
       </button>
     </div>
@@ -320,7 +342,7 @@
   <!-- ===================================================================== -->
   <section id="screen-verify" class="hidden flex-1 w-full flex flex-col justify-between p-5 text-center z-10">
     <div class="mt-1">
-      <span id="verify-game-label" class="inline-block px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-[10px] font-extrabold uppercase tracking-wider">
+      <span id="verify-game-label" class="inline-block px-3 py-1 rounded-full bg-purple-500/25 border border-purple-400/45 text-purple-200 text-[10px] font-extrabold uppercase tracking-wider">
         Latihan Kontrol • Langkah 1/2
       </span>
       <h2 data-i18n="prac_heading" class="font-display text-2xl sm:text-3xl font-extrabold text-white mt-1">
@@ -344,10 +366,10 @@
         <div class="mt-5">
           <div class="flex justify-between text-xs font-bold mb-1.5">
             <span data-i18n="prac_meter" class="text-slate-300">Indikator Kunci Gestur</span>
-            <span id="verify-hold-pct" class="text-amber-300 font-mono-num">0%</span>
+            <span id="verify-hold-pct" class="text-purple-300 font-mono-num">0%</span>
           </div>
-          <div class="w-full h-3.5 bg-slate-900 rounded-full overflow-hidden p-0.5 border border-sky-400/30">
-            <div id="verify-hold-bar" class="h-full w-0 bg-gradient-to-r from-emerald-400 to-amber-300 rounded-full transition-all duration-75"></div>
+          <div class="w-full h-3.5 bg-slate-900 rounded-full overflow-hidden p-0.5 border border-purple-400/35">
+            <div id="verify-hold-bar" class="h-full w-0 bg-gradient-to-r from-emerald-400 to-purple-400 rounded-full transition-all duration-75"></div>
           </div>
         </div>
       </div>
@@ -358,39 +380,39 @@
         <span id="btn-verify-icon" class="text-2xl">👍</span>
         <span id="btn-verify-label">COBA JAWAB BENAR (SENTUH)</span>
       </button>
-      <button id="btn-skip-verify" data-i18n="btn_skip_prac" class="w-full py-2 text-xs font-bold text-amber-300 hover:text-white underline">
+      <button id="btn-skip-verify" data-i18n="btn_skip_prac" class="w-full py-2 text-xs font-bold text-purple-300 hover:text-white underline">
         Sudah paham, langsung mulai game sekarang →
       </button>
     </div>
   </section>
 
   <!-- ===================================================================== -->
-  <!-- PAGE 04: QUIZ SCREEN (TIMER 20 DETIK PER SOAL)                        -->
+  <!-- PAGE 04: QUIZ SCREEN (LANJUT MANUAL DENGAN TOMBOL LANJUTKAN)          -->
   <!-- ===================================================================== -->
   <section id="screen-play" class="hidden flex-1 w-full flex flex-col justify-between p-5 z-10">
     <!-- Top Bar -->
-    <div class="glass-panel rounded-2xl p-3.5 border-amber-400/25">
+    <div class="glass-panel rounded-2xl p-3.5 border-purple-400/30">
       <div class="flex items-center justify-between">
         <div>
-          <div id="play-game-title" class="text-[10px] font-extrabold uppercase tracking-wider text-amber-300">FINANCIAL AWARENESS</div>
+          <div id="play-game-title" class="text-[10px] font-extrabold uppercase tracking-wider text-purple-300">FINANCIAL AWARENESS</div>
           <div class="font-display text-lg font-extrabold text-white">
-            <span data-i18n="q_label">Pertanyaan</span> <span id="display-round-num" class="text-amber-300">1</span> / 5
+            <span data-i18n="q_label">Pertanyaan</span> <span id="display-round-num" class="text-purple-300">1</span> / 5
           </div>
         </div>
         <div class="text-right">
           <div data-i18n="timer_label" class="text-[10px] font-bold uppercase tracking-wider text-slate-300">Waktu Baca & Jawab</div>
-          <div id="display-timer-text" class="font-mono-num text-xl font-extrabold text-amber-300">20.0s</div>
+          <div id="display-timer-text" class="font-mono-num text-xl font-extrabold text-purple-300">20.0s</div>
         </div>
       </div>
       <div class="w-full h-2.5 bg-slate-950 rounded-full overflow-hidden mt-2">
-        <div id="display-timer-bar" class="h-full w-full bg-gradient-to-r from-amber-400 via-sky-400 to-cyan-300 rounded-full transition-all duration-100"></div>
+        <div id="display-timer-bar" class="h-full w-full bg-gradient-to-r from-purple-400 via-sky-400 to-cyan-300 rounded-full transition-all duration-100"></div>
       </div>
     </div>
 
     <!-- Kartu Pertanyaan Statistik -->
     <div class="my-auto py-3 flex flex-col justify-center flex-1">
       <div class="glass-card-elevated rounded-3xl p-6 flex-1 flex flex-col justify-center items-center text-center relative overflow-hidden">
-        <span id="question-level-badge" class="px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-[10px] font-extrabold uppercase tracking-widest mb-4">
+        <span id="question-level-badge" class="px-3 py-1 rounded-full bg-purple-500/25 border border-purple-400/45 text-purple-200 text-[10px] font-extrabold uppercase tracking-widest mb-4">
           💡 Konsep & Fakta Populer BPS
         </span>
 
@@ -398,14 +420,14 @@
           Memuat pernyataan statistik...
         </p>
 
-        <!-- Overlay Feedback Jawaban -->
+        <!-- Overlay Feedback Jawaban (Ditekan Tombol Lanjutkan Secara Manual) -->
         <div id="round-feedback-overlay" class="hidden absolute inset-0 bg-[#05122E]/96 backdrop-blur-md p-5 flex flex-col items-center justify-center text-center z-20">
           <div id="feedback-badge-icon" class="text-5xl mb-1.5">✅</div>
           <h3 id="feedback-title" class="font-display text-2xl font-extrabold text-emerald-400">Jawaban Benar!</h3>
-          <p id="feedback-subtitle" class="text-xs font-bold text-amber-200 mt-0.5">Kunci Fakta: BENAR</p>
+          <p id="feedback-subtitle" class="text-xs font-bold text-purple-200 mt-0.5">Kunci Fakta: BENAR</p>
 
-          <div class="mt-3 bg-slate-950/90 border border-sky-400/30 rounded-2xl p-4 w-full text-left">
-            <div data-i18n="fb_exp_title" class="text-[10px] font-extrabold text-amber-300 uppercase mb-1">Penjelasan Data Resmi BPS:</div>
+          <div class="mt-3 bg-slate-950/90 border border-purple-400/35 rounded-2xl p-4 w-full text-left">
+            <div data-i18n="fb_exp_title" class="text-[10px] font-extrabold text-purple-300 uppercase mb-1">Penjelasan Data Resmi BPS:</div>
             <p id="feedback-explanation" class="text-xs sm:text-sm text-white leading-relaxed font-medium">
               Penjelasan statistik...
             </p>
@@ -414,7 +436,7 @@
             </div>
           </div>
 
-          <button id="btn-next-question" data-i18n="btn_next_q" class="mt-3.5 w-full py-3.5 rounded-xl btn-primary-glow text-slate-950 font-display font-extrabold text-sm active:scale-95 transition">
+          <button id="btn-next-question" data-i18n="btn_next_q" class="mt-4 w-full py-4 rounded-xl btn-primary-glow text-white font-display font-extrabold text-base tracking-wide active:scale-95 transition">
             LANJUTKAN SOAL BERIKUTNYA →
           </button>
         </div>
@@ -444,59 +466,73 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- PAGE 06 & 07: KARTU HASIL DIGITAL & QR CODE KARTU PESERTA             -->
+  <!-- PAGE 06 & 07: KARTU HASIL DIGITAL & QR CODE (TANPA AUTO-TIMER RESET)  -->
   <!-- ===================================================================== -->
   <section id="screen-card" class="hidden flex-1 w-full flex flex-col justify-between p-4 sm:p-5 overflow-y-auto no-scrollbar z-10">
     <div class="flex flex-col items-center space-y-3 my-auto">
-      <div id="qr-shared-banner" class="hidden w-full py-1.5 px-3 rounded-xl bg-amber-500/20 border border-amber-400/40 text-center text-[11px] font-bold text-amber-200">
+      <div id="qr-shared-banner" class="hidden w-full py-1.5 px-3 rounded-xl bg-purple-500/25 border border-purple-400/45 text-center text-[11px] font-bold text-purple-200">
         🪪 Digital Result Card — Statistics for Digital Trust BPS
       </div>
 
-      <div class="w-full max-w-[315px] rounded-2xl overflow-hidden shadow-2xl border border-amber-400/45 bg-slate-950">
+      <div class="w-full max-w-[310px] rounded-2xl overflow-hidden shadow-2xl border border-purple-400/50 bg-slate-950">
         <canvas id="result-card-canvas" width="720" height="1080" class="w-full h-auto block"></canvas>
       </div>
 
-      <div id="name-input-box" class="w-full glass-panel rounded-2xl p-3 flex items-center gap-2 border-amber-400/30">
-        <input id="input-participant-name" type="text" maxlength="24" placeholder="Ketik namamu di kartu (opsional)..."
-          class="flex-1 px-3 py-2.5 rounded-xl bg-slate-950/90 border border-sky-400/35 text-white text-xs sm:text-sm focus:outline-none focus:border-amber-300">
-        <button id="btn-download-card" class="px-3.5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-display font-extrabold text-xs shrink-0 active:scale-95">
+      <div id="name-input-box" class="w-full glass-panel rounded-2xl p-3 flex items-center gap-2 border-purple-400/35">
+        <input id="input-participant-name" type="text" maxlength="20" placeholder="Ketik namamu di kartu (opsional)..."
+          class="flex-1 px-3 py-2.5 rounded-xl bg-slate-950/90 border border-purple-400/40 text-white text-xs sm:text-sm focus:outline-none focus:border-purple-300">
+        <button id="btn-download-card" class="px-3.5 py-2.5 rounded-xl bg-purple-500 hover:bg-purple-400 text-white font-display font-extrabold text-xs shrink-0 active:scale-95">
           ⬇️ <span data-i18n="btn_download">UNDUH</span>
         </button>
       </div>
 
-      <div class="w-full glass-panel rounded-2xl p-3 flex items-center gap-3.5 border-amber-400/30">
-        <div class="bg-white p-1.5 rounded-xl shrink-0 shadow-md">
-          <div id="qrcode-container" class="w-20 h-20 flex items-center justify-center"></div>
+      <div class="w-full glass-panel rounded-2xl p-3 flex items-center gap-3.5 border-purple-400/35">
+        <div class="bg-white p-2 rounded-xl shrink-0 shadow-md cursor-pointer" id="qr-box-clickable" title="Klik untuk memperbesar QR">
+          <div id="qrcode-container" class="w-28 h-28 flex items-center justify-center"></div>
         </div>
         <div class="flex-1 text-left">
-          <div data-i18n="qr_title" class="text-xs font-extrabold text-amber-300 uppercase">Scan QR Kartu Hasilmu</div>
+          <div data-i18n="qr_title" class="text-xs font-extrabold text-purple-300 uppercase">Scan QR Kartu Hasilmu</div>
           <p data-i18n="qr_desc" class="text-[11px] text-slate-200 leading-snug mt-0.5">
             Pindai QR ini dengan kamera HP untuk membuka & mengunduh kartu digital milikmu!
           </p>
-          <div class="flex gap-2 mt-2">
+          <div class="flex flex-wrap gap-1.5 mt-2">
+            <button id="btn-zoom-qr" class="px-2.5 py-1 rounded-lg bg-purple-600/80 hover:bg-purple-500 text-[11px] font-bold text-white">🔍 <span data-i18n="btn_zoom_qr">Perbesar QR</span></button>
             <button id="btn-replay-same" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-bold text-white">🔄 <span data-i18n="btn_replay">Main Lagi</span></button>
-            <button id="btn-switch-game" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-bold text-amber-300">🎮 <span data-i18n="btn_other_game">Game Lain</span></button>
+            <button id="btn-switch-game" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-bold text-purple-200">🎮 <span data-i18n="btn_other_game">Game Lain</span></button>
           </div>
         </div>
       </div>
     </div>
 
     <div class="pt-2.5 shrink-0">
-      <button id="btn-finish-session" class="w-full py-3.5 px-5 rounded-2xl btn-primary-glow text-slate-950 font-display font-extrabold text-base shadow-lg flex items-center justify-center gap-2 active:scale-95">
+      <button id="btn-finish-session" class="w-full py-3.5 px-5 rounded-2xl btn-primary-glow text-white font-display font-extrabold text-base shadow-lg flex items-center justify-center gap-2 active:scale-95">
         <span data-i18n="btn_finish">SELESAI & KEMBALI KE AWAL</span>
-        <span id="card-auto-reset-timer" class="text-xs font-mono-num bg-slate-950/20 px-2 py-0.5 rounded-lg">(30s)</span>
       </button>
     </div>
   </section>
 
 </div>
 
+<!-- MODAL PERBESAR QR CODE -->
+<div id="modal-qr-zoom" class="hidden fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-5 text-center">
+  <div class="glass-card-elevated border-purple-400/50 rounded-3xl p-6 w-full max-w-xs flex flex-col items-center">
+    <h3 data-i18n="qr_title" class="font-display text-lg font-extrabold text-white mb-1">Scan QR Kartu Hasilmu</h3>
+    <p data-i18n="qr_desc" class="text-xs text-purple-200 mb-4">Arahkan kamera HP untuk menyimpan kartu digitalmu</p>
+    <div class="bg-white p-4 rounded-2xl shadow-xl mb-5">
+      <div id="qrcode-zoom-container" class="w-52 h-52 flex items-center justify-center"></div>
+    </div>
+    <button id="btn-close-qr-zoom" class="w-full py-3 rounded-xl btn-primary-glow text-white font-display font-extrabold text-sm">
+      TUTUP
+    </button>
+  </div>
+</div>
+
 <!-- MODAL DASHBOARD PANITIA BPS -->
 <div id="modal-admin" class="hidden fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4">
-  <div class="bg-[#081F4D] border border-amber-400/35 rounded-3xl w-full max-w-md max-h-[88vh] flex flex-col overflow-hidden shadow-2xl">
-    <div class="px-5 py-4 border-b border-amber-400/20 flex items-center justify-between bg-[#051436]">
+  <div class="bg-[#081F4D] border border-purple-400/40 rounded-3xl w-full max-w-md max-h-[88vh] flex flex-col overflow-hidden shadow-2xl">
+    <div class="px-5 py-4 border-b border-purple-400/25 flex items-center justify-between bg-[#051436]">
       <div>
-        <h3 class="font-display text-base font-extrabold text-amber-300">Dashboard Panitia Pameran BPS</h3>
+        <h3 class="font-display text-base font-extrabold text-purple-300">Dashboard Panitia Pameran BPS</h3>
         <p class="text-[11px] text-slate-300">Rekapitulasi Pengunjung & Kalibrasi Gestur</p>
       </div>
       <button id="btn-close-admin" class="w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-bold">✕</button>
@@ -504,34 +540,34 @@
 
     <div class="p-5 overflow-y-auto space-y-4 text-sm">
       <div class="grid grid-cols-2 gap-3 text-center">
-        <div class="bg-slate-950/80 border border-sky-400/20 p-3 rounded-2xl">
+        <div class="bg-slate-950/80 border border-purple-400/25 p-3 rounded-2xl">
           <div class="text-xs text-slate-400">Total Sesi</div>
           <div id="stat-total-sessions" class="font-display text-2xl font-extrabold text-white mt-0.5">0</div>
         </div>
-        <div class="bg-slate-950/80 border border-sky-400/20 p-3 rounded-2xl">
+        <div class="bg-slate-950/80 border border-purple-400/25 p-3 rounded-2xl">
           <div class="text-xs text-slate-400">Rata-rata Skor</div>
-          <div id="stat-avg-score" class="font-display text-2xl font-extrabold text-amber-300 mt-0.5">0.0/5</div>
+          <div id="stat-avg-score" class="font-display text-2xl font-extrabold text-purple-300 mt-0.5">0.0/5</div>
         </div>
       </div>
 
-      <div class="bg-slate-950/80 border border-sky-400/20 rounded-2xl p-3.5 space-y-2 text-xs">
-        <div class="font-bold text-amber-300 uppercase">Distribusi 4 Kategori Kartu</div>
+      <div class="bg-slate-950/80 border border-purple-400/25 rounded-2xl p-3.5 space-y-2 text-xs">
+        <div class="font-bold text-purple-300 uppercase">Distribusi 4 Kategori Kartu</div>
         <div class="flex justify-between"><span>🔴 The Curious Explorer (0-1):</span><strong id="dist-RED">0</strong></div>
-        <div class="flex justify-between"><span>🟠 The Growing Learner (2):</span><strong id="dist-ORANGE">0</strong></div>
+        <div class="flex justify-between"><span>🟣 The Growing Learner (2):</span><strong id="dist-ORANGE">0</strong></div>
         <div class="flex justify-between"><span>🔵 The Data Detective (3-4):</span><strong id="dist-BLUE">0</strong></div>
         <div class="flex justify-between"><span>🟢 The Statistics Insider (5):</span><strong id="dist-GREEN">0</strong></div>
       </div>
 
-      <div class="bg-slate-950/80 border border-sky-400/20 rounded-2xl p-3.5 space-y-2 text-xs">
+      <div class="bg-slate-950/80 border border-purple-400/25 rounded-2xl p-3.5 space-y-2 text-xs">
         <div class="flex justify-between">
           <span>Durasi Tahan Gestur:</span>
-          <strong id="cfg-hold-label" class="text-amber-300">650 ms</strong>
+          <strong id="cfg-hold-label" class="text-purple-300">650 ms</strong>
         </div>
-        <input id="input-hold-ms" type="range" min="300" max="1200" step="50" value="650" class="w-full accent-amber-400">
+        <input id="input-hold-ms" type="range" min="300" max="1200" step="50" value="650" class="w-full accent-purple-400">
       </div>
 
       <div class="flex gap-2.5">
-        <button id="btn-export-csv" class="flex-1 py-3 rounded-xl bg-amber-400 text-slate-950 font-extrabold text-xs">
+        <button id="btn-export-csv" class="flex-1 py-3 rounded-xl bg-purple-500 text-white font-extrabold text-xs">
           📥 Ekspor Hasil (CSV)
         </button>
         <button id="btn-clear-stats" class="py-3 px-4 rounded-xl bg-rose-950 border border-rose-700 text-rose-200 font-bold text-xs">
@@ -545,12 +581,8 @@
 <script type="module">
   import { FilesetResolver, GestureRecognizer } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/+esm";
 
-  // URL Publik untuk QR Code agar langsung bisa dipindai kamera HP pengunjung
   const PUBLIC_QR_BASE_URL = "https://felliclaurine.github.io/bps-digital-trust-kiosk/";
 
-  // =========================================================
-  // KAMUS BILINGUAL (BAHASA INDONESIA & ENGLISH)
-  // =========================================================
   const I18N = {
     ID: {
       cam_title: "Kontrol Gestur Tangan",
@@ -559,7 +591,7 @@
       hero_badge: "Interactive Exhibition Experience",
       hero_sub: "Tebak fakta ekonomi & dunia digital Indonesia pakai gerakan tanganmu, lalu bawa pulang kartu digitalmu!",
       btn_start: "MULAI BERMAIN",
-      privacy_note: '<strong class="text-amber-300">Aman & Privat:</strong> Kamera hanya membaca gestur tangan secara langsung dan tidak merekam wajah atau menyimpan data pribadi.',
+      privacy_note: '<strong class="text-purple-300">Aman & Privat:</strong> Kamera hanya membaca gestur tangan secara langsung dan tidak merekam wajah atau menyimpan data pribadi.',
       step_1_of_2: "Langkah 1 dari 2",
       select_title: "Pilih Tantanganmu",
       select_sub: "5 pernyataan singkat & mudah dipahami • 20 detik per soal",
@@ -584,6 +616,7 @@
       btn_download: "UNDUH",
       qr_title: "Scan QR Kartu Hasilmu",
       qr_desc: "Pindai QR ini dengan kamera HP untuk membuka & mengunduh kartu digital milikmu!",
+      btn_zoom_qr: "Perbesar QR",
       btn_replay: "Main Lagi",
       btn_other_game: "Game Lain",
       btn_finish: "SELESAI & KEMBALI KE AWAL",
@@ -593,8 +626,7 @@
       fb_correct: "Jawaban Kamu Benar!",
       fb_wrong: "Kurang Tepat!",
       card_given_to: "DIBERIKAN KEPADA:",
-      card_final_score: "SKOR AKHIR",
-      card_scan_hint: "Pindai QR di Kiosk untuk simpan di HP"
+      card_final_score: "SKOR AKHIR"
     },
     EN: {
       cam_title: "AI Hand Gesture Control",
@@ -603,7 +635,7 @@
       hero_badge: "Interactive Exhibition Experience",
       hero_sub: "Guess Indonesia's economic & digital facts using your hand gestures, then take home your digital card!",
       btn_start: "START PLAYING",
-      privacy_note: '<strong class="text-amber-300">Safe & Private:</strong> The camera only detects hand gestures in real time and never records faces or personal data.',
+      privacy_note: '<strong class="text-purple-300">Safe & Private:</strong> The camera only detects hand gestures in real time and never records faces or personal data.',
       step_1_of_2: "Step 1 of 2",
       select_title: "Choose Your Challenge",
       select_sub: "5 clear & engaging statements • 20 seconds per question",
@@ -628,6 +660,7 @@
       btn_download: "DOWNLOAD",
       qr_title: "Scan Your Result Card QR",
       qr_desc: "Scan this QR with your phone camera to open & download your personal digital card!",
+      btn_zoom_qr: "Zoom QR",
       btn_replay: "Play Again",
       btn_other_game: "Other Game",
       btn_finish: "FINISH & RETURN TO HOME",
@@ -637,14 +670,10 @@
       fb_correct: "Correct Answer!",
       fb_wrong: "Not Quite Right!",
       card_given_to: "AWARDED TO:",
-      card_final_score: "FINAL SCORE",
-      card_scan_hint: "Scan QR at Kiosk to save on mobile"
+      card_final_score: "FINAL SCORE"
     }
   };
 
-  /**
-   * EFEK SUARA SINTETIS TONE.JS
-   */
   const SoundFX = {
     initialized: false,
     muted: false,
@@ -705,15 +734,12 @@
   const CONFIG = {
     TOTAL_ROUNDS: 5,
     ROUND_DURATION_MS: 20000,
-    FEEDBACK_AUTO_MS: 7000,
-    CARD_AUTO_RESET_SEC: 30,
     HOLD_MS: 650,
     RELEASE_MS: 400,
     MIN_SCORE: 0.60,
     MIN_HAND_SIZE: 0.06
   };
 
-  // BANK SOAL BILINGUAL (ID & EN) — RAMAH AWAM + SOAL MUDAH TERJAMIN DI SETIAP SESI
   const QUESTION_BANK = {
     FINANCIAL: [
       { id: 'FIN-E01', level: 'MUDAH', a: 'BENAR',
@@ -776,7 +802,6 @@
         q_EN: 'All statistical tables, economic indicators, and official publications on bps.go.id can be accessed and downloaded by the public for free.',
         exp_EN: 'BPS provides open access to official statistics via bps.go.id and the AllStats BPS app free of charge.',
         src: 'Portal Resmi BPS (bps.go.id)' },
-
       { id: 'FIN-F01', level: 'FAKTA', a: 'BENAR',
         q_ID: 'Inflasi tahunan (year-on-year) Indonesia pada Desember 2023 tercatat terkendali di angka 2,61 persen.',
         exp_ID: 'Inflasi Desember 2023 sebesar 2,61% (y-on-y), jauh lebih rendah dibanding tahun 2022 yang mencapai 5,51%.',
@@ -870,7 +895,6 @@
         q_EN: 'Nearly all villages in Indonesia (over 96 percent) are covered by mobile cellular signals.',
         exp_EN: 'According to BPS’s Village Potential Census (Podes), more than 96% of villages across Indonesia receive cellular coverage.',
         src: 'Statistik Telekomunikasi Indonesia 2023 (BPS)' },
-
       { id: 'DIG-F01', level: 'FAKTA', a: 'BENAR',
         q_ID: 'Persentase penduduk Indonesia usia 5 tahun ke atas yang mengakses internet pada tahun 2023 mencapai 69,21 persen.',
         exp_ID: 'Angka akses internet penduduk Indonesia naik dari 66,48% (2022) menjadi 69,21% pada tahun 2023.',
@@ -904,6 +928,7 @@
     ]
   };
 
+  // Kategori Kartu (Kuning diganti nuansa Ungu/Violet)
   const RESULT_CATEGORIES = {
     RED: {
       key: 'RED', hex: '#EF4444', bg: ['#7F1D1D', '#061538'],
@@ -912,7 +937,7 @@
       msg_EN: 'There are still many fascinating facts waiting for you. Time to explore more official statistics from BPS!'
     },
     ORANGE: {
-      key: 'ORANGE', hex: '#F59E0B', bg: ['#78350F', '#061538'],
+      key: 'ORANGE', hex: '#A855F7', bg: ['#581C87', '#061538'],
       title: 'THE GROWING LEARNER',
       msg_ID: 'Kamu sudah mulai mengenal fakta dan statistik. Terus kembangkan wawasanmu dengan data akurat!',
       msg_EN: 'You are starting to recognize key facts and figures. Keep expanding your knowledge with reliable data!'
@@ -932,7 +957,7 @@
   };
 
   const appState = {
-    lang: 'ID', // 'ID' | 'EN'
+    lang: 'ID',
     screen: 'idle',
     selectedGame: 'FINANCIAL',
     recentIds: { FINANCIAL: [], DIGITAL: [] },
@@ -942,8 +967,6 @@
     lastAnswerMeta: null,
     roundStartTime: 0,
     roundTimerInterval: null,
-    feedbackTimeout: null,
-    cardResetInterval: null,
     isRoundLocked: false,
     verifyStep: 1,
     cameraReady: false,
@@ -953,37 +976,31 @@
     mustReleaseGesture: false,
     releaseStartTime: 0,
     latestResult: null,
+    latestQrUrl: '',
     isSharedCardView: false,
     analyticsLogs: []
   };
 
-  // =========================================================
-  // FUNGSI TERJEMAHAN UI REAL-TIME (ID <-> EN)
-  // =========================================================
   function applyLanguage() {
     const dict = I18N[appState.lang];
     document.getElementById('lang-label').textContent = appState.lang;
 
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      if (dict[key]) {
-        el.innerHTML = dict[key];
-      }
+      if (dict[key]) el.innerHTML = dict[key];
     });
 
     document.getElementById('badge-gest-true').textContent = `👍 ${dict.word_true}`;
     document.getElementById('badge-gest-false').textContent = `✋ ${dict.word_false}`;
     document.getElementById('input-participant-name').placeholder = dict.name_placeholder;
 
-    // Perbarui status kamera
     const camStatus = document.getElementById('camera-status-text');
     if (appState.cameraReady) {
       camStatus.textContent = appState.lang === 'EN' ? 'Gesture Ready' : 'Gestur Aktif';
     } else {
-      camStatus.textContent = appState.lang === 'EN' ? 'Touch Mode' : 'Mode Sentuh';
+      camStatus.textContent = appState.lang === 'EN' ? 'Enable Cam' : 'Klik Kamera';
     }
 
-    // Perbarui layar aktif jika sedang di latihan, soal, atau kartu hasil
     if (appState.screen === 'verify') renderVerifyStep();
     if (appState.screen === 'play' && appState.sessionQuestions[appState.currentRoundIdx]) {
       const qObj = appState.sessionQuestions[appState.currentRoundIdx];
@@ -1016,8 +1033,9 @@
       else el.classList.add('hidden');
     });
 
+    // Tampilkan cermin kamera di idle, select, verify, dan play (sembunyikan hanya di kartu hasil akhir)
     const pipBox = document.getElementById('pip-camera-box');
-    if ((target === 'idle' || target === 'verify' || target === 'play') && appState.cameraReady) {
+    if (target !== 'card') {
       pipBox.classList.remove('hidden');
     } else {
       pipBox.classList.add('hidden');
@@ -1026,8 +1044,6 @@
 
   function resetToIdle() {
     clearInterval(appState.roundTimerInterval);
-    clearTimeout(appState.feedbackTimeout);
-    clearInterval(appState.cardResetInterval);
     appState.sessionQuestions = [];
     appState.currentRoundIdx = 0;
     appState.score = 0;
@@ -1046,7 +1062,7 @@
   }
 
   // =========================================================
-  // CEK JIKA DIBUKA DARI HASIL SCAN QR CODE KARTU PESERTA
+  // CEK JIKA HALAMAN DIBUKA DARI HASIL SCAN QR CODE KARTU
   // =========================================================
   function checkSharedCardFromUrl() {
     const params = new URLSearchParams(window.location.search);
@@ -1055,7 +1071,10 @@
       const catKey = params.get('c') || getCategoryForScore(score).key;
       const cat = RESULT_CATEGORIES[catKey] || getCategoryForScore(score);
       const name = params.get('n') || 'Data Explorer';
-      const gameTitle = params.get('g') || 'Financial Awareness';
+      const gParam = params.get('g');
+      const gameTitle = gParam === 'D'
+        ? 'Digital Trust Detective'
+        : (gParam === 'F' ? 'Financial Awareness' : (gParam || 'Financial Awareness'));
       const dateStr = params.get('d') || new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
       const token = params.get('id') || 'BPS2026';
       const urlLang = params.get('l');
@@ -1088,16 +1107,19 @@
   }
 
   // =========================================================
-  // KAMERA & MEDIAPIPE GESTURE RECOGNIZER
+  // INISIALISASI KAMERA & MEDIAPIPE (MENDUKUNG FILE LOKAL & HTTPS)
   // =========================================================
   async function initCameraAndGesture() {
     const badgeText = document.getElementById('camera-status-text');
     const badgeDot = document.getElementById('camera-dot');
+    const enableOverlay = document.getElementById('camera-enable-overlay');
 
     try {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        throw new Error('Camera unavailable');
+        throw new Error('Browser tidak mendukung akses kamera');
       }
+
+      badgeText.textContent = 'Meminta Izin...';
 
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { width: { ideal: 640 }, height: { ideal: 480 }, facingMode: 'user' },
@@ -1107,43 +1129,49 @@
       const videoEl = document.getElementById('webcam-video');
       videoEl.srcObject = stream;
       await new Promise((resolve) => {
-        videoEl.onloadedmetadata = () => { videoEl.play(); resolve(); };
+        videoEl.onloadedmetadata = () => {
+          videoEl.play().then(resolve).catch(resolve);
+        };
       });
 
-      badgeText.textContent = 'AI...';
+      enableOverlay.classList.add('hidden');
+      badgeText.textContent = 'Memuat AI...';
 
-      const vision = await FilesetResolver.forVisionTasks(
-        'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm'
-      );
-      const modelAssetPath = 'https://storage.googleapis.com/mediapipe-models/gesture_recognizer/gesture_recognizer/float16/1/gesture_recognizer.task';
+      if (!appState.gestureRecognizer) {
+        const vision = await FilesetResolver.forVisionTasks(
+          'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm'
+        );
+        const modelAssetPath = 'https://storage.googleapis.com/mediapipe-models/gesture_recognizer/gesture_recognizer/float16/1/gesture_recognizer.task';
 
-      try {
-        appState.gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
-          baseOptions: { modelAssetPath, delegate: 'GPU' },
-          runningMode: 'VIDEO',
-          numHands: 2
-        });
-      } catch (e) {
-        appState.gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
-          baseOptions: { modelAssetPath, delegate: 'CPU' },
-          runningMode: 'VIDEO',
-          numHands: 2
-        });
+        try {
+          appState.gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
+            baseOptions: { modelAssetPath, delegate: 'GPU' },
+            runningMode: 'VIDEO',
+            numHands: 2
+          });
+        } catch (e) {
+          appState.gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
+            baseOptions: { modelAssetPath, delegate: 'CPU' },
+            runningMode: 'VIDEO',
+            numHands: 2
+          });
+        }
       }
 
       appState.cameraReady = true;
       badgeDot.className = 'w-2 h-2 rounded-full bg-emerald-400';
       badgeText.textContent = appState.lang === 'EN' ? 'Gesture Ready' : 'Gestur Aktif';
 
-      if (appState.screen === 'idle' || appState.screen === 'verify' || appState.screen === 'play') {
-        document.getElementById('pip-camera-box').classList.remove('hidden');
-      }
-
       requestAnimationFrame(gestureDetectionLoop);
     } catch (err) {
       appState.cameraReady = false;
-      badgeDot.className = 'w-2 h-2 rounded-full bg-sky-400';
-      badgeText.textContent = appState.lang === 'EN' ? 'Touch Mode' : 'Mode Sentuh';
+      enableOverlay.classList.remove('hidden');
+      badgeDot.className = 'w-2 h-2 rounded-full bg-purple-400';
+      badgeText.textContent = appState.lang === 'EN' ? 'Enable Cam' : 'Klik Kamera';
+      document.getElementById('gesture-live-feedback').textContent =
+        appState.lang === 'EN'
+          ? 'Tap "Nyalakan Kamera" on left or use touch buttons'
+          : 'Klik "Nyalakan Kamera" di kiri atau pakai tombol sentuh';
     }
   }
 
@@ -1297,7 +1325,7 @@
   }
 
   // =========================================================
-  // LATIHAN GESTUR SEBELUM BERMAIN (PAGE 03)
+  // LATIHAN GESTUR SEBELUM BERMAIN
   // =========================================================
   function enterPracticeScreen(gameType) {
     SoundFX.playClick();
@@ -1332,7 +1360,7 @@
         ? 'Show <strong class="text-white">Thumbs Up (👍)</strong> to the camera if you think the statistical statement is <strong class="text-emerald-300">TRUE</strong>.'
         : 'Tunjukkan <strong class="text-white">Jempol ke Atas (👍)</strong> ke kamera jika pernyataan statistik menurutmu <strong class="text-emerald-300">BENAR</strong>.';
       card.className = 'glass-card-elevated border-2 border-emerald-400/60 rounded-3xl p-6 w-full shadow-2xl transition-all';
-      bar.className = 'h-full w-0 bg-gradient-to-r from-emerald-400 to-amber-300 rounded-full transition-all duration-75';
+      bar.className = 'h-full w-0 bg-gradient-to-r from-emerald-400 to-purple-400 rounded-full transition-all duration-75';
       btnTouch.className = 'w-full py-4 px-5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-display font-extrabold text-base shadow-lg border border-emerald-300/40 flex items-center justify-center gap-3';
       btnIcon.textContent = '👍';
       btnLabel.textContent = isEn ? 'TEST TRUE ANSWER (TAP)' : 'COBA JAWAB BENAR (SENTUH)';
@@ -1344,7 +1372,7 @@
         ? 'Show an <strong class="text-white">Open Palm (✋)</strong> to the camera if you think the statistical statement is <strong class="text-rose-300">FALSE</strong>.'
         : 'Tunjukkan <strong class="text-white">5 Jari Terbuka (✋)</strong> ke kamera jika pernyataan statistik menurutmu <strong class="text-rose-300">SALAH</strong>.';
       card.className = 'glass-card-elevated border-2 border-rose-400/60 rounded-3xl p-6 w-full shadow-2xl transition-all';
-      bar.className = 'h-full w-0 bg-gradient-to-r from-rose-500 to-amber-400 rounded-full transition-all duration-75';
+      bar.className = 'h-full w-0 bg-gradient-to-r from-rose-500 to-purple-400 rounded-full transition-all duration-75';
       btnTouch.className = 'w-full py-4 px-5 rounded-2xl bg-rose-600 hover:bg-rose-500 text-white font-display font-extrabold text-base shadow-lg border border-rose-300/40 flex items-center justify-center gap-3';
       btnIcon.textContent = '✋';
       btnLabel.textContent = isEn ? 'TEST FALSE ANSWER (TAP)' : 'COBA JAWAB SALAH (SENTUH)';
@@ -1352,7 +1380,7 @@
   }
 
   // =========================================================
-  // PENGACAKAN 5 SOAL TERSTRUKTUR (3 MUDAH + 2 FAKTA)
+  // PENGACAKAN 5 SOAL TERSTRUKTUR & LANJUT MANUAL DENGAN TOMBOL
   // =========================================================
   function pickFiveQuestions(gameType) {
     const pool = QUESTION_BANK[gameType];
@@ -1423,8 +1451,8 @@
         timerBar.className = 'h-full bg-rose-500 rounded-full transition-all duration-100';
         timerText.className = 'font-mono-num text-xl font-extrabold text-rose-400';
       } else {
-        timerBar.className = 'h-full bg-gradient-to-r from-amber-400 via-sky-400 to-cyan-300 rounded-full transition-all duration-100';
-        timerText.className = 'font-mono-num text-xl font-extrabold text-amber-300';
+        timerBar.className = 'h-full bg-gradient-to-r from-purple-400 via-sky-400 to-cyan-300 rounded-full transition-all duration-100';
+        timerText.className = 'font-mono-num text-xl font-extrabold text-purple-300';
       }
 
       if (remaining <= 0) {
@@ -1451,12 +1479,8 @@
 
     appState.lastAnswerMeta = { userAnswer, timedOut, isCorrect, qObj };
     renderFeedbackOverlayContent();
+    // Tidak ada timer auto-lanjut; peserta membaca dengan nyaman lalu menekan tombol LANJUTKAN
     document.getElementById('round-feedback-overlay').classList.remove('hidden');
-
-    clearTimeout(appState.feedbackTimeout);
-    appState.feedbackTimeout = setTimeout(() => {
-      goToNextRound();
-    }, CONFIG.FEEDBACK_AUTO_MS);
   }
 
   function renderFeedbackOverlayContent() {
@@ -1471,7 +1495,7 @@
     if (timedOut) {
       iconEl.textContent = '⏰';
       titleEl.textContent = dict.fb_timeout;
-      titleEl.className = 'font-display text-2xl font-extrabold text-amber-400';
+      titleEl.className = 'font-display text-2xl font-extrabold text-purple-300';
     } else if (isCorrect) {
       iconEl.textContent = '✅';
       titleEl.textContent = dict.fb_correct;
@@ -1496,13 +1520,12 @@
   }
 
   function goToNextRound() {
-    clearTimeout(appState.feedbackTimeout);
     appState.currentRoundIdx++;
     loadRound(appState.currentRoundIdx);
   }
 
   // =========================================================
-  // KARTU HASIL DIGITAL & QR CODE LANGSUNG KE KARTU PESERTA
+  // KARTU HASIL DIGITAL & QR CODE (TANPA AUTO-RESET TIMER)
   // =========================================================
   function getCategoryForScore(score) {
     if (score <= 1) return RESULT_CATEGORIES.RED;
@@ -1515,7 +1538,7 @@
     clearInterval(appState.roundTimerInterval);
     const cat = getCategoryForScore(appState.score);
     const gameTitle = appState.selectedGame === 'DIGITAL' ? 'Digital Trust Detective' : 'Financial Awareness';
-    const token = Math.random().toString(36).substring(2, 9).toUpperCase();
+    const token = Math.random().toString(36).substring(2, 8).toUpperCase();
     const dateStr = new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
 
     appState.latestResult = {
@@ -1538,41 +1561,52 @@
     renderCardQrCode();
     switchScreen('card');
     SoundFX.playFanfare(appState.score);
-    startCardAutoReset();
   }
 
   function renderCardQrCode() {
     const res = appState.latestResult;
     if (!res) return;
     const qrContainer = document.getElementById('qrcode-container');
+    const qrZoomContainer = document.getElementById('qrcode-zoom-container');
     qrContainer.innerHTML = '';
+    qrZoomContainer.innerHTML = '';
 
-    // Gunakan URL publik HTTPS agar kamera HP langsung membuka halaman kartu peserta (bukan file://)
     const isHttp = window.location.protocol === 'http:' || window.location.protocol === 'https:';
     const baseUrl = isHttp
       ? `${window.location.origin}${window.location.pathname}`
       : PUBLIC_QR_BASE_URL;
 
+    // Parameter ringkas agar QR titiknya besar, kontras, dan mudah dibaca kamera HP
+    const gameCode = res.gameTitle.includes('Digital') ? 'D' : 'F';
     const params = new URLSearchParams({
       card: '1',
-      n: res.participantName || 'Data Explorer',
-      g: res.gameTitle,
+      n: (res.participantName || 'Data Explorer').slice(0, 18),
+      g: gameCode,
       s: String(res.score),
       c: res.category.key,
-      d: res.dateStr,
       id: res.token,
       l: appState.lang
     });
 
     const cardShareUrl = `${baseUrl}?${params.toString()}`;
+    appState.latestQrUrl = cardShareUrl;
 
     new QRCode(qrContainer, {
       text: cardShareUrl,
-      width: 80,
-      height: 80,
-      colorDark: '#061538',
+      width: 112,
+      height: 112,
+      colorDark: '#000000',
       colorLight: '#FFFFFF',
-      correctLevel: QRCode.CorrectLevel.L
+      correctLevel: QRCode.CorrectLevel.M
+    });
+
+    new QRCode(qrZoomContainer, {
+      text: cardShareUrl,
+      width: 208,
+      height: 208,
+      colorDark: '#000000',
+      colorLight: '#FFFFFF',
+      correctLevel: QRCode.CorrectLevel.M
     });
   }
 
@@ -1588,22 +1622,20 @@
     ctx.clearRect(0, 0, W, H);
     const grad = ctx.createLinearGradient(0, 0, W, H);
     grad.addColorStop(0, res.category.bg[0]);
-    grad.addColorStop(0.55, '#071942');
-    grad.addColorStop(1, '#040E26');
+    grad.addColorStop(0.55, '#07173D');
+    grad.addColorStop(1, '#040D24');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, W, H);
 
-    // Bingkai kartu dengan aksen emas booth
     ctx.strokeStyle = res.category.hex;
     ctx.lineWidth = 8;
     ctx.strokeRect(20, 20, W - 40, H - 40);
 
-    ctx.strokeStyle = 'rgba(251, 191, 36, 0.45)';
+    ctx.strokeStyle = 'rgba(192, 132, 252, 0.5)';
     ctx.lineWidth = 2;
     ctx.strokeRect(32, 32, W - 64, H - 64);
 
-    // Header BPS
-    ctx.fillStyle = '#FBBF24';
+    ctx.fillStyle = '#D8B4FE';
     ctx.font = 'italic 800 22px "Plus Jakarta Sans", sans-serif';
     ctx.fillText('BADAN PUSAT STATISTIK', 54, 82);
 
@@ -1615,7 +1647,7 @@
     ctx.font = '700 24px "Plus Jakarta Sans", sans-serif';
     ctx.fillText(res.gameTitle, 54, 162);
 
-    // Kotak Logo Resmi BPS di Pojok Kanan Atas Kartu (Presisi Vektor Path2D)
+    // Logo Resmi BPS
     ctx.fillStyle = '#FFFFFF';
     ctx.beginPath();
     ctx.roundRect(W - 142, 50, 88, 88, 18);
@@ -1640,7 +1672,6 @@
     ctx.font = '700 20px "Plus Jakarta Sans", sans-serif';
     ctx.fillText(dict.card_final_score, W / 2, 396);
 
-    // Nama Peserta
     ctx.fillStyle = '#94A3B8';
     ctx.font = '700 21px "Plus Jakarta Sans", sans-serif';
     ctx.fillText(dict.card_given_to, W / 2, 515);
@@ -1649,7 +1680,6 @@
     ctx.font = '800 44px "Space Grotesk", sans-serif';
     ctx.fillText(res.participantName || 'Data Explorer', W / 2, 570);
 
-    // Pill Kategori Julukan
     ctx.fillStyle = res.category.hex;
     ctx.beginPath();
     ctx.roundRect(85, 610, W - 170, 62, 16);
@@ -1659,14 +1689,12 @@
     ctx.font = '800 28px "Space Grotesk", sans-serif';
     ctx.fillText(res.category.title, W / 2, 650);
 
-    // Pesan Motivasi Bilingual
     const msgText = appState.lang === 'EN' ? res.category.msg_EN : res.category.msg_ID;
     ctx.fillStyle = '#E2E8F0';
     ctx.font = '500 24px "Plus Jakarta Sans", sans-serif';
     wrapText(ctx, msgText, W / 2, 738, W - 120, 34);
 
-    // Footer Tanggal & Token
-    ctx.fillStyle = '#FBBF24';
+    ctx.fillStyle = '#D8B4FE';
     ctx.font = '700 20px "JetBrains Mono", monospace';
     ctx.fillText(`${res.dateStr}  •  CARD #${res.token}`, W / 2, H - 80);
 
@@ -1676,30 +1704,20 @@
     ctx.textAlign = 'left';
   }
 
-  // Menggambar Logo Resmi BPS (3 Batang Zig-Zag Biru, Hijau, Oranye + Orbit) secara presisi pada Canvas
   function drawAccurateBpsLogoOnCanvas(ctx, x, y, size) {
     const scale = size / 220;
     ctx.save();
     ctx.translate(x, y + size * 0.04);
     ctx.scale(scale, scale);
 
-    // Orbit Biru Kiri
     ctx.fillStyle = '#008FD5';
     ctx.fill(new Path2D('M55 68 C18 92, 16 135, 58 148 C98 160, 148 144, 178 122 C145 140, 96 150, 62 138 C32 127, 34 93, 62 74 Z'));
-
-    // Orbit Oranye Kanan
     ctx.fillStyle = '#F39200';
     ctx.fill(new Path2D('M68 58 C105 38, 158 36, 188 58 C215 78, 202 115, 165 135 C190 112, 198 82, 176 66 C150 48, 104 49, 68 58 Z'));
-
-    // Batang Biru Kiri Atas
     ctx.fillStyle = '#008FD5';
     ctx.fill(new Path2D('M62 28 H92 C95 28, 97 30, 96 33 L88 68 H115 C118 68, 120 70, 119 73 L110 112 C109 115, 106 117, 103 117 H64 L74 111 L82 78 H54 C51 78, 49 76, 50 73 L59 32 C60 29, 61 28, 62 28 Z'));
-
-    // Batang Oranye Kanan Atas
     ctx.fillStyle = '#F39200';
     ctx.fill(new Path2D('M126 28 H166 L156 34 L148 68 H175 C178 68, 180 70, 179 73 L170 112 C169 115, 166 117, 163 117 H138 C135 117, 133 115, 134 112 L142 78 H115 C112 78, 110 76, 111 73 L120 32 C121 29, 123 28, 126 28 Z'));
-
-    // Batang Hijau Bawah Tengah
     ctx.fillStyle = '#76B82A';
     ctx.fill(new Path2D('M104 82 H134 C137 82, 139 84, 138 87 L130 120 C129 123, 126 125, 123 125 H96 L88 160 C87 163, 84 165, 81 165 H53 C50 165, 48 163, 49 160 L58 120 C59 117, 62 115, 65 115 H92 L100 86 C101 83, 102 82, 104 82 Z'));
 
@@ -1723,22 +1741,17 @@
     ctx.fillText(line.trim(), x, currY);
   }
 
-  function startCardAutoReset() {
-    clearInterval(appState.cardResetInterval);
-    if (appState.isSharedCardView) return;
-    let sec = CONFIG.CARD_AUTO_RESET_SEC;
-    const el = document.getElementById('card-auto-reset-timer');
-    el.textContent = `(${sec}s)`;
-    appState.cardResetInterval = setInterval(() => {
-      sec--;
-      el.textContent = `(${sec}s)`;
-      if (sec <= 0) resetToIdle();
-    }, 1000);
-  }
+  // =========================================================
+  // EVENT LISTENERS
+  // =========================================================
+  document.getElementById('btn-manual-cam').addEventListener('click', () => {
+    SoundFX.playClick();
+    initCameraAndGesture();
+  });
+  document.getElementById('camera-badge').addEventListener('click', () => {
+    if (!appState.cameraReady) initCameraAndGesture();
+  });
 
-  // =========================================================
-  // EVENT LISTENERS (TERMASUK SAKELAR BAHASA ID / EN)
-  // =========================================================
   document.getElementById('btn-lang-toggle').addEventListener('click', () => {
     appState.lang = appState.lang === 'ID' ? 'EN' : 'ID';
     SoundFX.playClick();
@@ -1785,6 +1798,19 @@
     link.download = `BPS-Digital-Trust-Card-${appState.latestResult?.token || 'BPS'}.png`;
     link.href = canvas.toDataURL('image/png');
     link.click();
+  });
+
+  document.getElementById('btn-zoom-qr').addEventListener('click', () => {
+    SoundFX.playClick();
+    document.getElementById('modal-qr-zoom').classList.remove('hidden');
+  });
+  document.getElementById('qr-box-clickable').addEventListener('click', () => {
+    SoundFX.playClick();
+    document.getElementById('modal-qr-zoom').classList.remove('hidden');
+  });
+  document.getElementById('btn-close-qr-zoom').addEventListener('click', () => {
+    SoundFX.playClick();
+    document.getElementById('modal-qr-zoom').classList.add('hidden');
   });
 
   document.getElementById('btn-replay-same').addEventListener('click', () => {

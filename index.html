@@ -31,7 +31,6 @@
     .font-mono-num { font-family: 'JetBrains Mono', monospace; }
     input { user-select: text; -webkit-user-select: text; }
 
-    /* Izinkan tekan tahan pada gambar kartu fallback di iOS */
     img.allow-ios-save {
       user-select: auto;
       -webkit-user-select: auto;
@@ -100,7 +99,6 @@
       box-shadow: 0 18px 45px rgba(0, 0, 0, 0.52), 0 0 28px rgba(168, 85, 247, 0.16);
     }
 
-    /* Kedua Kartu Pilihan Game Menggunakan Biru Muda Cerah Seragam */
     .card-game-blue {
       background: linear-gradient(150deg, rgba(14, 116, 195, 0.88) 0%, rgba(23, 68, 158, 0.94) 100%);
       backdrop-filter: blur(22px);
@@ -153,7 +151,7 @@
   <div class="booth-pillar-right"></div>
   <div class="tech-grid"></div>
 
-  <!-- HEADER KIOSK (Disembunyikan otomatis saat dibuka lewat scan QR di HP) -->
+  <!-- HEADER KIOSK -->
   <header id="kiosk-header" class="px-4 pt-3.5 pb-2.5 flex items-center justify-between border-b border-purple-400/25 bg-[#061436]/90 backdrop-blur-md z-20 shrink-0">
     <div class="flex items-center gap-2.5 min-w-0">
       <div class="w-10 h-10 rounded-xl bg-white p-1.5 flex items-center justify-center shadow-md shrink-0">
@@ -282,7 +280,7 @@
   </main>
 
   <!-- ===================================================================== -->
-  <!-- PAGE 02: PILIHAN DUA GAME (KEDUANYA WARNA BIRU MUDA CERAH)            -->
+  <!-- PAGE 02: PILIHAN DUA GAME                                             -->
   <!-- ===================================================================== -->
   <section id="screen-select" class="hidden flex-1 w-full flex flex-col justify-between p-5 z-10 overflow-y-auto no-scrollbar">
     <div class="text-center mt-1">
@@ -457,38 +455,36 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- PAGE 06 & 07: KARTU KARAKTER 9:16 STORY & QR CODE                     -->
+  <!-- PAGE 06 & 07: KARTU KARAKTER & QR CODE                                -->
   <!-- ===================================================================== -->
   <section id="screen-card" class="hidden flex-1 w-full flex flex-col justify-between p-4 sm:p-5 overflow-y-auto no-scrollbar z-10">
     <div class="flex flex-col items-center space-y-2.5 my-auto">
-      <!-- Kartu Digital 9:16 Story (Canvas 1080x1920 + Synced IMG untuk iOS Save) -->
       <div class="relative w-full max-w-[245px] sm:max-w-[260px] aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl border-2 border-purple-400/55 bg-slate-950">
         <canvas id="result-card-canvas" width="1080" height="1920" class="w-full h-full block"></canvas>
         <img id="result-card-img-sync" alt="Kartu Digital BPS" class="allow-ios-save hidden absolute inset-0 w-full h-full object-contain" />
       </div>
 
-      <!-- Petunjuk Simpan iOS (Muncul jika pengguna menekan tombol simpan di Safari iOS) -->
       <div id="ios-save-hint" class="hidden w-full py-2 px-3 rounded-xl bg-purple-600/35 border border-purple-300/50 text-center text-[11px] font-bold text-purple-100">
         📱 Pengguna iPhone/iPad: Tekan & tahan gambar kartu di atas lalu pilih <strong>"Simpan ke Foto" (Save to Photos)</strong>!
       </div>
 
-      <!-- Input Nama Opsional + Tombol Unduh / Simpan (Support iOS & Android) -->
+      <!-- Input Nama Opsional + Tombol Unduh / Simpan -->
       <div id="name-input-box" class="w-full glass-panel rounded-2xl p-2.5 flex items-center gap-2 border-purple-400/35">
         <input id="input-participant-name" type="text" maxlength="20" placeholder="Ketik namamu di kartu (opsional)..."
           class="flex-1 px-3 py-2 rounded-xl bg-slate-950/90 border border-purple-400/40 text-white text-xs sm:text-sm focus:outline-none focus:border-purple-300">
         <button id="btn-download-card" class="px-3.5 py-2 rounded-xl bg-purple-500 hover:bg-purple-400 text-white font-display font-extrabold text-xs shrink-0 active:scale-95 flex items-center gap-1">
           <span>⬇️</span>
-          <span data-i18n="btn_download">UNDUH</span>
+          <span data-i18n="btn_download">SIMPAN KARTU</span>
         </button>
       </div>
 
-      <!-- Kotak QR Code (Otomatis disembunyikan saat dibuka dari scan QR di HP) -->
+      <!-- Kotak QR Code -->
       <div id="kiosk-qr-section" class="w-full glass-panel rounded-2xl p-2.5 flex items-center gap-3 border-purple-400/35">
         <div class="bg-white p-1.5 rounded-xl shrink-0 shadow-md cursor-pointer" id="qr-box-clickable" title="Klik untuk memperbesar QR">
           <div id="qrcode-container" class="w-24 h-24 flex items-center justify-center"></div>
         </div>
         <div class="flex-1 text-left">
-          <div data-i18n="qr_title" class="text-xs font-extrabold text-purple-300 uppercase">Scan QR Kartu Story 9:16</div>
+          <div data-i18n="qr_title" class="text-xs font-extrabold text-purple-300 uppercase">SCAN QR KARTUMU!</div>
           <p data-i18n="qr_desc" class="text-[10px] text-slate-200 leading-snug mt-0.5">
             Pindai QR dengan kamera HP untuk membuka & menyimpan kartu karaktermu!
           </p>
@@ -501,7 +497,6 @@
       </div>
     </div>
 
-    <!-- Tombol Selesai Kiosk -->
     <div id="kiosk-finish-section" class="pt-2 shrink-0">
       <button id="btn-finish-session" class="w-full py-3 px-5 rounded-2xl btn-primary-glow text-white font-display font-extrabold text-sm sm:text-base shadow-lg flex items-center justify-center gap-2 active:scale-95">
         <span data-i18n="btn_finish">SELESAI & KEMBALI KE AWAL</span>
@@ -514,8 +509,8 @@
 <!-- MODAL PERBESAR QR CODE -->
 <div id="modal-qr-zoom" class="hidden fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-5 text-center">
   <div class="glass-card-elevated border-purple-400/50 rounded-3xl p-6 w-full max-w-xs flex flex-col items-center">
-    <h3 data-i18n="qr_title" class="font-display text-lg font-extrabold text-white mb-1">Scan QR Kartu Hasilmu</h3>
-    <p data-i18n="qr_desc" class="text-xs text-purple-200 mb-4">Arahkan kamera HP untuk menyimpan kartu digitalmu</p>
+    <h3 data-i18n="qr_title" class="font-display text-lg font-extrabold text-white mb-1">SCAN QR KARTUMU!</h3>
+    <p data-i18n="qr_desc" class="text-xs text-purple-200 mb-4">Pindai QR dengan kamera HP untuk membuka & menyimpan kartu karaktermu!</p>
     <div class="bg-white p-4 rounded-2xl shadow-xl mb-5">
       <div id="qrcode-zoom-container" class="w-52 h-52 flex items-center justify-center"></div>
     </div>
@@ -549,11 +544,18 @@
       </div>
 
       <div class="bg-slate-950/80 border border-purple-400/25 rounded-2xl p-3.5 space-y-2 text-xs">
-        <div class="font-bold text-purple-300 uppercase">Distribusi 4 Karakter MBTI Statistik</div>
+        <div class="font-bold text-purple-300 uppercase">Distribusi 4 Karakter Statistik</div>
         <div class="flex justify-between"><span>🔴 The Curious Explorer (0-1):</span><strong id="dist-RED">0</strong></div>
         <div class="flex justify-between"><span>🟣 The Growing Learner (2):</span><strong id="dist-ORANGE">0</strong></div>
         <div class="flex justify-between"><span>🔵 The Data Detective (3-4):</span><strong id="dist-BLUE">0</strong></div>
         <div class="flex justify-between"><span>🟢 The Statistics Insider (5):</span><strong id="dist-GREEN">0</strong></div>
+      </div>
+
+      <!-- Pengaturan URL Tujuan QR Code (Opsional jika punya domain khusus) -->
+      <div class="bg-slate-950/80 border border-purple-400/25 rounded-2xl p-3.5 space-y-2 text-xs">
+        <label for="input-qr-base-url" class="block font-bold text-purple-300 uppercase">URL Publik Kartu QR (Saat Offline)</label>
+        <input id="input-qr-base-url" type="url" value="https://felliclaurine.github.io/bps-digital-trust-kiosk/"
+          class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-purple-400/35 text-white text-[11px] font-mono-num">
       </div>
 
       <div class="bg-slate-950/80 border border-purple-400/25 rounded-2xl p-3.5 space-y-2 text-xs">
@@ -579,7 +581,7 @@
 <script type="module">
   import { FilesetResolver, GestureRecognizer } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/+esm";
 
-  const PUBLIC_QR_BASE_URL = "https://felliclaurine.github.io/bps-digital-trust-kiosk/";
+  let PUBLIC_QR_BASE_URL = localStorage.getItem('BPS_QR_BASE_URL') || "https://felliclaurine.github.io/bps-digital-trust-kiosk/";
 
   const I18N = {
     ID: {
@@ -612,7 +614,7 @@
       hold_false_hint: "Tahan ✋ / Sentuh",
       name_placeholder: "Ketik namamu di kartu (opsional)...",
       btn_download: "SIMPAN KARTU",
-      qr_title: "Scan QR Kartu Story 9:16",
+      qr_title: "SCAN QR KARTUMU!",
       qr_desc: "Pindai QR dengan kamera HP untuk membuka & menyimpan kartu karaktermu!",
       btn_zoom_qr: "Perbesar QR",
       btn_replay: "Main Lagi",
@@ -656,7 +658,7 @@
       hold_false_hint: "Hold ✋ / Tap",
       name_placeholder: "Enter your name on card (optional)...",
       btn_download: "SAVE CARD",
-      qr_title: "Scan 9:16 Story Card QR",
+      qr_title: "SCAN YOUR CARD QR!",
       qr_desc: "Scan this QR with your phone camera to open & save your personal character card!",
       btn_zoom_qr: "Zoom QR",
       btn_replay: "Play Again",
@@ -738,7 +740,6 @@
     MIN_HAND_SIZE: 0.06
   };
 
-  // BANK SOAL TERBARU (2024 - 2026) & SEIMBANG ANTARA BENAR & SALAH
   const QUESTION_BANK = {
     FINANCIAL: [
       { id: 'FIN-2401', level: 'MUDAH', a: 'BENAR',
@@ -915,7 +916,6 @@
     ]
   };
 
-  // 4 KARAKTER PERSONA BERGAYA TES MBTI
   const RESULT_CATEGORIES = {
     RED: {
       key: 'RED',
@@ -1069,9 +1069,6 @@
     switchScreen('idle');
   }
 
-  // =========================================================
-  // MODE KARTU EKSKLUSIF SAAT QR CODE DI-SCAN DARI HP
-  // =========================================================
   function checkSharedCardFromUrl() {
     const params = new URLSearchParams(window.location.search);
     if (params.get('card') === '1') {
@@ -1334,9 +1331,6 @@
     }
   }
 
-  // =========================================================
-  // LATIHAN GESTUR SEBELUM BERMAIN
-  // =========================================================
   function enterPracticeScreen(gameType) {
     SoundFX.playClick();
     appState.selectedGame = gameType;
@@ -1389,9 +1383,6 @@
     }
   }
 
-  // =========================================================
-  // PENGACAKAN 5 SOAL TERBARU: DIJAMIN TIDAK PERNAH BENAR SEMUA / SALAH SEMUA
-  // =========================================================
   function pickFiveQuestions(gameType) {
     const pool = QUESTION_BANK[gameType];
     const recent = appState.recentIds[gameType] || [];
@@ -1407,7 +1398,6 @@
     const truePool = pool.filter(item => item.a === 'BENAR');
     const falsePool = pool.filter(item => item.a === 'SALAH');
 
-    // Wajib campuran: 3 BENAR + 2 SALAH atau 2 BENAR + 3 SALAH
     const trueCount = Math.random() < 0.5 ? 3 : 2;
     const falseCount = CONFIG.TOTAL_ROUNDS - trueCount;
 
@@ -1421,7 +1411,6 @@
     const chosenFalse = pickFromSubPool(falsePool, falseCount);
     let combined = shuffle([...chosenTrue, ...chosenFalse]);
 
-    // Pindahkan salah satu soal kategori MUDAH ke urutan pertama sebagai pemanasan
     const easyIdx = combined.findIndex(q => q.level === 'MUDAH');
     if (easyIdx > 0) {
       [combined[0], combined[easyIdx]] = [combined[easyIdx], combined[0]];
@@ -1548,9 +1537,6 @@
     loadRound(appState.currentRoundIdx);
   }
 
-  // =========================================================
-  // KARTU KARAKTER MBTI STORY 9:16 (1080x1920) & QR CODE
-  // =========================================================
   function getCategoryForScore(score) {
     if (score <= 1) return RESULT_CATEGORIES.RED;
     if (score === 2) return RESULT_CATEGORIES.ORANGE;
@@ -1632,21 +1618,17 @@
     });
   }
 
-  /**
-   * MERENDER KARTU STORY 9:16 (1080 x 1920 PX) DENGAN ILUSTRASI KARAKTER MBTI
-   */
   function renderResultCanvas() {
     const res = appState.latestResult;
     if (!res) return;
     const dict = I18N[appState.lang];
     const canvas = document.getElementById('result-card-canvas');
     const ctx = canvas.getContext('2d');
-    const W = canvas.width;   // 1080
-    const H = canvas.height;  // 1920
+    const W = canvas.width;
+    const H = canvas.height;
 
     ctx.clearRect(0, 0, W, H);
 
-    // 1. Background Gradient Story 9:16
     const grad = ctx.createLinearGradient(0, 0, W, H);
     grad.addColorStop(0, res.category.bg[0]);
     grad.addColorStop(0.45, '#091E4A');
@@ -1654,7 +1636,6 @@
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, W, H);
 
-    // Dekorasi Grid Halus di Latar Kartu
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
     ctx.lineWidth = 2;
     for (let gx = 60; gx < W; gx += 60) {
@@ -1664,7 +1645,6 @@
       ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke();
     }
 
-    // Bingkai Luar Story
     ctx.strokeStyle = res.category.hex;
     ctx.lineWidth = 14;
     ctx.strokeRect(32, 32, W - 64, H - 64);
@@ -1673,7 +1653,6 @@
     ctx.lineWidth = 3;
     ctx.strokeRect(52, 52, W - 104, H - 104);
 
-    // 2. Header BPS & Logo
     ctx.fillStyle = '#FFFFFF';
     ctx.beginPath();
     ctx.roundRect(84, 92, 114, 114, 24);
@@ -1689,7 +1668,6 @@
     ctx.font = '800 40px "Space Grotesk", sans-serif';
     ctx.fillText('STATISTICS FOR DIGITAL TRUST', 224, 184);
 
-    // Pill Nama Game
     ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
     ctx.beginPath();
     ctx.roundRect(84, 236, W - 168, 56, 16);
@@ -1699,10 +1677,8 @@
     ctx.font = '700 28px "Plus Jakarta Sans", sans-serif';
     ctx.fillText(`CHALLENGE: ${res.gameTitle.toUpperCase()}`, W / 2, 274);
 
-    // 3. Ilustrasi Karakter MBTI Persona di Tengah Atas (Y = 585)
     drawMbtiCharacterIllustration(ctx, W / 2, 585, res.category);
 
-    // Pill Kode Tipe MBTI
     ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
     ctx.beginPath();
     ctx.roundRect(W / 2 - 260, 845, 520, 56, 28);
@@ -1715,7 +1691,6 @@
     ctx.font = '800 26px "JetBrains Mono", monospace';
     ctx.fillText(res.category.mbtiTag, W / 2, 882);
 
-    // 4. Judul Julukan Karakter
     ctx.fillStyle = res.category.hex;
     ctx.beginPath();
     ctx.roundRect(96, 930, W - 192, 92, 24);
@@ -1725,7 +1700,6 @@
     ctx.font = '800 44px "Space Grotesk", sans-serif';
     ctx.fillText(res.category.title, W / 2, 991);
 
-    // 5. Nama Peserta & Skor Akhir
     ctx.fillStyle = '#94A3B8';
     ctx.font = '700 26px "Plus Jakarta Sans", sans-serif';
     ctx.fillText(dict.card_given_to, W / 2, 1090);
@@ -1734,7 +1708,6 @@
     ctx.font = '800 62px "Space Grotesk", sans-serif';
     ctx.fillText(res.participantName || 'Data Explorer', W / 2, 1165);
 
-    // Kotak Skor
     ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
     ctx.beginPath();
     ctx.roundRect(W / 2 - 190, 1205, 380, 115, 26);
@@ -1750,13 +1723,11 @@
     ctx.font = '700 22px "Plus Jakarta Sans", sans-serif';
     ctx.fillText(dict.card_final_score, W / 2, 1304);
 
-    // 6. Deskripsi Kepribadian Data
     const msgText = appState.lang === 'EN' ? res.category.msg_EN : res.category.msg_ID;
     ctx.fillStyle = '#F1F5F9';
     ctx.font = '500 34px "Plus Jakarta Sans", sans-serif';
     wrapText(ctx, msgText, W / 2, 1410, W - 180, 48);
 
-    // 7. Footer Story (#SadarStatistik & ID Kartu)
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
     ctx.lineWidth = 2;
     ctx.beginPath();
@@ -1774,20 +1745,15 @@
 
     ctx.textAlign = 'left';
 
-    // Sinkronkan juga ke tag <img> tersembunyi untuk dukungan tekan-tahan di iOS Safari
     try {
       const imgSync = document.getElementById('result-card-img-sync');
       imgSync.src = canvas.toDataURL('image/png');
     } catch (e) {}
   }
 
-  /**
-   * ILUSTRASI KARAKTER BERGAYA MBTI PADA CANVAS (4 PERSONA UNIK)
-   */
   function drawMbtiCharacterIllustration(ctx, cx, cy, category) {
     ctx.save();
 
-    // Aura Lingkaran Cahaya Belakang Karakter
     const aura = ctx.createRadialGradient(cx, cy, 40, cx, cy, 240);
     aura.addColorStop(0, category.hex + '88');
     aura.addColorStop(0.65, category.hex + '28');
@@ -1797,7 +1763,6 @@
     ctx.arc(cx, cy, 240, 0, Math.PI * 2);
     ctx.fill();
 
-    // Lingkaran Bingkai Karakter
     ctx.fillStyle = '#0D224D';
     ctx.beginPath();
     ctx.arc(cx, cy, 200, 0, Math.PI * 2);
@@ -1806,18 +1771,15 @@
     ctx.lineWidth = 10;
     ctx.stroke();
 
-    // Clipping dalam lingkaran avatar
     ctx.beginPath();
     ctx.arc(cx, cy, 195, 0, Math.PI * 2);
     ctx.clip();
 
-    // Badan / Kostum Karakter sesuai tipe MBTI
     ctx.fillStyle = category.hex;
     ctx.beginPath();
     ctx.roundRect(cx - 125, cy + 75, 250, 150, 65);
     ctx.fill();
 
-    // Kerah Baju Putih / Aksen
     ctx.fillStyle = '#F8FAFC';
     ctx.beginPath();
     ctx.moveTo(cx - 42, cy + 75);
@@ -1826,22 +1788,18 @@
     ctx.closePath();
     ctx.fill();
 
-    // Leher
     ctx.fillStyle = '#FDBA74';
     ctx.fillRect(cx - 24, cy + 40, 48, 45);
 
-    // Kepala Karakter
     ctx.fillStyle = '#FED7AA';
     ctx.beginPath();
     ctx.arc(cx, cy - 15, 76, 0, Math.PI * 2);
     ctx.fill();
 
-    // Pipi Rona Ramah
     ctx.fillStyle = 'rgba(244, 63, 94, 0.25)';
     ctx.beginPath(); ctx.arc(cx - 44, cy + 2, 14, 0, Math.PI * 2); ctx.fill();
     ctx.beginPath(); ctx.arc(cx + 44, cy + 2, 14, 0, Math.PI * 2); ctx.fill();
 
-    // Mata Ekspresif
     ctx.fillStyle = '#0F172A';
     ctx.beginPath(); ctx.arc(cx - 28, cy - 18, 9, 0, Math.PI * 2); ctx.fill();
     ctx.beginPath(); ctx.arc(cx + 28, cy - 18, 9, 0, Math.PI * 2); ctx.fill();
@@ -1849,7 +1807,6 @@
     ctx.beginPath(); ctx.arc(cx - 25, cy - 21, 3.5, 0, Math.PI * 2); ctx.fill();
     ctx.beginPath(); ctx.arc(cx + 31, cy - 21, 3.5, 0, Math.PI * 2); ctx.fill();
 
-    // Senyum Karakter
     ctx.strokeStyle = '#0F172A';
     ctx.lineWidth = 5;
     ctx.lineCap = 'round';
@@ -1857,15 +1814,12 @@
     ctx.arc(cx, cy + 4, 24, 0.15 * Math.PI, 0.85 * Math.PI);
     ctx.stroke();
 
-    // Rambut Dasar
     ctx.fillStyle = '#1E293B';
     ctx.beginPath();
     ctx.arc(cx, cy - 30, 80, Math.PI, 2 * Math.PI);
     ctx.fill();
 
-    // ATRIBUT KHUSUS MASING-MASING 4 KARAKTER MBTI:
     if (category.charType === 'EXPLORER') {
-      // Topi Petualang & Teropong
       ctx.fillStyle = '#DC2626';
       ctx.beginPath();
       ctx.ellipse(cx, cy - 82, 105, 22, 0, 0, Math.PI * 2);
@@ -1873,7 +1827,6 @@
       ctx.beginPath();
       ctx.arc(cx, cy - 86, 58, Math.PI, 2 * Math.PI);
       ctx.fill();
-      // Teropong di tangan kanan
       ctx.fillStyle = '#FBBF24';
       ctx.save();
       ctx.translate(cx + 85, cy + 55);
@@ -1883,13 +1836,11 @@
       ctx.beginPath(); ctx.arc(0, -42, 18, 0, Math.PI * 2); ctx.fill();
       ctx.restore();
     } else if (category.charType === 'LEARNER') {
-      // Kacamata Pintar & Buku Grafik
       ctx.strokeStyle = '#E9D5FF';
       ctx.lineWidth = 6;
       ctx.strokeRect(cx - 52, cy - 34, 42, 30);
       ctx.strokeRect(cx + 10, cy - 34, 42, 30);
       ctx.beginPath(); ctx.moveTo(cx - 10, cy - 20); ctx.lineTo(cx + 10, cy - 20); ctx.stroke();
-      // Buku Tablet Data
       ctx.fillStyle = '#38BDF8';
       ctx.beginPath();
       ctx.roundRect(cx - 65, cy + 115, 130, 75, 12);
@@ -1899,7 +1850,6 @@
       ctx.fillRect(cx - 8, cy + 136, 14, 42);
       ctx.fillRect(cx + 19, cy + 126, 14, 52);
     } else if (category.charType === 'DETECTIVE') {
-      // Topi Detektif & Kaca Pembesar
       ctx.fillStyle = '#1D4ED8';
       ctx.beginPath();
       ctx.ellipse(cx, cy - 82, 110, 20, -0.06, 0, Math.PI * 2);
@@ -1907,10 +1857,8 @@
       ctx.beginPath();
       ctx.roundRect(cx - 55, cy - 135, 110, 58, 22);
       ctx.fill();
-      // Pita Topi Cyan
       ctx.fillStyle = '#67E8F9';
       ctx.fillRect(cx - 55, cy - 94, 110, 12);
-      // Kaca Pembesar
       ctx.strokeStyle = '#FBBF24';
       ctx.lineWidth = 10;
       ctx.beginPath();
@@ -1923,7 +1871,6 @@
       ctx.lineTo(cx + 36, cy + 112);
       ctx.stroke();
     } else if (category.charType === 'INSIDER') {
-      // Mahkota Emas Master Data & Perisai Centang
       ctx.fillStyle = '#FBBF24';
       ctx.beginPath();
       ctx.moveTo(cx - 62, cy - 82);
@@ -1935,7 +1882,6 @@
       ctx.lineTo(cx + 62, cy - 82);
       ctx.closePath();
       ctx.fill();
-      // Lencana Bintang di Dada
       ctx.fillStyle = '#FBBF24';
       ctx.beginPath();
       ctx.arc(cx, cy + 145, 32, 0, Math.PI * 2);
@@ -1986,19 +1932,15 @@
     ctx.fillText(line.trim(), x, currY);
   }
 
-  // =========================================================
-  // FUNGSI UNDUH / SIMPAN KARTU KOMPATIBEL iOS (iPhone/iPad) & ANDROID
-  // =========================================================
   async function saveCardUniversal() {
     SoundFX.playClick();
     const canvas = document.getElementById('result-card-canvas');
-    const fileName = `BPS-Digital-Trust-Story-${appState.latestResult?.token || 'BPS'}.png`;
+    const fileName = `BPS-Digital-Trust-Card-${appState.latestResult?.token || 'BPS'}.png`;
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
     canvas.toBlob(async (blob) => {
       if (!blob) return;
 
-      // 1. Jika di iOS / mobile yang mendukung Web Share API dengan File -> buka Share Sheet iOS ("Simpan Gambar")
       if (isIOS && navigator.canShare) {
         try {
           const file = new File([blob], fileName, { type: 'image/png' });
@@ -2010,12 +1952,9 @@
             });
             return;
           }
-        } catch (err) {
-          // Jika pengguna membatalkan share atau Safari membatasi, aktifkan mode tekan-tahan gambar
-        }
+        } catch (err) {}
       }
 
-      // 2. Jika di iOS tanpa Web Share File, tampilkan <img> langsung & petunjuk tekan-tahan Save to Photos
       if (isIOS) {
         const imgSync = document.getElementById('result-card-img-sync');
         imgSync.src = canvas.toDataURL('image/png');
@@ -2024,7 +1963,6 @@
         return;
       }
 
-      // 3. Android / Desktop: Unduh langsung via Blob URL
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.download = fileName;
@@ -2134,7 +2072,17 @@
     ['RED', 'ORANGE', 'BLUE', 'GREEN'].forEach(k => {
       document.getElementById(`dist-${k}`).textContent = String(dist[k]);
     });
+    document.getElementById('input-qr-base-url').value = PUBLIC_QR_BASE_URL;
     document.getElementById('modal-admin').classList.remove('hidden');
+  });
+
+  document.getElementById('input-qr-base-url').addEventListener('change', (e) => {
+    const val = e.target.value.trim();
+    if (val.startsWith('http')) {
+      PUBLIC_QR_BASE_URL = val;
+      localStorage.setItem('BPS_QR_BASE_URL', val);
+      if (appState.latestResult) renderCardQrCode();
+    }
   });
 
   document.getElementById('btn-close-admin').addEventListener('click', () => {

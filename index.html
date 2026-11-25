@@ -445,7 +445,7 @@
 
           <button id="btn-next-question" class="mt-5 w-full py-5 rounded-2xl btn-primary-glow text-white font-display font-extrabold text-lg tracking-wide active:scale-95 transition">
             <span data-i18n="btn_next_q">LANJUTKAN SOAL BERIKUTNYA →</span>
-            <span id="feedback-countdown-badge" class="ml-2 font-mono-num text-sm bg-black/30 px-2.5 py-0.5 rounded-lg">(20d)</span>
+            <span id="feedback-countdown-badge" class="ml-2 font-mono-num text-sm bg-black/30 px-2.5 py-0.5 rounded-lg">(15d)</span>
           </button>
         </div>
       </div>
@@ -758,7 +758,7 @@
   const CONFIG = {
     TOTAL_ROUNDS: 5,
     ROUND_DURATION_MS: 20000,
-    FEEDBACK_DURATION_MS: 20000,
+    FEEDBACK_DURATION_MS: 15000,
     HOLD_MS: 650,
     RELEASE_MS: 400,
     MIN_SCORE: 0.60,
@@ -823,7 +823,7 @@
       { id: 'FIN-2409', level: 'FAKTA', a: 'BENAR',
         q_ID: 'Pertumbuhan Produk Domestik Bruto (PDB) Indonesia pada Triwulan III 2026 secara year-on-year (y-on-y) tercatat sebesar 5,47 persen.',
         exp_ID: 'Pada Triwulan III 2026, ekonomi Indonesia tumbuh 5,47% dibanding Triwulan III 2025.',
-        q_EN: 'Indonesia’s Gross Domestic Product (GDP) growth in Q3 2026 year-on-year (y-on-y) was recorded at 5.47 percent.',
+        q_EN: 'Indonesia’s Gross Domestic Product (GDP) growth in Q3 2026 year-on-y (y-on-y) was recorded at 5.47 percent.',
         exp_EN: 'In Q3 2026, Indonesia’s economy grew by 5.47% compared to Q3 2025.',
         src: 'BRS Pertumbuhan Ekonomi Indonesia Triwulan III-2026' },
       { id: 'FIN-2410', level: 'FAKTA', a: 'BENAR',
@@ -1535,7 +1535,7 @@
     const updateBadge = () => {
       const elapsed = performance.now() - startedAt;
       const remSec = Math.max(0, Math.ceil((CONFIG.FEEDBACK_DURATION_MS - elapsed) / 1000));
-      badgeEl.textContent = `(${remSec}d)`;
+      if (badgeEl) badgeEl.textContent = `(${remSec}d)`;
     };
 
     updateBadge();
@@ -2178,3 +2178,6 @@
 </script>
 </body>
 </html>
+```[cite: 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+
+Kalau pas dites di kiosk 49 inch ada detail yang masih perlu disesuaikan lagi, langsung kabari aja ya!

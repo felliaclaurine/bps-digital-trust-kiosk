@@ -443,8 +443,9 @@
             </div>
           </div>
 
-          <button id="btn-next-question" data-i18n="btn_next_q" class="mt-5 w-full py-5 rounded-2xl btn-primary-glow text-white font-display font-extrabold text-lg tracking-wide active:scale-95 transition">
-            LANJUTKAN SOAL BERIKUTNYA →
+          <button id="btn-next-question" class="mt-5 w-full py-5 rounded-2xl btn-primary-glow text-white font-display font-extrabold text-lg tracking-wide active:scale-95 transition">
+            <span data-i18n="btn_next_q">LANJUTKAN SOAL BERIKUTNYA →</span>
+            <span id="feedback-countdown-badge" class="ml-2 font-mono-num text-sm bg-black/30 px-2.5 py-0.5 rounded-lg">(20d)</span>
           </button>
         </div>
       </div>
@@ -757,6 +758,7 @@
   const CONFIG = {
     TOTAL_ROUNDS: 5,
     ROUND_DURATION_MS: 20000,
+    FEEDBACK_DURATION_MS: 20000,
     HOLD_MS: 650,
     RELEASE_MS: 400,
     MIN_SCORE: 0.60,
@@ -765,177 +767,185 @@
 
   const QUESTION_BANK = {
     FINANCIAL: [
+      // 5 Pertanyaan yang dipertahankan
       { id: 'FIN-2401', level: 'MUDAH', a: 'BENAR',
         q_ID: 'Sensus Ekonomi 2026 (SE2026) merupakan pendataan besar BPS setiap 10 tahun sekali untuk memotret seluruh aktivitas usaha di Indonesia kecuali sektor pertanian.',
         exp_ID: 'Sensus Ekonomi dilaksanakan setiap tahun berakhiran angka 6 (termasuk SE2026) untuk mendata seluruh pelaku usaha nonpertanian dari UMKM hingga perusahaan besar.',
         q_EN: 'The 2026 Economic Census (SE2026) is BPS’s decennial nationwide census capturing all business activities in Indonesia except agriculture.',
         exp_EN: 'Conducted every year ending in 6 (including SE2026), the Economic Census covers all non-agricultural businesses from MSMEs to large corporations.',
-        src: 'Pedoman Sensus Ekonomi 2026 (BPS)' },
+        src: 'Pedoman Sensus Ekonomi 2026' },
       { id: 'FIN-2402', level: 'MUDAH', a: 'BENAR',
         q_ID: 'Mulai tahun 2024 hingga saat ini, BPS menghitung inflasi Indeks Harga Konsumen (IHK) menggunakan tahun dasar baru 2022=100 yang mencakup 150 kabupaten/kota.',
         exp_ID: 'Sejak Januari 2024, cakupan penghitungan IHK BPS diperluas dari 90 kota menjadi 150 kabupaten/kota dengan tahun dasar 2022=100 agar lebih akurat.',
         q_EN: 'Starting in 2024, BPS calculates Consumer Price Index (CPI) inflation using the updated 2022=100 base year across 150 regencies/cities.',
         exp_EN: 'Since January 2024, BPS expanded CPI coverage from 90 to 150 regencies/cities using the 2022=100 base year.',
-        src: 'BRS Perkembangan Indeks Harga Konsumen BPS (2024–2026)' },
+        src: 'BRS Perkembangan Indeks Harga Konsumen (2024–2026)' },
       { id: 'FIN-2403', level: 'MUDAH', a: 'SALAH',
-        q_ID: 'Dalam menghitung Garis Kemiskinan tahun 2024–2026, BPS hanya menghitung pengeluaran makanan saja tanpa menghitung biaya perumahan, listrik, dan pendidikan.',
-        exp_ID: 'Garis Kemiskinan BPS mencakup kebutuhan makanan (setara 2.100 kkal/kapita/hari) DAN kebutuhan bukan makanan seperti perumahan, sandang, pendidikan, dan kesehatan.',
-        q_EN: 'When calculating the Poverty Line in 2024–2026, BPS only counts food expenditures and excludes housing, electricity, and education costs.',
-        exp_EN: 'BPS’s Poverty Line combines both the Food Poverty Line (2,100 kcal/capita/day) and the Non-Food Poverty Line (housing, clothing, education, health).',
-        src: 'Konsep & Definisi Kemiskinan BPS (2024–2026)' },
-      { id: 'FIN-2404', level: 'MUDAH', a: 'SALAH',
         q_ID: 'Gini Ratio yang dirilis BPS pada 2024–2025 mengukur ketimpangan pengeluaran penduduk (skala 0 sampai 1), di mana angka 0 berarti ketimpangan sempurna.',
         exp_ID: 'Angka 0 justru menunjukkan pemerataan pengeluaran yang sempurna, sedangkan angka 1 menunjukkan ketimpangan sempurna.',
         q_EN: 'The Gini Ratio published by BPS in 2024–2025 measures spending inequality (0 to 1 scale), where 0 means complete inequality.',
         exp_EN: 'A Gini Ratio of 0 represents perfect equality, while 1 represents complete inequality.',
-        src: 'BRS Tingkat Ketimpangan Pengeluaran Penduduk BPS (2024–2025)' },
-      { id: 'FIN-2405', level: 'MUDAH', a: 'BENAR',
-        q_ID: 'Tingkat Pengangguran Terbuka (TPT) — yaitu persentase penduduk usia kerja yang sedang mencari pekerjaan — menurun pada 2024 menjadi di bawah 5 persen.',
-        exp_ID: 'TPT Indonesia pada Februari 2024 tercatat 4,82% dan Agustus 2024 sebesar 4,91%, konsisten turun ke level di bawah 5%.',
-        q_EN: 'Indonesia’s Open Unemployment Rate (TPT)—the share of working-age people actively seeking jobs—fell below 5 percent in 2024.',
-        exp_EN: 'Indonesia’s unemployment rate stood at 4.82% in February 2024 and 4.91% in August 2024, staying below 5%.',
-        src: 'BRS Keadaan Ketenagakerjaan Indonesia (2024)' },
-      { id: 'FIN-2406', level: 'MUDAH', a: 'SALAH',
+        src: 'BRS Tingkat Ketimpangan Pengeluaran Penduduk (2024–2025)' },
+      { id: 'FIN-2404', level: 'MUDAH', a: 'SALAH',
         q_ID: 'Petugas BPS hanya mencatat harga di pasar tradisional saja tanpa mencatat harga di supermarket, ritel modern, atau jasa pendidikan saat menghitung inflasi.',
         exp_ID: 'Pencacahan harga konsumen BPS mencakup pasar tradisional, pasar modern/supermarket, gerai ritel, hingga penyedia jasa.',
         q_EN: 'BPS enumerators only survey prices in traditional markets, excluding modern supermarkets and service providers when measuring inflation.',
         exp_EN: 'BPS surveys prices across traditional markets, modern supermarkets, retail outlets, and service providers.',
-        src: 'Pedoman Survei Harga Konsumen BPS (2024–2026)' },
-      { id: 'FIN-2407', level: 'MUDAH', a: 'BENAR',
-        q_ID: 'Pengeluaran Konsumsi Rumah Tangga (belanja masyarakat sehari-hari) tetap menjadi penopang utama ekonomi Indonesia dengan kontribusi lebih dari 53 persen terhadap PDB.',
-        exp_ID: 'Sepanjang tahun 2024, konsumsi rumah tangga menyumbang lebih dari 54% terhadap Produk Domestik Bruto (PDB) Indonesia.',
-        q_EN: 'Household Consumption Expenditure remains the main pillar of Indonesia’s economy, contributing over 53 percent of GDP.',
-        exp_EN: 'Throughout 2024, household consumption accounted for over 54% of Indonesia’s Gross Domestic Product.',
-        src: 'BRS Pertumbuhan Ekonomi Indonesia (Tahun 2024)' },
-      { id: 'FIN-2408', level: 'MUDAH', a: 'SALAH',
-        q_ID: 'Persentase penduduk miskin di wilayah pedesaan lebih rendah dibandingkan di wilayah perkotaan berdasarkan publikasi kemiskinan BPS tahun 2024.',
-        exp_ID: 'Pada 2024, persentase penduduk miskin di perdesaan (sekitar 11,34%–11,79%) masih lebih tinggi dibanding di perkotaan (sekitar 6,66%–7,09%).',
-        q_EN: 'The poverty rate in rural areas was lower than in urban areas according to BPS’s 2024 poverty publications.',
-        exp_EN: 'In 2024, rural poverty (around 11.34%–11.79%) remained higher than urban poverty (around 6.66%–7.09%).',
-        src: 'BRS Profil Kemiskinan di Indonesia (2024)' },
-      { id: 'FIN-2409', level: 'MUDAH', a: 'BENAR',
+        src: 'Pedoman Survei Harga Konsumen (2024–2026)' },
+      { id: 'FIN-2405', level: 'MUDAH', a: 'BENAR',
         q_ID: 'Seluruh publikasi statistik, tabel dinamis, dan Berita Resmi Statistik (BRS) terbaru 2024–2026 di portal bps.go.id dapat diunduh gratis oleh masyarakat.',
         exp_ID: 'BPS menyediakan akses terbuka bagi seluruh masyarakat untuk mengunduh publikasi dan tabel data resmi secara gratis di bps.go.id.',
         q_EN: 'All statistical publications, dynamic tables, and 2024–2026 Official Statistical Releases on bps.go.id are free to download.',
         exp_EN: 'BPS provides free open access to official publications and statistical datasets at bps.go.id.',
         src: 'Portal Layanan Data Resmi BPS (bps.go.id)' },
+
+      // Teori & Konsep Umum dari Booklet (Financial)
+      { id: 'FIN-2406', level: 'MUDAH', a: 'BENAR',
+        q_ID: 'Inflasi tahunan (y-on-y) menandakan terjadinya kenaikan harga konsumen secara umum dibandingkan periode yang sama tahun sebelumnya.',
+        exp_ID: 'Inflasi y-on-y mencerminkan perubahan tingkat harga barang dan jasa secara umum dalam setahun terakhir yang memengaruhi daya beli konsumen.',
+        q_EN: 'Year-on-year (y-on-y) inflation indicates a general increase in consumer prices compared to the same period a year earlier.',
+        exp_EN: 'Year-on-year inflation reflects general price changes over the past year that affect consumer purchasing power.',
+        src: 'BRS Perkembangan Indeks Harga Konsumen Oktober 2026' },
+      { id: 'FIN-2407', level: 'MUDAH', a: 'BENAR',
+        q_ID: 'Pengeluaran konsumsi penduduk terbagi menjadi kelompok komoditas makanan dan bukan makanan untuk menggambarkan pola belanja masyarakat.',
+        exp_ID: 'Memisahkan belanja makanan dan bukan makanan membantu membaca bagaimana rumah tangga mengalokasikan anggarannya.',
+        q_EN: 'Household consumption expenditure is divided into food and non-food commodities to reflect consumer spending patterns.',
+        exp_EN: 'Separating food and non-food spending helps illustrate how households allocate their budgets.',
+        src: 'Pengeluaran Untuk Konsumsi Penduduk Indonesia Maret 2026' },
+      { id: 'FIN-2408', level: 'MUDAH', a: 'SALAH',
+        q_ID: 'Surplus neraca perdagangan barang terjadi ketika nilai impor lebih besar dibandingkan nilai ekspor pada periode tertentu.',
+        exp_ID: 'Surplus perdagangan terjadi justru ketika nilai ekspor lebih besar daripada nilai impor.',
+        q_EN: 'A goods trade surplus occurs when import value is greater than export value in a given period.',
+        exp_EN: 'A trade surplus occurs when export value exceeds import value.',
+        src: 'BRS Perkembangan Ekspor dan Impor Indonesia September 2026' },
+
+      // Fakta & Angka dari Booklet (Financial)
+      { id: 'FIN-2409', level: 'FAKTA', a: 'BENAR',
+        q_ID: 'Pertumbuhan Produk Domestik Bruto (PDB) Indonesia pada Triwulan III 2026 secara year-on-year (y-on-y) tercatat sebesar 5,47 persen.',
+        exp_ID: 'Pada Triwulan III 2026, ekonomi Indonesia tumbuh 5,47% dibanding Triwulan III 2025.',
+        q_EN: 'Indonesia’s Gross Domestic Product (GDP) growth in Q3 2026 year-on-year (y-on-y) was recorded at 5.47 percent.',
+        exp_EN: 'In Q3 2026, Indonesia’s economy grew by 5.47% compared to Q3 2025.',
+        src: 'BRS Pertumbuhan Ekonomi Indonesia Triwulan III-2026' },
       { id: 'FIN-2410', level: 'FAKTA', a: 'BENAR',
-        q_ID: 'Ekonomi Indonesia sepanjang tahun 2024 tercatat tumbuh solid sebesar 5,03 persen dibandingkan tahun sebelumnya.',
-        exp_ID: 'Berdasarkan BRS BPS, pertumbuhan ekonomi Indonesia tahun 2024 mencapai 5,03% (c-to-c) dengan nilai PDB mencapai Rp22.139,0 triliun.',
-        q_EN: 'Indonesia’s economy grew by a solid 5.03 percent in 2024 compared to the previous year.',
-        exp_EN: 'According to BPS, Indonesia’s GDP expanded by 5.03% in 2024, reaching IDR 22,139.0 trillion at current prices.',
-        src: 'BRS Pertumbuhan Ekonomi Indonesia (Tahun 2024)' },
-      { id: 'FIN-2411', level: 'FAKTA', a: 'BENAR',
-        q_ID: 'Inflasi tahunan (year-on-year) Indonesia pada Desember 2024 tercatat rendah dan terkendali di angka 1,57 persen.',
-        exp_ID: 'Inflasi y-on-y Desember 2024 tercatat sebesar 1,57%, berada di bawah titik tengah sasaran inflasi nasional.',
-        q_EN: 'Indonesia’s year-on-year inflation in December 2024 remained low and well-contained at 1.57 percent.',
-        exp_EN: 'Annual inflation stood at 1.57% in December 2024, well within the national inflation target range.',
-        src: 'BRS Perkembangan Indeks Harga Konsumen (Desember 2024)' },
+        q_ID: 'Pada Triwulan III 2026, Industri Pengolahan tercatat sebagai lapangan usaha dengan pangsa terbesar di antara 5 lapangan usaha utama (19,22%).',
+        exp_ID: 'Lima lapangan usaha utama pada Triwulan III 2026 dipimpin oleh Industri Pengolahan (19,22%), diikuti Pertanian, Kehutanan, dan Perikanan (13,46%), serta Perdagangan Besar dan Eceran; Reparasi Mobil dan Sepeda Motor (13,24%).',
+        q_EN: 'In Q3 2026, Manufacturing was the largest contributor among the top 5 business sectors at 19.22%.',
+        exp_EN: 'Top business sectors in Q3 2026 were led by Manufacturing (19.22%), followed by Agriculture, Forestry, and Fishery (13.46%) and Wholesale & Retail Trade (13.24%).',
+        src: 'BRS Pertumbuhan Ekonomi Indonesia Triwulan III-2026' },
+      { id: 'FIN-2411', level: 'FAKTA', a: 'SALAH',
+        q_ID: 'Rata-rata pengeluaran per bulan per kapita penduduk Indonesia pada Maret 2026 lebih banyak terserap pada komoditas makanan (50,20%) dibanding bukan makanan (49,80%).',
+        exp_ID: 'Dari rata-rata pengeluaran per kapita sebulan Rp1.657.281 pada Maret 2026, porsi bukan makanan sedikit lebih besar (50,20% atau Rp831.974) dibanding makanan (49,80% atau Rp825.308).',
+        q_EN: 'Average monthly per capita expenditure in March 2026 was higher on food commodities (50.20%) than non-food (49.80%).',
+        exp_EN: 'Out of IDR 1,657,281 average monthly per capita spending in March 2026, non-food accounted for 50.20% (IDR 831,974) and food 49.80% (IDR 825,308).',
+        src: 'Pengeluaran Untuk Konsumsi Penduduk Indonesia Maret 2026' },
       { id: 'FIN-2412', level: 'FAKTA', a: 'BENAR',
-        q_ID: 'Persentase penduduk miskin Indonesia pada September 2024 turun menjadi 8,57 persen—angka terendah sejak pertama kali BPS merilis data kemiskinan.',
-        exp_ID: 'Pada September 2024, persentase penduduk miskin turun menjadi 8,57% (24,06 juta orang), mencatatkan rekor terendah dalam sejarah.',
-        q_EN: 'Indonesia’s poverty rate fell to 8.57 percent in September 2024—the lowest rate since BPS began publishing poverty statistics.',
-        exp_EN: 'In September 2024, the poverty rate dropped to 8.57% (24.06 million people), a historic low.',
-        src: 'BRS Profil Kemiskinan di Indonesia (September 2024)' },
-      { id: 'FIN-2413', level: 'FAKTA', a: 'SALAH',
-        q_ID: 'Struktur perekonomian Indonesia pada tahun 2024 didominasi oleh kelompok provinsi di Pulau Sumatera dibandingkan Pulau Jawa.',
-        exp_ID: 'Kelompok provinsi di Pulau Jawa tetap mendominasi ekonomi Indonesia dengan kontribusi sebesar 57,02% terhadap PDB tahun 2024.',
-        q_EN: 'Indonesia’s economic structure in 2024 was dominated by provinces in Sumatra Island rather than Java Island.',
-        exp_EN: 'Provinces in Java Island contributed 57.02% to Indonesia’s GDP in 2024, followed by Sumatra at 22.15%.',
-        src: 'BRS Pertumbuhan Ekonomi Indonesia (Tahun 2024)' },
-      { id: 'FIN-2414', level: 'FAKTA', a: 'BENAR',
-        q_ID: 'Indeks Pembangunan Manusia (IPM) Indonesia pada tahun 2024 meningkat mencapai angka 75,02 dan masuk kategori Pembangunan Manusia Tinggi.',
-        exp_ID: 'IPM Indonesia tahun 2024 mencapai 75,02, naik 0,63 poin dibanding tahun 2023 yang sebesar 74,39.',
-        q_EN: 'Indonesia’s Human Development Index (HDI) rose to 75.02 in 2024, maintaining its High Human Development status.',
-        exp_EN: 'Indonesia’s HDI reached 75.02 in 2024, up 0.63 points from 74.39 in 2023.',
-        src: 'BRS Indeks Pembangunan Manusia Indonesia (Tahun 2024)' }
+        q_ID: 'Inflasi Oktober 2026 secara year-on-year (y-on-y) tercatat sebesar 3,23 persen.',
+        exp_ID: 'Inflasi y-on-y pada Oktober 2026 berada di angka 3,23%.',
+        q_EN: 'Year-on-year (y-on-y) inflation in October 2026 was recorded at 3.23 percent.',
+        exp_EN: 'Year-on-year inflation in October 2026 stood at 3.23%.',
+        src: 'BRS Perkembangan Indeks Harga Konsumen Oktober 2026' },
+      { id: 'FIN-2413', level: 'FAKTA', a: 'BENAR',
+        q_ID: 'DKI Jakarta mencatatkan Produk Domestik Regional Bruto (PDRB) tertinggi di Indonesia pada Triwulan III 2026 sebesar Rp1,069 triliun.',
+        exp_ID: 'DKI Jakarta menempati posisi teratas PDRB pada Triwulan III 2026 dengan nilai Rp1,069 triliun.',
+        q_EN: 'DKI Jakarta recorded the highest Gross Regional Domestic Product (GRDP) in Indonesia in Q3 2026 at IDR 1,069 trillion.',
+        exp_EN: 'DKI Jakarta led regional GDP in Q3 2026 with a value of IDR 1,069 trillion.',
+        src: 'Statistik Indonesia 2026' },
+      { id: 'FIN-2414', level: 'FAKTA', a: 'SALAH',
+        q_ID: 'Jawa Tengah merupakan provinsi dengan jumlah usaha industri skala mikro dan kecil terbanyak pada tahun 2025 karena jumlah usaha kecilnya melebihi usaha mikronya.',
+        exp_ID: 'Jawa Tengah memang memiliki usaha industri mikro dan kecil terbanyak pada 2025, namun didominasi usaha mikro (795.416 unit) dibanding usaha kecil (48.470 unit).',
+        q_EN: 'Central Java had the most micro and small industrial enterprises in 2025 because small enterprises outnumbered micro enterprises.',
+        exp_EN: 'Central Java led in micro and small industrial enterprises in 2025, comprising 795,416 micro units and 48,470 small units.',
+        src: 'Survei Industri Mikro dan Kecil Tahunan' }
     ],
 
     DIGITAL: [
+      // Teori & Konsep Umum dari Booklet (Digital)
       { id: 'DIG-2401', level: 'MUDAH', a: 'BENAR',
-        q_ID: 'Lebih dari 98 persen penduduk Indonesia yang mengakses internet pada tahun 2024 menggunakan telepon seluler (HP) sebagai perangkat utamanya.',
-        exp_ID: 'Telepon seluler/HP menjadi perangkat paling dominan untuk mengakses internet di Indonesia (digunakan oleh lebih dari 98% pengakses internet).',
-        q_EN: 'More than 98 percent of internet users in Indonesia in 2024 used mobile phones as their primary device to go online.',
-        exp_EN: 'Mobile phones remained the primary gateway to the internet in Indonesia, used by over 98% of internet users.',
-        src: 'Statistik Telekomunikasi Indonesia 2024 (BPS)' },
+        q_ID: 'Menggunakan internet untuk fasilitas finansial merupakan salah satu bentuk pemanfaatan teknologi digital yang melengkapi akses internet umum.',
+        exp_ID: 'Tidak semua penduduk yang mengakses internet langsung memanfaatkannya untuk layanan/fasilitas keuangan digital.',
+        q_EN: 'Using the internet for financial facilities is one form of digital adoption alongside general internet access.',
+        exp_EN: 'Not everyone who accesses the internet immediately uses it for digital financial services.',
+        src: 'Statistik Kesejahteraan Rakyat 2026' },
       { id: 'DIG-2402', level: 'MUDAH', a: 'SALAH',
-        q_ID: 'Tujuan utama masyarakat Indonesia mengakses internet pada tahun 2024 adalah untuk transaksi perbankan digital, mengalahkan media sosial.',
-        exp_ID: 'Mengakses media sosial masih menjadi tujuan utama penggunaan internet di Indonesia (lebih dari 80%), melampaui berita dan transaksi keuangan.',
-        q_EN: 'Digital banking was the #1 reason Indonesians accessed the internet in 2024, surpassing social media.',
-        exp_EN: 'Social media remained the primary activity for Indonesian internet users (over 80%), ahead of news and financial transactions.',
-        src: 'Statistik Telekomunikasi Indonesia 2024 (BPS)' },
-      { id: 'DIG-2403', level: 'MUDAH', a: 'SALAH',
-        q_ID: 'Menurut Survei E-Commerce BPS terbaru, sebagian besar pedagang online di Indonesia sudah memiliki website toko sendiri yang berbayar.',
-        exp_ID: 'Mayoritas usaha e-commerce di Indonesia berjualan melalui aplikasi pesan instan (seperti WhatsApp) dan media sosial, bukan website mandiri.',
-        q_EN: 'According to BPS’s latest E-Commerce Survey, most online sellers in Indonesia operate their own paid standalone websites.',
-        exp_EN: 'The majority of e-commerce sellers in Indonesia utilize instant messaging (like WhatsApp) and social media rather than standalone websites.',
-        src: 'Statistik E-Commerce 2024 (BPS)' },
-      { id: 'DIG-2404', level: 'MUDAH', a: 'BENAR',
-        q_ID: 'Metode pembayaran Cash on Delivery (COD / bayar tunai saat barang sampai) masih menjadi metode pembayaran yang paling banyak dipakai usaha e-commerce di Indonesia.',
-        exp_ID: 'Survei E-Commerce BPS menunjukkan lebih dari 80% pelaku usaha online menyediakan opsi bayar di tempat (COD) karena tingginya minat konsumen.',
-        q_EN: 'Cash on Delivery (COD) remains the most widely offered payment method among e-commerce businesses in Indonesia.',
-        exp_EN: 'BPS’s E-Commerce Survey shows over 80% of online businesses offer COD due to strong customer demand.',
-        src: 'Statistik E-Commerce 2024 (BPS)' },
-      { id: 'DIG-2405', level: 'MUDAH', a: 'SALAH',
-        q_ID: 'Kepemilikan telepon rumah kabel (fixed line) di rumah tangga Indonesia terus meningkat hingga di atas 25 persen pada tahun 2024.',
-        exp_ID: 'Kepemilikan telepon tetap kabel di rumah tangga terus menyusut hingga di bawah 1% seiring beralihnya masyarakat ke ponsel.',
-        q_EN: 'Landline fixed-line telephone ownership in Indonesian households rose above 25 percent in 2024.',
-        exp_EN: 'Household landline ownership fell below 1% as households shifted almost entirely to mobile phones.',
-        src: 'Statistik Telekomunikasi Indonesia 2024 (BPS)' },
-      { id: 'DIG-2406', level: 'MUDAH', a: 'BENAR',
-        q_ID: 'Mayoritas usaha belanja online (e-commerce) di Indonesia merupakan usaha skala mikro/kecil yang dikelola oleh 1 sampai 4 orang saja.',
-        exp_ID: 'Lebih dari 85% pelaku usaha e-commerce di Indonesia merupakan UMKM skala mikro dengan tenaga kerja 1–4 orang.',
-        q_EN: 'The majority of e-commerce businesses in Indonesia are micro-enterprises employing only 1 to 4 workers.',
-        exp_EN: 'Over 85% of e-commerce businesses in Indonesia are micro-scale enterprises with 1–4 workers.',
-        src: 'Statistik E-Commerce 2024 (BPS)' },
-      { id: 'DIG-2407', level: 'MUDAH', a: 'SALAH',
-        q_ID: 'Sebaran pelaku usaha e-commerce di Indonesia pada tahun 2024 paling banyak berada di Pulau Sumatera dibandingkan Pulau Jawa.',
-        exp_ID: 'Sekitar 80% lebih usaha e-commerce yang disurvei BPS masih terkonsentrasi di Pulau Jawa.',
-        q_EN: 'The largest share of e-commerce businesses in Indonesia in 2024 was located in Sumatra Island rather than Java Island.',
-        exp_EN: 'Over 80% of surveyed e-commerce businesses remained concentrated in Java Island.',
-        src: 'Statistik E-Commerce 2024 (BPS)' },
-      { id: 'DIG-2408', level: 'MUDAH', a: 'BENAR',
-        q_ID: 'Kelompok anak muda usia 19–24 tahun (Gen Z) merupakan kelompok usia dengan persentase pengguna internet tertinggi di Indonesia.',
-        exp_ID: 'Lebih dari 94% penduduk usia 19–24 tahun aktif mengakses internet, menjadi kelompok usia paling terhubung secara digital.',
-        q_EN: 'Young adults aged 19–24 (Gen Z) have the highest internet penetration rate of any age group in Indonesia.',
-        exp_EN: 'Over 94% of Indonesians aged 19–24 actively accessed the internet, making them the most connected cohort.',
-        src: 'Statistik Telekomunikasi Indonesia 2024 (BPS)' },
-      { id: 'DIG-2409', level: 'MUDAH', a: 'SALAH',
-        q_ID: 'Sebagian besar pengguna internet di Indonesia mengandalkan Wi-Fi gratis di tempat umum sebagai akses utama dibanding paket data seluler.',
-        exp_ID: 'Mayoritas pengguna internet Indonesia mengakses internet melalui jaringan seluler/paket data di HP masing-masing.',
-        q_EN: 'Most internet users in Indonesia rely on free public Wi-Fi rather than mobile cellular data as their primary connection.',
-        exp_EN: 'The vast majority of Indonesian internet users connect via mobile cellular data on their phones.',
-        src: 'Statistik Telekomunikasi Indonesia 2024 (BPS)' },
+        q_ID: 'Jika mayoritas penduduk berumur 5 tahun ke atas sudah mengakses internet, artinya seluruhnya otomatis memakai internet untuk fasilitas finansial.',
+        exp_ID: 'Pada Statistik Kesejahteraan Rakyat 2026, penduduk usia 5+ yang menggunakan internet dalam 3 bulan terakhir sebesar 82,63%, sedangkan yang menggunakannya untuk fasilitas finansial sebesar 17,38%.',
+        q_EN: 'If most people aged 5+ access the internet, all of them automatically use the internet for financial facilities.',
+        exp_EN: 'In Statistik Kesejahteraan Rakyat 2026, 82.63% of people aged 5+ used the internet in the last 3 months, while 17.38% used it for financial facilities.',
+        src: 'Statistik Kesejahteraan Rakyat 2026' },
+      { id: 'DIG-2403', level: 'MUDAH', a: 'BENAR',
+        q_ID: 'Belanja online melalui e-commerce dan transaksi fintech P2P lending menunjukkan pergeseran aktivitas ekonomi ke kanal digital.',
+        exp_ID: 'Perkembangan e-commerce dan layanan keuangan digital memperluas cara masyarakat bertransaksi dan mengakses pembiayaan.',
+        q_EN: 'Online shopping via e-commerce and fintech P2P lending transactions reflect a shift of economic activity toward digital channels.',
+        exp_EN: 'E-commerce and digital financial services broaden how people transact and access financing.',
+        src: 'Statistik E-Commerce 2024' },
+      { id: 'DIG-2404', level: 'MUDAH', a: 'SALAH',
+        q_ID: 'Seluruh usaha e-commerce di Indonesia didominasi oleh perusahaan skala besar, sementara usaha mikro porsinya sangat kecil.',
+        exp_ID: 'Sebaliknya, 97,38% dari seluruh usaha e-commerce pada 2024 merupakan Usaha Mikro.',
+        q_EN: 'E-commerce businesses in Indonesia are dominated by large enterprises, with micro-enterprises making up a tiny share.',
+        exp_EN: 'In fact, 97.38% of all e-commerce businesses in 2024 were Micro Enterprises.',
+        src: 'Statistik E-Commerce 2024' },
+
+      // Fakta & Angka dari Booklet (Digital)
+      { id: 'DIG-2405', level: 'FAKTA', a: 'BENAR',
+        q_ID: 'Jumlah penduduk usia 5 tahun ke atas yang pernah menggunakan internet dalam 3 bulan terakhir tercatat sebesar 82,63 persen.',
+        exp_ID: 'Sebanyak 82,63% penduduk usia 5+ menggunakan internet dalam 3 bulan terakhir.',
+        q_EN: 'The share of population aged 5 and above who used the internet in the last 3 months was 82.63 percent.',
+        exp_EN: 'Around 82.63% of people aged 5+ used the internet within the past 3 months.',
+        src: 'Statistik Kesejahteraan Rakyat 2026' },
+      { id: 'DIG-2406', level: 'FAKTA', a: 'BENAR',
+        q_ID: 'Sebanyak 17,38 persen penduduk usia 5 tahun ke atas menggunakan internet dalam 3 bulan terakhir untuk fasilitas finansial.',
+        exp_ID: 'Pemanfaatan internet untuk fasilitas finansial tercatat sebesar 17,38% pada penduduk usia 5 tahun ke atas.',
+        q_EN: 'About 17.38 percent of population aged 5 and above used the internet in the last 3 months for financial facilities.',
+        exp_EN: 'Internet usage for financial facilities stood at 17.38% among those aged 5 and above.',
+        src: 'Statistik Kesejahteraan Rakyat 2026' },
+      { id: 'DIG-2407', level: 'FAKTA', a: 'BENAR',
+        q_ID: 'Jumlah usaha e-commerce pada tahun 2024 mencapai 4,40 juta usaha, meningkat 15,3 persen dibandingkan tahun 2023.',
+        exp_ID: 'Usaha e-commerce tumbuh 15,3% dari 2023 menjadi 4,40 juta usaha pada 2024.',
+        q_EN: 'The number of e-commerce businesses in 2024 reached 4.40 million, up 15.3 percent compared to 2023.',
+        exp_EN: 'E-commerce businesses grew by 15.3% from 2023 to reach 4.40 million in 2024.',
+        src: 'Statistik E-Commerce 2024' },
+      { id: 'DIG-2408', level: 'FAKTA', a: 'BENAR',
+        q_ID: 'Sebanyak 97,38 persen dari seluruh usaha e-commerce pada tahun 2024 merupakan Usaha Mikro.',
+        exp_ID: 'Mayoritas mutlak usaha e-commerce (97,38%) berada pada skala Usaha Mikro.',
+        q_EN: 'As much as 97.38 percent of all e-commerce businesses in 2024 were Micro Enterprises.',
+        exp_EN: 'The vast majority of e-commerce businesses (97.38%) were Micro Enterprises.',
+        src: 'Statistik E-Commerce 2024' },
+      { id: 'DIG-2409', level: 'FAKTA', a: 'SALAH',
+        q_ID: 'Nilai transaksi e-commerce pada tahun 2024 tercatat sebesar Rp144,08 triliun.',
+        exp_ID: 'Nilai transaksi e-commerce tahun 2024 mencapai Rp1.288,93 triliun, sedangkan 144.084.671 entitas adalah jumlah akumulasi rekening penerima pinjaman fintech P2P lending.',
+        q_EN: 'E-commerce transaction value in 2024 was recorded at IDR 144.08 trillion.',
+        exp_EN: 'E-commerce transaction value in 2024 reached IDR 1,288.93 trillion, while 144,084,671 entities was the cumulative borrower accounts in fintech P2P lending.',
+        src: 'Statistik E-Commerce 2024' },
       { id: 'DIG-2410', level: 'FAKTA', a: 'BENAR',
-        q_ID: 'Persentase penduduk Indonesia usia 5 tahun ke atas yang mengakses internet pada tahun 2024 meningkat menembus angka 72,78 persen.',
-        exp_ID: 'Penetrasi internet individu di Indonesia terus naik dari 69,21% (2023) menjadi 72,78% pada tahun 2024.',
-        q_EN: 'The percentage of Indonesians aged 5 and above accessing the internet rose to 72.78 percent in 2024.',
-        exp_EN: 'Individual internet access in Indonesia climbed from 69.21% in 2023 to 72.78% in 2024.',
-        src: 'Statistik Telekomunikasi Indonesia 2024 (BPS)' },
+        q_ID: 'Rata-rata pengeluaran rumah tangga untuk komunikasi/internet per bulan tercatat sebesar Rp220,22 ribu.',
+        exp_ID: 'Pengeluaran rata-rata rumah tangga untuk komunikasi/internet per bulan adalah Rp220,22 ribu.',
+        q_EN: 'Average monthly household expenditure on communication/internet was IDR 220.22 thousand.',
+        exp_EN: 'Average household spending on communication/internet per month was IDR 220.22 thousand.',
+        src: 'Statistik Telekomunikasi Indonesia 2025' },
       { id: 'DIG-2411', level: 'FAKTA', a: 'BENAR',
-        q_ID: 'Sektor Informasi dan Komunikasi tumbuh sebesar 7,57 persen sepanjang tahun 2024, jauh melampaui pertumbuhan ekonomi nasional (5,03 persen).',
-        exp_ID: 'Transformasi digital membuat sektor Informasi dan Komunikasi tumbuh 7,57% pada 2024, menjadi salah satu sektor dengan pertumbuhan tercepat.',
-        q_EN: 'The Information and Communication sector grew by 7.57 percent in 2024, outpacing overall national GDP growth (5.03 percent).',
-        exp_EN: 'Digital adoption drove the ICT sector to grow 7.57% in 2024, significantly higher than the 5.03% national GDP growth.',
-        src: 'BRS Pertumbuhan Ekonomi Indonesia (Tahun 2024)' },
-      { id: 'DIG-2412', level: 'FAKTA', a: 'BENAR',
-        q_ID: 'Lebih dari 88 persen rumah tangga di Indonesia telah memiliki akses internet di dalam rumah pada tahun 2024.',
-        exp_ID: 'Persentase rumah tangga yang mengakses internet meningkat menjadi 88,99% pada tahun 2024.',
-        q_EN: 'More than 88 percent of households in Indonesia had internet access at home in 2024.',
-        exp_EN: 'Household internet access rose to 88.99% across Indonesia in 2024.',
-        src: 'Statistik Telekomunikasi Indonesia 2024 (BPS)' },
-      { id: 'DIG-2413', level: 'FAKTA', a: 'SALAH',
-        q_ID: 'Lebih dari 75 persen pengguna internet di Indonesia menggunakan internet untuk belanja online pada tahun 2024.',
-        exp_ID: 'Penggunaan internet untuk pembelian barang/jasa berada di kisaran 20% dari pengakses internet, masih di bawah penggunaan media sosial dan hiburan.',
-        q_EN: 'More than 75 percent of internet users in Indonesia used the internet for online shopping in 2024.',
-        exp_EN: 'Online shopping accounted for around 20% of internet users in 2024—far below social media and entertainment.',
-        src: 'Statistik Telekomunikasi Indonesia 2024 (BPS)' },
+        q_ID: 'Persentase penduduk berumur 5 tahun ke atas yang memiliki atau menguasai telepon seluler tercatat sebesar 70,75 persen.',
+        exp_ID: 'Sebanyak 70,75% penduduk usia 5+ memiliki atau menguasai telepon seluler.',
+        q_EN: 'The share of population aged 5 and above owning or using a mobile phone was 70.75 percent.',
+        exp_EN: 'Around 70.75% of people aged 5+ owned or used a mobile phone.',
+        src: 'Statistik Telekomunikasi Indonesia 2025' },
+      { id: 'DIG-2412', level: 'FAKTA', a: 'SALAH',
+        q_ID: 'Pengguna internet di Indonesia didominasi oleh Generasi Milenial (32,65%), disusul oleh Generasi Z (30,45%).',
+        exp_ID: 'Urutannya terbalik: pengguna internet terbanyak adalah Generasi Z (kelahiran 1997–2012) sebesar 32,65%, disusul Generasi Milenial (kelahiran 1981-1996) sebesar 30,45%.',
+        q_EN: 'Internet users in Indonesia were led by Millennials (32.65%), followed by Gen Z (30.45%).',
+        exp_EN: 'The order is reversed: Gen Z (born 1997–2012) led at 32.65%, followed by Millennials (born 1981–1996) at 30.45%.',
+        src: 'Statistik Telekomunikasi Indonesia 2025' },
+      { id: 'DIG-2413', level: 'FAKTA', a: 'BENAR',
+        q_ID: 'PDB Jasa Keuangan dan Asuransi pada Triwulan III 2026 mencapai Rp270,1 triliun dengan laju pertumbuhan y-on-y sebesar 8,47 persen.',
+        exp_ID: 'Kategori Jasa Keuangan dan Asuransi menyumbang 4,01% terhadap PDB Indonesia dan tumbuh 8,47% (y-on-y) pada Triwulan III 2026.',
+        q_EN: 'Financial and Insurance Services GDP in Q3 2026 reached IDR 270.1 trillion with 8.47 percent y-on-y growth.',
+        exp_EN: 'Financial and Insurance Services contributed 4.01% of Indonesia’s GDP and grew 8.47% y-on-y in Q3 2026.',
+        src: 'BRS Pertumbuhan Ekonomi Indonesia Triwulan III-2026' },
       { id: 'DIG-2414', level: 'FAKTA', a: 'SALAH',
-        q_ID: 'Mayoritas pemilik usaha jualan online (e-commerce) di Indonesia berusia di atas 55 tahun.',
-        exp_ID: 'Lebih dari 65% pelaku usaha e-commerce di Indonesia berada pada usia produktif muda antara 25 hingga 44 tahun.',
-        q_EN: 'The majority of online business (e-commerce) owners in Indonesia are aged over 55.',
-        exp_EN: 'Over 65% of e-commerce business owners in Indonesia are young adults aged 25 to 44.',
-        src: 'Statistik E-Commerce 2024 (BPS)' }
+        q_ID: 'Distribusi usaha e-commerce berdasarkan provinsi pada tahun 2024 paling banyak tersebar merata di luar Pulau Jawa dibanding di Pulau Jawa.',
+        exp_ID: 'Usaha e-commerce pada 2024 paling banyak terkonsentrasi di provinsi-provinsi Pulau Jawa, khususnya Jawa Barat, Jawa Timur, Jawa Tengah, dan DKI Jakarta.',
+        q_EN: 'E-commerce businesses by province in 2024 were mostly spread outside Java rather than in Java.',
+        exp_EN: 'E-commerce businesses in 2024 were concentrated in Java provinces, especially West Java, East Java, Central Java, and DKI Jakarta.',
+        src: 'Statistik E-Commerce 2024' }
     ]
   };
 
@@ -997,6 +1007,8 @@
     lastAnswerMeta: null,
     roundStartTime: 0,
     roundTimerInterval: null,
+    feedbackTimeout: null,
+    feedbackCountdownInterval: null,
     isRoundLocked: false,
     verifyStep: 1,
     cameraReady: false,
@@ -1009,6 +1021,13 @@
     isSharedCardView: false,
     analyticsLogs: []
   };
+
+  function clearFeedbackTimers() {
+    clearTimeout(appState.feedbackTimeout);
+    clearInterval(appState.feedbackCountdownInterval);
+    appState.feedbackTimeout = null;
+    appState.feedbackCountdownInterval = null;
+  }
 
   function applyLanguage() {
     const dict = I18N[appState.lang];
@@ -1072,6 +1091,7 @@
 
   function resetToIdle() {
     clearInterval(appState.roundTimerInterval);
+    clearFeedbackTimers();
     appState.sessionQuestions = [];
     appState.currentRoundIdx = 0;
     appState.score = 0;
@@ -1450,6 +1470,7 @@
   }
 
   function startQuizSession() {
+    clearFeedbackTimers();
     appState.sessionQuestions = pickFiveQuestions(appState.selectedGame);
     appState.currentRoundIdx = 0;
     appState.score = 0;
@@ -1460,6 +1481,7 @@
   }
 
   function loadRound(idx) {
+    clearFeedbackTimers();
     if (idx >= CONFIG.TOTAL_ROUNDS) {
       finishGameAndShowCard();
       return;
@@ -1505,6 +1527,24 @@
     }, 100);
   }
 
+  function startFeedbackAutoAdvanceTimer() {
+    clearFeedbackTimers();
+    const startedAt = performance.now();
+    const badgeEl = document.getElementById('feedback-countdown-badge');
+
+    const updateBadge = () => {
+      const elapsed = performance.now() - startedAt;
+      const remSec = Math.max(0, Math.ceil((CONFIG.FEEDBACK_DURATION_MS - elapsed) / 1000));
+      badgeEl.textContent = `(${remSec}d)`;
+    };
+
+    updateBadge();
+    appState.feedbackCountdownInterval = setInterval(updateBadge, 250);
+    appState.feedbackTimeout = setTimeout(() => {
+      goToNextRound();
+    }, CONFIG.FEEDBACK_DURATION_MS);
+  }
+
   function submitRoundAnswer(userAnswer, timedOut) {
     if (appState.isRoundLocked) return;
     appState.isRoundLocked = true;
@@ -1523,6 +1563,7 @@
     appState.lastAnswerMeta = { userAnswer, timedOut, isCorrect, qObj };
     renderFeedbackOverlayContent();
     document.getElementById('round-feedback-overlay').classList.remove('hidden');
+    startFeedbackAutoAdvanceTimer();
   }
 
   function renderFeedbackOverlayContent() {
@@ -1562,6 +1603,7 @@
   }
 
   function goToNextRound() {
+    clearFeedbackTimers();
     appState.currentRoundIdx++;
     loadRound(appState.currentRoundIdx);
   }
@@ -1575,6 +1617,7 @@
 
   function finishGameAndShowCard() {
     clearInterval(appState.roundTimerInterval);
+    clearFeedbackTimers();
     const cat = getCategoryForScore(appState.score);
     const gameTitle = appState.selectedGame === 'DIGITAL' ? 'Digital Trust Detective' : 'Financial Awareness';
     const token = Math.random().toString(36).substring(2, 8).toUpperCase();

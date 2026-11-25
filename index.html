@@ -31,12 +31,12 @@
     /* SKALA OTOMATIS UNTUK STANDING KIOSK BESAR (1080x1920 / 2160x3840) */
     @media (orientation: portrait) and (min-width: 768px) {
       html {
-        font-size: 26px; /* Memperbesar seluruh skala rem Tailwind secara proporsional di layar kiosk besar */
+        font-size: 26px;
       }
     }
     @media (orientation: portrait) and (min-width: 1400px) {
       html {
-        font-size: 38px; /* Skala khusus jika monitor kiosk beresolusi 4K Portrait (2160x3840) */
+        font-size: 38px;
       }
     }
 
@@ -418,7 +418,6 @@
       </div>
     </div>
 
-    <!-- KARTU PERTANYAAN MEMENUHI RUANG TENGAH -->
     <div class="my-3 flex flex-col justify-center flex-1">
       <div class="glass-card-elevated rounded-3xl p-7 flex-1 flex flex-col justify-center items-center text-center relative overflow-hidden">
         <span id="question-level-badge" class="px-4 py-1.5 rounded-full bg-purple-500/25 border border-purple-400/45 text-purple-200 text-xs font-extrabold uppercase tracking-widest mb-5">
@@ -444,7 +443,7 @@
             </div>
           </div>
 
-          <button id="btn-next-question" data-i18n="btn_next_q" class="mt-5 w-full py-4.5 py-5 rounded-2xl btn-primary-glow text-white font-display font-extrabold text-lg tracking-wide active:scale-95 transition">
+          <button id="btn-next-question" data-i18n="btn_next_q" class="mt-5 w-full py-5 rounded-2xl btn-primary-glow text-white font-display font-extrabold text-lg tracking-wide active:scale-95 transition">
             LANJUTKAN SOAL BERIKUTNYA →
           </button>
         </div>
@@ -477,7 +476,6 @@
   <!-- ===================================================================== -->
   <section id="screen-card" class="hidden flex-1 w-full flex flex-col justify-between p-5 overflow-y-auto no-scrollbar z-10">
     <div class="flex-1 flex flex-col items-center justify-center space-y-3 my-1">
-      <!-- Kartu Digital 9:16 Besar Proporsional -->
       <div class="relative h-[52vh] max-h-[580px] aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl border-2 border-purple-400/55 bg-slate-950 shrink-0">
         <canvas id="result-card-canvas" width="1080" height="1920" class="w-full h-full block"></canvas>
         <img id="result-card-img-sync" alt="Kartu Digital BPS" class="allow-ios-save hidden absolute inset-0 w-full h-full object-contain" />
@@ -487,7 +485,6 @@
         📱 Pengguna iPhone/iPad: Tekan & tahan gambar kartu di atas lalu pilih <strong>"Simpan ke Foto" (Save to Photos)</strong>!
       </div>
 
-      <!-- Input Nama Opsional + Tombol Unduh / Simpan -->
       <div id="name-input-box" class="w-full glass-panel rounded-2xl p-3 flex items-center gap-2.5 border-purple-400/35">
         <input id="input-participant-name" type="text" maxlength="20" placeholder="Ketik namamu di kartu (opsional)..."
           class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-950/90 border border-purple-400/40 text-white text-sm focus:outline-none focus:border-purple-300">
@@ -497,7 +494,6 @@
         </button>
       </div>
 
-      <!-- Kotak QR Code -->
       <div id="kiosk-qr-section" class="w-full glass-panel rounded-2xl p-3 flex items-center gap-3.5 border-purple-400/35">
         <div class="bg-white p-2 rounded-xl shrink-0 shadow-md cursor-pointer" id="qr-box-clickable" title="Klik untuk memperbesar QR">
           <div id="qrcode-container" class="w-24 h-24 flex items-center justify-center"></div>
@@ -571,12 +567,6 @@
       </div>
 
       <div class="bg-slate-950/80 border border-purple-400/25 rounded-2xl p-3.5 space-y-2 text-xs">
-        <label for="input-qr-base-url" class="block font-bold text-purple-300 uppercase">URL Publik Kartu QR (Saat Offline)</label>
-        <input id="input-qr-base-url" type="url" value="https://felliclaurine.github.io/bps-digital-trust-kiosk/"
-          class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-purple-400/35 text-white text-[11px] font-mono-num">
-      </div>
-
-      <div class="bg-slate-950/80 border border-purple-400/25 rounded-2xl p-3.5 space-y-2 text-xs">
         <div class="flex justify-between">
           <span>Durasi Tahan Gestur:</span>
           <strong id="cfg-hold-label" class="text-purple-300">650 ms</strong>
@@ -599,7 +589,7 @@
 <script type="module">
   import { FilesetResolver, GestureRecognizer } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/+esm";
 
-  let PUBLIC_QR_BASE_URL = localStorage.getItem('BPS_QR_BASE_URL') || "https://felliclaurine.github.io/bps-digital-trust-kiosk/";
+  const PUBLIC_QR_BASE_URL = "https://felliclaurine.github.io/bps-digital-trust-kiosk/";
 
   const I18N = {
     ID: {
@@ -1081,24 +1071,31 @@
     document.getElementById('kiosk-qr-section').classList.remove('hidden');
     document.getElementById('kiosk-finish-section').classList.remove('hidden');
 
-    if (window.location.search.includes('card=1')) {
+    if (window.location.search.includes('card=1') || window.location.hash.includes('card=1')) {
       window.history.replaceState({}, document.title, window.location.pathname);
     }
     switchScreen('idle');
   }
 
+  // =========================================================
+  // MEMBACA KARTU DARI URL HASH (#card=1...) MAUPUN QUERY (?card=1...)
+  // =========================================================
   function checkSharedCardFromUrl() {
-    const params = new URLSearchParams(window.location.search);
+    const rawQuery = window.location.hash.startsWith('#card=')
+      ? window.location.hash.slice(1)
+      : window.location.search.slice(1);
+
+    const params = new URLSearchParams(rawQuery);
     if (params.get('card') === '1') {
       const score = Math.min(5, Math.max(0, Number(params.get('s')) || 0));
       const catKey = params.get('c') || getCategoryForScore(score).key;
       const cat = RESULT_CATEGORIES[catKey] || getCategoryForScore(score);
-      const name = params.get('n') || 'Data Explorer';
+      const name = decodeURIComponent(params.get('n') || 'Data Explorer');
       const gParam = params.get('g');
       const gameTitle = gParam === 'D'
         ? 'Digital Trust Detective'
         : (gParam === 'F' ? 'Financial Awareness' : (gParam || 'Financial Awareness'));
-      const dateStr = params.get('d') || new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+      const dateStr = new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
       const token = params.get('id') || 'BPS2026';
       const urlLang = params.get('l');
       if (urlLang === 'EN' || urlLang === 'ID') {
@@ -1604,18 +1601,12 @@
       ? `${window.location.origin}${window.location.pathname}`
       : PUBLIC_QR_BASE_URL;
 
+    // Gunakan format Hash (#) agar tidak pernah terpotong oleh kamera QR scanner HP
     const gameCode = res.gameTitle.includes('Digital') ? 'D' : 'F';
-    const params = new URLSearchParams({
-      card: '1',
-      n: (res.participantName || 'Data Explorer').slice(0, 18),
-      g: gameCode,
-      s: String(res.score),
-      c: res.category.key,
-      id: res.token,
-      l: appState.lang
-    });
+    const safeName = encodeURIComponent((res.participantName || 'Data Explorer').slice(0, 18));
+    const hashPayload = `#card=1&n=${safeName}&g=${gameCode}&s=${res.score}&c=${res.category.key}&id=${res.token}&l=${appState.lang}`;
 
-    const cardShareUrl = `${baseUrl}?${params.toString()}`;
+    const cardShareUrl = `${baseUrl}${hashPayload}`;
 
     new QRCode(qrContainer, {
       text: cardShareUrl,
@@ -2090,17 +2081,7 @@
     ['RED', 'ORANGE', 'BLUE', 'GREEN'].forEach(k => {
       document.getElementById(`dist-${k}`).textContent = String(dist[k]);
     });
-    document.getElementById('input-qr-base-url').value = PUBLIC_QR_BASE_URL;
     document.getElementById('modal-admin').classList.remove('hidden');
-  });
-
-  document.getElementById('input-qr-base-url').addEventListener('change', (e) => {
-    const val = e.target.value.trim();
-    if (val.startsWith('http')) {
-      PUBLIC_QR_BASE_URL = val;
-      localStorage.setItem('BPS_QR_BASE_URL', val);
-      if (appState.latestResult) renderCardQrCode();
-    }
   });
 
   document.getElementById('btn-close-admin').addEventListener('click', () => {

@@ -475,8 +475,8 @@
   <!-- PAGE 06 & 07: KARTU KARAKTER, QR CODE, & TOMBOL PORTAL BPS            -->
   <!-- ===================================================================== -->
   <section id="screen-card" class="hidden flex-1 w-full flex flex-col justify-between p-5 overflow-y-auto no-scrollbar z-10">
-    <div class="flex-1 flex flex-col items-center justify-center space-y-2.5 my-1">
-      <div class="relative h-[47vh] max-h-[540px] aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl border-2 border-purple-400/55 bg-slate-950 shrink-0">
+    <div class="flex-1 flex flex-col items-center justify-center space-y-3 my-1">
+      <div class="relative h-[52vh] max-h-[580px] aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl border-2 border-purple-400/55 bg-slate-950 shrink-0">
         <canvas id="result-card-canvas" width="1080" height="1920" class="w-full h-full block"></canvas>
         <img id="result-card-img-sync" alt="Kartu Digital BPS" class="allow-ios-save hidden absolute inset-0 w-full h-full object-contain" />
       </div>
@@ -485,42 +485,42 @@
         📱 Pengguna iPhone/iPad: Tekan & tahan gambar kartu di atas lalu pilih <strong>"Simpan ke Foto" (Save to Photos)</strong>!
       </div>
 
-      <div id="name-input-box" class="w-full glass-panel rounded-2xl p-2.5 flex items-center gap-2 border-purple-400/35">
+      <div id="name-input-box" class="w-full glass-panel rounded-2xl p-3 flex items-center gap-2.5 border-purple-400/35">
         <input id="input-participant-name" type="text" maxlength="20" placeholder="Ketik namamu di kartu (opsional)..."
-          class="flex-1 px-3.5 py-2 rounded-xl bg-slate-950/90 border border-purple-400/40 text-white text-sm focus:outline-none focus:border-purple-300">
-        <button id="btn-download-card" class="px-4 py-2 rounded-xl bg-purple-500 hover:bg-purple-400 text-white font-display font-extrabold text-sm shrink-0 active:scale-95 flex items-center gap-1.5">
+          class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-950/90 border border-purple-400/40 text-white text-sm focus:outline-none focus:border-purple-300">
+        <button id="btn-download-card" class="px-4 py-2.5 rounded-xl bg-purple-500 hover:bg-purple-400 text-white font-display font-extrabold text-sm shrink-0 active:scale-95 flex items-center gap-1.5">
           <span>⬇️</span>
           <span data-i18n="btn_download">SIMPAN KARTU</span>
         </button>
       </div>
 
       <!-- Kotak QR Code Khusus Unduh Kartu -->
-      <div id="kiosk-qr-section" class="w-full glass-panel rounded-2xl p-2.5 flex items-center gap-3 border-purple-400/35">
-        <div class="bg-white p-1.5 rounded-xl shrink-0 shadow-md cursor-pointer" id="qr-box-clickable" title="Klik untuk memperbesar QR">
-          <div id="qrcode-container" class="w-20 h-20 flex items-center justify-center"></div>
+      <div id="kiosk-qr-section" class="w-full glass-panel rounded-2xl p-3 flex items-center gap-3.5 border-purple-400/35">
+        <div class="bg-white p-2 rounded-xl shrink-0 shadow-md cursor-pointer" id="qr-box-clickable" title="Klik untuk memperbesar QR">
+          <div id="qrcode-container" class="w-24 h-24 flex items-center justify-center"></div>
         </div>
         <div class="flex-1 text-left">
-          <div data-i18n="qr_title" class="text-xs sm:text-sm font-extrabold text-purple-300 uppercase">SCAN QR KARTUMU!</div>
-          <p data-i18n="qr_desc" class="text-[11px] sm:text-xs text-slate-200 leading-snug mt-0.5">
+          <div data-i18n="qr_title" class="text-sm font-extrabold text-purple-300 uppercase">SCAN QR KARTUMU!</div>
+          <p data-i18n="qr_desc" class="text-xs text-slate-200 leading-snug mt-0.5">
             Pindai QR dengan kamera HP untuk membuka & menyimpan kartu karaktermu!
           </p>
-          <div class="flex flex-wrap gap-1.5 mt-1.5">
-            <button id="btn-zoom-qr" class="px-2.5 py-1 rounded-lg bg-purple-600/80 hover:bg-purple-500 text-[11px] font-bold text-white">🔍 <span data-i18n="btn_zoom_qr">Perbesar QR</span></button>
-            <button id="btn-replay-same" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-bold text-white">🔄 <span data-i18n="btn_replay">Main Lagi</span></button>
-            <button id="btn-switch-game" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-bold text-purple-200">🎮 <span data-i18n="btn_other_game">Game Lain</span></button>
+          <div class="flex flex-wrap gap-2 mt-2">
+            <button id="btn-zoom-qr" class="px-2.5 py-1 rounded-lg bg-purple-600/80 hover:bg-purple-500 text-xs font-bold text-white">🔍 <span data-i18n="btn_zoom_qr">Perbesar QR</span></button>
+            <button id="btn-replay-same" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white">🔄 <span data-i18n="btn_replay">Main Lagi</span></button>
+            <button id="btn-switch-game" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-purple-200">🎮 <span data-i18n="btn_other_game">Game Lain</span></button>
           </div>
         </div>
       </div>
 
-      <!-- DUA TOMBOL LANGSUNG KE PORTAL BPS.GO.ID & PST.BPS.GO.ID -->
-      <div id="bps-portal-links" class="w-full grid grid-cols-2 gap-2.5">
+      <!-- DUA TOMBOL LANGSUNG KE WEBSITE BPS.GO.ID & PST.BPS.GO.ID -->
+      <div id="bps-portal-links" class="w-full grid grid-cols-2 gap-3">
         <a href="https://www.bps.go.id" target="_blank" rel="noopener noreferrer" id="btn-link-bps"
-           class="py-2.5 px-3 rounded-xl glass-panel border border-sky-400/45 hover:border-sky-300 bg-sky-950/70 text-white font-display font-extrabold text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow active:scale-95 transition">
+           class="py-3 px-4 rounded-2xl border border-sky-400/60 bg-sky-600/35 hover:bg-sky-500/45 text-white font-display font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg active:scale-95 transition">
           <span>🌐</span>
           <span>bps.go.id</span>
         </a>
         <a href="https://pst.bps.go.id" target="_blank" rel="noopener noreferrer" id="btn-link-pst"
-           class="py-2.5 px-3 rounded-xl glass-panel border border-cyan-400/45 hover:border-cyan-300 bg-cyan-950/70 text-cyan-100 font-display font-extrabold text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow active:scale-95 transition">
+           class="py-3 px-4 rounded-2xl border border-cyan-400/60 bg-cyan-600/35 hover:bg-cyan-500/45 text-cyan-100 font-display font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg active:scale-95 transition">
           <span>📊</span>
           <span>pst.bps.go.id</span>
         </a>
@@ -528,7 +528,7 @@
     </div>
 
     <div id="kiosk-finish-section" class="pt-2 shrink-0">
-      <button id="btn-finish-session" class="w-full py-3.5 px-5 rounded-2xl btn-primary-glow text-white font-display font-extrabold text-base sm:text-lg shadow-lg flex items-center justify-center gap-2 active:scale-95">
+      <button id="btn-finish-session" class="w-full py-4 px-5 rounded-2xl btn-primary-glow text-white font-display font-extrabold text-base sm:text-lg shadow-lg flex items-center justify-center gap-2 active:scale-95">
         <span data-i18n="btn_finish">SELESAI & KEMBALI KE AWAL</span>
       </button>
     </div>
@@ -1626,8 +1626,8 @@
 
     new QRCode(qrContainer, {
       text: cardShareUrl,
-      width: 80,
-      height: 80,
+      width: 96,
+      height: 96,
       colorDark: '#000000',
       colorLight: '#FFFFFF',
       correctLevel: QRCode.CorrectLevel.M

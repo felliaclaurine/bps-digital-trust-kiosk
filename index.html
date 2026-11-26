@@ -112,13 +112,6 @@
       box-shadow: 0 18px 45px rgba(0, 0, 0, 0.52), 0 0 28px rgba(168, 85, 247, 0.18);
     }
 
-    .card-game-blue {
-      background: linear-gradient(150deg, rgba(14, 116, 195, 0.9) 0%, rgba(23, 68, 158, 0.95) 100%);
-      backdrop-filter: blur(22px);
-      border: 2px solid rgba(103, 232, 249, 0.6);
-      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.48), 0 0 24px rgba(56, 189, 248, 0.28);
-    }
-
     .btn-primary-glow {
       background: linear-gradient(135deg, #7C3AED 0%, #9333EA 50%, #C084FC 100%);
       box-shadow: 0 12px 30px rgba(147, 51, 234, 0.5), inset 0 1.5px 0 rgba(255, 255, 255, 0.45);
@@ -235,13 +228,13 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- PAGE 01: LANDING PAGE                                                 -->
+  <!-- PAGE 01: LANDING PAGE (LANGSUNG MULAI KE LATIHAN GESTUR)              -->
   <!-- ===================================================================== -->
   <main id="screen-idle" class="flex-1 w-full flex flex-col justify-between p-5 text-center z-10 overflow-y-auto no-scrollbar">
     <div class="my-auto flex flex-col items-center space-y-5">
       <span data-i18n="hero_badge" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/20 border border-purple-400/45 text-purple-200 text-xs font-extrabold tracking-widest uppercase">
         <span class="w-2 h-2 rounded-full bg-purple-300 animate-ping"></span>
-        Interactive Exhibition Experience
+        BPS Statistics &amp; Digital Literacy Challenge
       </span>
 
       <h1 class="font-display text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.06] bg-gradient-to-b from-white via-sky-100 to-purple-200 bg-clip-text text-transparent">
@@ -275,10 +268,10 @@
         "Explore the Data. Discover the Facts. Build the Trust."
       </p>
       <p data-i18n="hero_sub" class="text-xs sm:text-sm text-slate-200/95 max-w-sm leading-relaxed">
-        Tebak fakta ekonomi & dunia digital Indonesia pakai gerakan tanganmu, lalu dapatkan kartu karakter statistikmu!
+        Uji pengetahuanmu seputar BPS, sensus, layanan data &amp; literasi statistik pakai gestur tangan (5 soal cepat), lalu dapatkan kartu karaktermu!
       </p>
 
-      <button id="btn-to-select" class="btn-primary-glow animate-pulse-glow w-full py-5 px-6 rounded-2xl text-white font-display font-extrabold text-2xl tracking-wide shadow-xl flex items-center justify-center gap-3 active:scale-95 transition">
+      <button id="btn-start-game" class="btn-primary-glow animate-pulse-glow w-full py-5 px-6 rounded-2xl text-white font-display font-extrabold text-2xl tracking-wide shadow-xl flex items-center justify-center gap-3 active:scale-95 transition">
         <span data-i18n="btn_start">MULAI BERMAIN</span>
         <span class="text-2xl">🚀</span>
       </button>
@@ -287,73 +280,18 @@
     <div class="mt-3 glass-panel rounded-2xl p-3 flex items-start gap-2.5 text-left w-full border-purple-400/25">
       <span class="text-base shrink-0 mt-0.5">🛡️</span>
       <p data-i18n="privacy_note" class="text-xs text-slate-200 leading-relaxed">
-        <strong class="text-purple-300">Aman & Privat:</strong> Kamera hanya membaca gestur tangan secara langsung dan tidak merekam wajah atau menyimpan data pribadi.
+        <strong class="text-purple-300">Aman &amp; Privat:</strong> Kamera hanya membaca gestur tangan secara langsung dan tidak merekam wajah atau menyimpan data pribadi.
       </p>
     </div>
   </main>
 
   <!-- ===================================================================== -->
-  <!-- PAGE 02: PILIHAN DUA GAME                                             -->
-  <!-- ===================================================================== -->
-  <section id="screen-select" class="hidden flex-1 w-full flex flex-col justify-between p-5 z-10 overflow-y-auto no-scrollbar">
-    <div class="text-center mt-2">
-      <span data-i18n="step_1_of_2" class="text-xs font-extrabold uppercase tracking-[0.2em] text-purple-300">Langkah 1 dari 2</span>
-      <h2 data-i18n="select_title" class="font-display text-3xl sm:text-4xl font-extrabold text-white mt-1">Pilih Tantanganmu</h2>
-      <p data-i18n="select_sub" class="text-sm text-sky-200 mt-1">5 pernyataan singkat terbaru • 20 detik per soal</p>
-    </div>
-
-    <div class="flex-1 flex flex-col justify-center gap-5 my-3">
-      <!-- GAME 01 -->
-      <button id="btn-pick-financial" class="card-game-blue rounded-3xl p-6 text-left hover:border-cyan-200 active:scale-98 transition group flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between mb-2.5">
-            <span class="px-3.5 py-1 rounded-full bg-sky-300/25 border border-cyan-200/60 text-cyan-100 text-xs font-extrabold tracking-wider">GAME 01</span>
-            <span class="text-3xl">💰</span>
-          </div>
-          <h3 class="font-display text-2xl sm:text-3xl font-extrabold text-white group-hover:text-cyan-200 transition">FINANCIAL AWARENESS</h3>
-          <p data-i18n="g1_tagline" class="text-sm sm:text-base font-bold text-cyan-100 mt-1">Seberapa Melek Kamu dengan Keuangan Indonesia?</p>
-          <p data-i18n="g1_desc" class="text-xs sm:text-sm text-sky-50/90 mt-2.5 leading-relaxed">
-            Kupas fakta inflasi, pertumbuhan ekonomi, kemiskinan, Sensus Ekonomi 2026, hingga daya beli masyarakat Indonesia.
-          </p>
-        </div>
-        <div class="mt-4 pt-3 border-t border-cyan-300/25 flex justify-between items-center text-xs font-extrabold text-cyan-100">
-          <span data-i18n="all_ages">Cocok untuk Semua Kalangan</span>
-          <span data-i18n="play_now" class="px-3 py-1.5 rounded-xl bg-sky-400/25">MAIN SEKARANG →</span>
-        </div>
-      </button>
-
-      <!-- GAME 02 -->
-      <button id="btn-pick-digital" class="card-game-blue rounded-3xl p-6 text-left hover:border-cyan-200 active:scale-98 transition group flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between mb-2.5">
-            <span class="px-3.5 py-1 rounded-full bg-sky-300/25 border border-cyan-200/60 text-cyan-100 text-xs font-extrabold tracking-wider">GAME 02</span>
-            <span class="text-3xl">🕵️‍♂️</span>
-          </div>
-          <h3 class="font-display text-2xl sm:text-3xl font-extrabold text-white group-hover:text-cyan-200 transition">DIGITAL TRUST DETECTIVE</h3>
-          <p data-i18n="g2_tagline" class="text-sm sm:text-base font-bold text-cyan-100 mt-1">Seberapa Paham Kamu dengan Dunia Digital Indonesia?</p>
-          <p data-i18n="g2_desc" class="text-xs sm:text-sm text-sky-50/90 mt-2.5 leading-relaxed">
-            Ungkap fakta pengguna internet, kepemilikan HP, belanja online (e-commerce), dan ekosistem digital Indonesia.
-          </p>
-        </div>
-        <div class="mt-4 pt-3 border-t border-cyan-300/25 flex justify-between items-center text-xs font-extrabold text-cyan-100">
-          <span data-i18n="all_ages">Cocok untuk Semua Kalangan</span>
-          <span data-i18n="play_now" class="px-3 py-1.5 rounded-xl bg-sky-400/25">MAIN SEKARANG →</span>
-        </div>
-      </button>
-    </div>
-
-    <button id="btn-back-idle" data-i18n="btn_back_home" class="py-2.5 text-sm font-semibold text-slate-300 hover:text-white">
-      ← Kembali ke Layar Awal
-    </button>
-  </section>
-
-  <!-- ===================================================================== -->
-  <!-- PAGE 03: LATIHAN GESTUR SEBELUM MAIN                                  -->
+  <!-- PAGE 02: LATIHAN GESTUR SEBELUM MAIN                                  -->
   <!-- ===================================================================== -->
   <section id="screen-verify" class="hidden flex-1 w-full flex flex-col justify-between p-5 text-center z-10">
     <div class="mt-2">
       <span id="verify-game-label" class="inline-block px-3.5 py-1 rounded-full bg-purple-500/25 border border-purple-400/45 text-purple-200 text-xs font-extrabold uppercase tracking-wider">
-        Latihan Kontrol • Langkah 1/2
+        Latihan Kontrol Gestur • Langkah 1/2
       </span>
       <h2 data-i18n="prac_heading" class="font-display text-3xl sm:text-4xl font-extrabold text-white mt-1.5">
         Coba Gestur Dulu Yuk!
@@ -390,26 +328,31 @@
         <span id="btn-verify-icon" class="text-2xl">👍</span>
         <span id="btn-verify-label">COBA JAWAB BENAR (SENTUH)</span>
       </button>
-      <button id="btn-skip-verify" data-i18n="btn_skip_prac" class="w-full py-2.5 text-sm font-bold text-purple-300 hover:text-white underline">
-        Sudah paham, langsung mulai game sekarang →
-      </button>
+      <div class="flex items-center justify-between gap-3 pt-1">
+        <button id="btn-back-idle" data-i18n="btn_back_home" class="py-2 text-xs sm:text-sm font-semibold text-slate-300 hover:text-white">
+          ← Layar Awal
+        </button>
+        <button id="btn-skip-verify" data-i18n="btn_skip_prac" class="py-2 text-xs sm:text-sm font-bold text-purple-300 hover:text-white underline">
+          Langsung mulai soal sekarang →
+        </button>
+      </div>
     </div>
   </section>
 
   <!-- ===================================================================== -->
-  <!-- PAGE 04: QUIZ SCREEN                                                  -->
+  <!-- PAGE 03: QUIZ SCREEN (5 SOAL DARI BANK 28 SOAL GABUNGAN)              -->
   <!-- ===================================================================== -->
   <section id="screen-play" class="hidden flex-1 w-full flex flex-col justify-between p-5 z-10">
     <div class="glass-panel rounded-2xl p-4 border-purple-400/30">
       <div class="flex items-center justify-between">
         <div>
-          <div id="play-game-title" class="text-xs font-extrabold uppercase tracking-wider text-purple-300">FINANCIAL AWARENESS</div>
+          <div id="play-game-title" data-i18n="quiz_header_title" class="text-xs font-extrabold uppercase tracking-wider text-purple-300">STATISTICS FOR DIGITAL TRUST</div>
           <div class="font-display text-xl font-extrabold text-white">
             <span data-i18n="q_label">Pertanyaan</span> <span id="display-round-num" class="text-purple-300">1</span> / 5
           </div>
         </div>
         <div class="text-right">
-          <div data-i18n="timer_label" class="text-xs font-bold uppercase tracking-wider text-slate-300">Waktu Baca & Jawab</div>
+          <div data-i18n="timer_label" class="text-xs font-bold uppercase tracking-wider text-slate-300">Waktu Baca &amp; Jawab</div>
           <div id="display-timer-text" class="font-mono-num text-2xl font-extrabold text-purple-300">20.0s</div>
         </div>
       </div>
@@ -421,7 +364,7 @@
     <div class="my-3 flex flex-col justify-center flex-1">
       <div class="glass-card-elevated rounded-3xl p-7 flex-1 flex flex-col justify-center items-center text-center relative overflow-hidden">
         <span id="question-level-badge" class="px-4 py-1.5 rounded-full bg-purple-500/25 border border-purple-400/45 text-purple-200 text-xs font-extrabold uppercase tracking-widest mb-5">
-          💡 Konsep & Fakta Populer BPS
+          💡 Fakta &amp; Literasi Statistik BPS
         </span>
 
         <p id="scenario-text" class="text-xl sm:text-3xl font-bold text-white leading-snug">
@@ -439,7 +382,7 @@
               Penjelasan statistik...
             </p>
             <div class="mt-3 pt-2.5 border-t border-white/10 text-xs text-sky-300 font-semibold" id="feedback-source">
-              Sumber: BRS BPS
+              Sumber: Badan Pusat Statistik
             </div>
           </div>
 
@@ -473,7 +416,7 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- PAGE 06 & 07: KARTU KARAKTER, QR CODE, & TOMBOL PORTAL BPS            -->
+  <!-- PAGE 04: KARTU KARAKTER, QR CODE, & TOMBOL PORTAL BPS                 -->
   <!-- ===================================================================== -->
   <section id="screen-card" class="hidden flex-1 w-full flex flex-col justify-between p-5 overflow-y-auto no-scrollbar z-10">
     <div class="flex-1 flex flex-col items-center justify-center space-y-2.5 my-1">
@@ -483,7 +426,7 @@
       </div>
 
       <div id="ios-save-hint" class="hidden w-full py-2 px-3 rounded-xl bg-purple-600/35 border border-purple-300/50 text-center text-xs font-bold text-purple-100">
-        📱 Pengguna iPhone/iPad: Tekan & tahan gambar kartu di atas lalu pilih <strong>"Simpan ke Foto" (Save to Photos)</strong>!
+        📱 Pengguna iPhone/iPad: Tekan &amp; tahan gambar kartu di atas lalu pilih <strong>"Simpan ke Foto" (Save to Photos)</strong>!
       </div>
 
       <div id="name-input-box" class="w-full glass-panel rounded-2xl p-3 flex items-center gap-2.5 border-purple-400/35">
@@ -503,12 +446,11 @@
         <div class="flex-1 text-left">
           <div data-i18n="qr_title" class="text-sm font-extrabold text-purple-300 uppercase">SCAN QR KARTUMU!</div>
           <p data-i18n="qr_desc" class="text-xs text-slate-200 leading-snug mt-0.5">
-            Pindai QR dengan kamera HP untuk membuka & menyimpan kartu karaktermu!
+            Pindai QR dengan kamera HP untuk membuka &amp; menyimpan kartu karaktermu!
           </p>
           <div class="flex flex-wrap gap-2 mt-2">
             <button id="btn-zoom-qr" class="px-2.5 py-1 rounded-lg bg-purple-600/80 hover:bg-purple-500 text-xs font-bold text-white">🔍 <span data-i18n="btn_zoom_qr">Perbesar QR</span></button>
             <button id="btn-replay-same" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white">🔄 <span data-i18n="btn_replay">Main Lagi</span></button>
-            <button id="btn-switch-game" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-purple-200">🎮 <span data-i18n="btn_other_game">Game Lain</span></button>
           </div>
         </div>
       </div>
@@ -530,7 +472,7 @@
 
     <div id="kiosk-finish-section" class="pt-2 shrink-0">
       <button id="btn-finish-session" class="w-full py-4 px-5 rounded-2xl btn-primary-glow text-white font-display font-extrabold text-base sm:text-lg shadow-lg flex items-center justify-center gap-2 active:scale-95">
-        <span data-i18n="btn_finish">SELESAI & KEMBALI KE AWAL</span>
+        <span data-i18n="btn_finish">SELESAI &amp; KEMBALI KE AWAL</span>
       </button>
     </div>
   </section>
@@ -541,7 +483,7 @@
 <div id="modal-qr-zoom" class="hidden fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-5 text-center">
   <div class="glass-card-elevated border-purple-400/50 rounded-3xl p-6 w-full max-w-sm flex flex-col items-center">
     <h3 data-i18n="qr_title" class="font-display text-xl font-extrabold text-white mb-1">SCAN QR KARTUMU!</h3>
-    <p data-i18n="qr_desc" class="text-xs text-purple-200 mb-4">Pindai QR dengan kamera HP untuk membuka & menyimpan kartu karaktermu!</p>
+    <p data-i18n="qr_desc" class="text-xs text-purple-200 mb-4">Pindai QR dengan kamera HP untuk membuka &amp; menyimpan kartu karaktermu!</p>
     <div class="bg-white p-4 rounded-2xl shadow-xl mb-5">
       <div id="qrcode-zoom-container" class="w-56 h-56 flex items-center justify-center"></div>
     </div>
@@ -557,7 +499,7 @@
     <div class="px-5 py-4 border-b border-purple-400/25 flex items-center justify-between bg-[#051436]">
       <div>
         <h3 class="font-display text-base font-extrabold text-purple-300">Dashboard Panitia Pameran BPS</h3>
-        <p class="text-[11px] text-slate-300">Rekapitulasi Pengunjung & Kalibrasi Gestur</p>
+        <p class="text-[11px] text-slate-300">Rekapitulasi Pengunjung &amp; Kalibrasi Gestur</p>
       </div>
       <button id="btn-close-admin" class="w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-bold">✕</button>
     </div>
@@ -612,24 +554,16 @@
       cam_title: "Kontrol Gestur Tangan",
       word_true: "BENAR",
       word_false: "SALAH",
-      hero_badge: "Interactive Exhibition Experience",
-      hero_sub: "Tebak fakta ekonomi & dunia digital Indonesia pakai gerakan tanganmu, lalu dapatkan kartu karakter statistikmu!",
+      hero_badge: "BPS Statistics & Digital Literacy Challenge",
+      hero_sub: "Uji pengetahuanmu seputar BPS, sensus, layanan data & literasi statistik pakai gestur tangan (5 soal cepat), lalu dapatkan kartu karaktermu!",
       btn_start: "MULAI BERMAIN",
       privacy_note: '<strong class="text-purple-300">Aman & Privat:</strong> Kamera hanya membaca gestur tangan secara langsung dan tidak merekam wajah atau menyimpan data pribadi.',
-      step_1_of_2: "Langkah 1 dari 2",
-      select_title: "Pilih Tantanganmu",
-      select_sub: "5 pernyataan singkat terbaru • 20 detik per soal",
-      g1_tagline: "Seberapa Melek Kamu dengan Keuangan Indonesia?",
-      g1_desc: "Kupas fakta inflasi, pertumbuhan ekonomi, kemiskinan, Sensus Ekonomi 2026, hingga daya beli masyarakat Indonesia.",
-      g2_tagline: "Seberapa Paham Kamu dengan Dunia Digital Indonesia?",
-      g2_desc: "Ungkap fakta pengguna internet, kepemilikan HP, belanja online (e-commerce), dan ekosistem digital Indonesia.",
-      all_ages: "Cocok untuk Semua Kalangan",
-      play_now: "MAIN SEKARANG →",
-      btn_back_home: "← Kembali ke Layar Awal",
+      btn_back_home: "← Layar Awal",
       prac_heading: "Coba Gestur Dulu Yuk!",
       prac_sub: "Tahan gestur ±0,6 detik di depan kamera atas atau tekan tombol sentuh",
       prac_meter: "Indikator Kunci Gestur",
-      btn_skip_prac: "Sudah paham, langsung mulai game sekarang →",
+      btn_skip_prac: "Langsung mulai soal sekarang →",
+      quiz_header_title: "STATISTICS FOR DIGITAL TRUST",
       q_label: "Pertanyaan",
       timer_label: "Waktu Baca & Jawab",
       fb_exp_title: "Penjelasan Data Resmi BPS:",
@@ -642,10 +576,9 @@
       qr_desc: "Pindai QR dengan kamera HP untuk membuka & menyimpan kartu karaktermu!",
       btn_zoom_qr: "Perbesar QR",
       btn_replay: "Main Lagi",
-      btn_other_game: "Game Lain",
       btn_finish: "SELESAI & KEMBALI KE AWAL",
-      badge_easy: "💡 Konsep & Fakta Populer BPS",
-      badge_fact: "📊 Fakta Data Terkini BPS",
+      badge_easy: "💡 Pengenalan BPS & Konsep Dasar",
+      badge_fact: "📊 Layanan Data & Fakta Statistik BPS",
       fb_timeout: "Waktu Habis!",
       fb_correct: "Jawaban Kamu Benar!",
       fb_wrong: "Kurang Tepat!",
@@ -656,24 +589,16 @@
       cam_title: "AI Hand Gesture Control",
       word_true: "TRUE",
       word_false: "FALSE",
-      hero_badge: "Interactive Exhibition Experience",
-      hero_sub: "Guess Indonesia's economic & digital facts using hand gestures, then unlock your statistical character card!",
+      hero_badge: "BPS Statistics & Digital Literacy Challenge",
+      hero_sub: "Test your knowledge about BPS, censuses, data services & statistical literacy using hand gestures (5 quick questions), and unlock your character card!",
       btn_start: "START PLAYING",
       privacy_note: '<strong class="text-purple-300">Safe & Private:</strong> The camera only detects hand gestures in real time and never records faces or personal data.',
-      step_1_of_2: "Step 1 of 2",
-      select_title: "Choose Your Challenge",
-      select_sub: "5 latest clear statements • 20 seconds per question",
-      g1_tagline: "How Well Do You Know Indonesia's Economy?",
-      g1_desc: "Explore official facts on inflation, GDP growth, poverty, 2026 Economic Census, and household purchasing power.",
-      g2_tagline: "How Well Do You Know Digital Indonesia?",
-      g2_desc: "Uncover official facts on internet usage, mobile ownership, e-commerce, and Indonesia's digital ecosystem.",
-      all_ages: "Suitable for Everyone",
-      play_now: "PLAY NOW →",
-      btn_back_home: "← Back to Home Screen",
+      btn_back_home: "← Home",
       prac_heading: "Try the Gestures First!",
       prac_sub: "Hold your gesture for ~0.6s in front of the camera or tap the button below",
       prac_meter: "Gesture Lock Progress",
-      btn_skip_prac: "Got it, start the game right away →",
+      btn_skip_prac: "Start the quiz right away →",
+      quiz_header_title: "STATISTICS FOR DIGITAL TRUST",
       q_label: "Question",
       timer_label: "Time Remaining",
       fb_exp_title: "Official BPS Data Explanation:",
@@ -686,10 +611,9 @@
       qr_desc: "Scan this QR with your phone camera to open & save your personal character card!",
       btn_zoom_qr: "Zoom QR",
       btn_replay: "Play Again",
-      btn_other_game: "Other Game",
       btn_finish: "FINISH & RETURN TO HOME",
-      badge_easy: "💡 Popular Concept & BPS Fact",
-      badge_fact: "📊 Latest BPS Statistical Fact",
+      badge_easy: "💡 BPS Essentials & Core Concepts",
+      badge_fact: "📊 BPS Data Services & Statistical Facts",
       fb_timeout: "Time's Up!",
       fb_correct: "Correct Answer!",
       fb_wrong: "Not Quite Right!",
@@ -765,189 +689,189 @@
     MIN_HAND_SIZE: 0.06
   };
 
-  const QUESTION_BANK = {
-    FINANCIAL: [
-      // 5 Pertanyaan yang dipertahankan
-      { id: 'FIN-2401', level: 'MUDAH', a: 'BENAR',
-        q_ID: 'Sensus Ekonomi 2026 (SE2026) merupakan pendataan besar BPS setiap 10 tahun sekali untuk memotret seluruh aktivitas usaha di Indonesia kecuali sektor pertanian.',
-        exp_ID: 'Sensus Ekonomi dilaksanakan setiap tahun berakhiran angka 6 (termasuk SE2026) untuk mendata seluruh pelaku usaha nonpertanian dari UMKM hingga perusahaan besar.',
-        q_EN: 'The 2026 Economic Census (SE2026) is BPS’s decennial nationwide census capturing all business activities in Indonesia except agriculture.',
-        exp_EN: 'Conducted every year ending in 6 (including SE2026), the Economic Census covers all non-agricultural businesses from MSMEs to large corporations.',
-        src: 'Pedoman Sensus Ekonomi 2026' },
-      { id: 'FIN-2402', level: 'MUDAH', a: 'BENAR',
-        q_ID: 'Mulai tahun 2024 hingga saat ini, BPS menghitung inflasi Indeks Harga Konsumen (IHK) menggunakan tahun dasar baru 2022=100 yang mencakup 150 kabupaten/kota.',
-        exp_ID: 'Sejak Januari 2024, cakupan penghitungan IHK BPS diperluas dari 90 kota menjadi 150 kabupaten/kota dengan tahun dasar 2022=100 agar lebih akurat.',
-        q_EN: 'Starting in 2024, BPS calculates Consumer Price Index (CPI) inflation using the updated 2022=100 base year across 150 regencies/cities.',
-        exp_EN: 'Since January 2024, BPS expanded CPI coverage from 90 to 150 regencies/cities using the 2022=100 base year.',
-        src: 'BRS Perkembangan Indeks Harga Konsumen (2024–2026)' },
-      { id: 'FIN-2403', level: 'MUDAH', a: 'SALAH',
-        q_ID: 'Gini Ratio yang dirilis BPS pada 2024–2025 mengukur ketimpangan pengeluaran penduduk (skala 0 sampai 1), di mana angka 0 berarti ketimpangan sempurna.',
-        exp_ID: 'Angka 0 justru menunjukkan pemerataan pengeluaran yang sempurna, sedangkan angka 1 menunjukkan ketimpangan sempurna.',
-        q_EN: 'The Gini Ratio published by BPS in 2024–2025 measures spending inequality (0 to 1 scale), where 0 means complete inequality.',
-        exp_EN: 'A Gini Ratio of 0 represents perfect equality, while 1 represents complete inequality.',
-        src: 'BRS Tingkat Ketimpangan Pengeluaran Penduduk (2024–2025)' },
-      { id: 'FIN-2404', level: 'MUDAH', a: 'SALAH',
-        q_ID: 'Petugas BPS hanya mencatat harga di pasar tradisional saja tanpa mencatat harga di supermarket, ritel modern, atau jasa pendidikan saat menghitung inflasi.',
-        exp_ID: 'Pencacahan harga konsumen BPS mencakup pasar tradisional, pasar modern/supermarket, gerai ritel, hingga penyedia jasa.',
-        q_EN: 'BPS enumerators only survey prices in traditional markets, excluding modern supermarkets and service providers when measuring inflation.',
-        exp_EN: 'BPS surveys prices across traditional markets, modern supermarkets, retail outlets, and service providers.',
-        src: 'Pedoman Survei Harga Konsumen (2024–2026)' },
-      { id: 'FIN-2405', level: 'MUDAH', a: 'BENAR',
-        q_ID: 'Seluruh publikasi statistik, tabel dinamis, dan Berita Resmi Statistik (BRS) terbaru 2024–2026 di portal bps.go.id dapat diunduh gratis oleh masyarakat.',
-        exp_ID: 'BPS menyediakan akses terbuka bagi seluruh masyarakat untuk mengunduh publikasi dan tabel data resmi secara gratis di bps.go.id.',
-        q_EN: 'All statistical publications, dynamic tables, and 2024–2026 Official Statistical Releases on bps.go.id are free to download.',
-        exp_EN: 'BPS provides free open access to official publications and statistical datasets at bps.go.id.',
-        src: 'Portal Layanan Data Resmi BPS (bps.go.id)' },
-
-      // Teori & Konsep Umum dari Booklet (Financial)
-      { id: 'FIN-2406', level: 'MUDAH', a: 'BENAR',
-        q_ID: 'Inflasi tahunan (y-on-y) menandakan terjadinya kenaikan harga konsumen secara umum dibandingkan periode yang sama tahun sebelumnya.',
-        exp_ID: 'Inflasi y-on-y mencerminkan perubahan tingkat harga barang dan jasa secara umum dalam setahun terakhir yang memengaruhi daya beli konsumen.',
-        q_EN: 'Year-on-year (y-on-y) inflation indicates a general increase in consumer prices compared to the same period a year earlier.',
-        exp_EN: 'Year-on-year inflation reflects general price changes over the past year that affect consumer purchasing power.',
-        src: 'BRS Perkembangan Indeks Harga Konsumen Oktober 2026' },
-      { id: 'FIN-2407', level: 'MUDAH', a: 'BENAR',
-        q_ID: 'Pengeluaran konsumsi penduduk terbagi menjadi kelompok komoditas makanan dan bukan makanan untuk menggambarkan pola belanja masyarakat.',
-        exp_ID: 'Memisahkan belanja makanan dan bukan makanan membantu membaca bagaimana rumah tangga mengalokasikan anggarannya.',
-        q_EN: 'Household consumption expenditure is divided into food and non-food commodities to reflect consumer spending patterns.',
-        exp_EN: 'Separating food and non-food spending helps illustrate how households allocate their budgets.',
-        src: 'Pengeluaran Untuk Konsumsi Penduduk Indonesia Maret 2026' },
-      { id: 'FIN-2408', level: 'MUDAH', a: 'SALAH',
-        q_ID: 'Surplus neraca perdagangan barang terjadi ketika nilai impor lebih besar dibandingkan nilai ekspor pada periode tertentu.',
-        exp_ID: 'Surplus perdagangan terjadi justru ketika nilai ekspor lebih besar daripada nilai impor.',
-        q_EN: 'A goods trade surplus occurs when import value is greater than export value in a given period.',
-        exp_EN: 'A trade surplus occurs when export value exceeds import value.',
-        src: 'BRS Perkembangan Ekspor dan Impor Indonesia September 2026' },
-
-      // Fakta & Angka dari Booklet (Financial)
-      { id: 'FIN-2409', level: 'FAKTA', a: 'BENAR',
-        q_ID: 'Pertumbuhan Produk Domestik Bruto (PDB) Indonesia pada Triwulan III 2026 secara year-on-year (y-on-y) tercatat sebesar 5,47 persen.',
-        exp_ID: 'Pada Triwulan III 2026, ekonomi Indonesia tumbuh 5,47% dibanding Triwulan III 2025.',
-        q_EN: 'Indonesia’s Gross Domestic Product (GDP) growth in Q3 2026 year-on-y (y-on-y) was recorded at 5.47 percent.',
-        exp_EN: 'In Q3 2026, Indonesia’s economy grew by 5.47% compared to Q3 2025.',
-        src: 'BRS Pertumbuhan Ekonomi Indonesia Triwulan III-2026' },
-      { id: 'FIN-2410', level: 'FAKTA', a: 'BENAR',
-        q_ID: 'Pada Triwulan III 2026, Industri Pengolahan tercatat sebagai lapangan usaha dengan pangsa terbesar di antara 5 lapangan usaha utama (19,22%).',
-        exp_ID: 'Lima lapangan usaha utama pada Triwulan III 2026 dipimpin oleh Industri Pengolahan (19,22%), diikuti Pertanian, Kehutanan, dan Perikanan (13,46%), serta Perdagangan Besar dan Eceran; Reparasi Mobil dan Sepeda Motor (13,24%).',
-        q_EN: 'In Q3 2026, Manufacturing was the largest contributor among the top 5 business sectors at 19.22%.',
-        exp_EN: 'Top business sectors in Q3 2026 were led by Manufacturing (19.22%), followed by Agriculture, Forestry, and Fishery (13.46%) and Wholesale & Retail Trade (13.24%).',
-        src: 'BRS Pertumbuhan Ekonomi Indonesia Triwulan III-2026' },
-      { id: 'FIN-2411', level: 'FAKTA', a: 'SALAH',
-        q_ID: 'Rata-rata pengeluaran per bulan per kapita penduduk Indonesia pada Maret 2026 lebih banyak terserap pada komoditas makanan (50,20%) dibanding bukan makanan (49,80%).',
-        exp_ID: 'Dari rata-rata pengeluaran per kapita sebulan Rp1.657.281 pada Maret 2026, porsi bukan makanan sedikit lebih besar (50,20% atau Rp831.974) dibanding makanan (49,80% atau Rp825.308).',
-        q_EN: 'Average monthly per capita expenditure in March 2026 was higher on food commodities (50.20%) than non-food (49.80%).',
-        exp_EN: 'Out of IDR 1,657,281 average monthly per capita spending in March 2026, non-food accounted for 50.20% (IDR 831,974) and food 49.80% (IDR 825,308).',
-        src: 'Pengeluaran Untuk Konsumsi Penduduk Indonesia Maret 2026' },
-      { id: 'FIN-2412', level: 'FAKTA', a: 'BENAR',
-        q_ID: 'Inflasi Oktober 2026 secara year-on-year (y-on-y) tercatat sebesar 3,23 persen.',
-        exp_ID: 'Inflasi y-on-y pada Oktober 2026 berada di angka 3,23%.',
-        q_EN: 'Year-on-year (y-on-y) inflation in October 2026 was recorded at 3.23 percent.',
-        exp_EN: 'Year-on-year inflation in October 2026 stood at 3.23%.',
-        src: 'BRS Perkembangan Indeks Harga Konsumen Oktober 2026' },
-      { id: 'FIN-2413', level: 'FAKTA', a: 'BENAR',
-        q_ID: 'DKI Jakarta mencatatkan Produk Domestik Regional Bruto (PDRB) tertinggi di Indonesia pada Triwulan III 2026 sebesar Rp1,069 triliun.',
-        exp_ID: 'DKI Jakarta menempati posisi teratas PDRB pada Triwulan III 2026 dengan nilai Rp1,069 triliun.',
-        q_EN: 'DKI Jakarta recorded the highest Gross Regional Domestic Product (GRDP) in Indonesia in Q3 2026 at IDR 1,069 trillion.',
-        exp_EN: 'DKI Jakarta led regional GDP in Q3 2026 with a value of IDR 1,069 trillion.',
-        src: 'Statistik Indonesia 2026' },
-      { id: 'FIN-2414', level: 'FAKTA', a: 'SALAH',
-        q_ID: 'Jawa Tengah merupakan provinsi dengan jumlah usaha industri skala mikro dan kecil terbanyak pada tahun 2025 karena jumlah usaha kecilnya melebihi usaha mikronya.',
-        exp_ID: 'Jawa Tengah memang memiliki usaha industri mikro dan kecil terbanyak pada 2025, namun didominasi usaha mikro (795.416 unit) dibanding usaha kecil (48.470 unit).',
-        q_EN: 'Central Java had the most micro and small industrial enterprises in 2025 because small enterprises outnumbered micro enterprises.',
-        exp_EN: 'Central Java led in micro and small industrial enterprises in 2025, comprising 795,416 micro units and 48,470 small units.',
-        src: 'Survei Industri Mikro dan Kecil Tahunan' }
-    ],
-
-    DIGITAL: [
-      // Teori & Konsep Umum dari Booklet (Digital)
-      { id: 'DIG-2401', level: 'MUDAH', a: 'BENAR',
-        q_ID: 'Menggunakan internet untuk fasilitas finansial merupakan salah satu bentuk pemanfaatan teknologi digital yang melengkapi akses internet umum.',
-        exp_ID: 'Tidak semua penduduk yang mengakses internet langsung memanfaatkannya untuk layanan/fasilitas keuangan digital.',
-        q_EN: 'Using the internet for financial facilities is one form of digital adoption alongside general internet access.',
-        exp_EN: 'Not everyone who accesses the internet immediately uses it for digital financial services.',
-        src: 'Statistik Kesejahteraan Rakyat 2026' },
-      { id: 'DIG-2402', level: 'MUDAH', a: 'SALAH',
-        q_ID: 'Jika mayoritas penduduk berumur 5 tahun ke atas sudah mengakses internet, artinya seluruhnya otomatis memakai internet untuk fasilitas finansial.',
-        exp_ID: 'Pada Statistik Kesejahteraan Rakyat 2026, penduduk usia 5+ yang menggunakan internet dalam 3 bulan terakhir sebesar 82,63%, sedangkan yang menggunakannya untuk fasilitas finansial sebesar 17,38%.',
-        q_EN: 'If most people aged 5+ access the internet, all of them automatically use the internet for financial facilities.',
-        exp_EN: 'In Statistik Kesejahteraan Rakyat 2026, 82.63% of people aged 5+ used the internet in the last 3 months, while 17.38% used it for financial facilities.',
-        src: 'Statistik Kesejahteraan Rakyat 2026' },
-      { id: 'DIG-2403', level: 'MUDAH', a: 'BENAR',
-        q_ID: 'Belanja online melalui e-commerce dan transaksi fintech P2P lending menunjukkan pergeseran aktivitas ekonomi ke kanal digital.',
-        exp_ID: 'Perkembangan e-commerce dan layanan keuangan digital memperluas cara masyarakat bertransaksi dan mengakses pembiayaan.',
-        q_EN: 'Online shopping via e-commerce and fintech P2P lending transactions reflect a shift of economic activity toward digital channels.',
-        exp_EN: 'E-commerce and digital financial services broaden how people transact and access financing.',
-        src: 'Statistik E-Commerce 2024' },
-      { id: 'DIG-2404', level: 'MUDAH', a: 'SALAH',
-        q_ID: 'Seluruh usaha e-commerce di Indonesia didominasi oleh perusahaan skala besar, sementara usaha mikro porsinya sangat kecil.',
-        exp_ID: 'Sebaliknya, 97,38% dari seluruh usaha e-commerce pada 2024 merupakan Usaha Mikro.',
-        q_EN: 'E-commerce businesses in Indonesia are dominated by large enterprises, with micro-enterprises making up a tiny share.',
-        exp_EN: 'In fact, 97.38% of all e-commerce businesses in 2024 were Micro Enterprises.',
-        src: 'Statistik E-Commerce 2024' },
-
-      // Fakta & Angka dari Booklet (Digital)
-      { id: 'DIG-2405', level: 'FAKTA', a: 'BENAR',
-        q_ID: 'Jumlah penduduk usia 5 tahun ke atas yang pernah menggunakan internet dalam 3 bulan terakhir tercatat sebesar 82,63 persen.',
-        exp_ID: 'Sebanyak 82,63% penduduk usia 5+ menggunakan internet dalam 3 bulan terakhir.',
-        q_EN: 'The share of population aged 5 and above who used the internet in the last 3 months was 82.63 percent.',
-        exp_EN: 'Around 82.63% of people aged 5+ used the internet within the past 3 months.',
-        src: 'Statistik Kesejahteraan Rakyat 2026' },
-      { id: 'DIG-2406', level: 'FAKTA', a: 'BENAR',
-        q_ID: 'Sebanyak 17,38 persen penduduk usia 5 tahun ke atas menggunakan internet dalam 3 bulan terakhir untuk fasilitas finansial.',
-        exp_ID: 'Pemanfaatan internet untuk fasilitas finansial tercatat sebesar 17,38% pada penduduk usia 5 tahun ke atas.',
-        q_EN: 'About 17.38 percent of population aged 5 and above used the internet in the last 3 months for financial facilities.',
-        exp_EN: 'Internet usage for financial facilities stood at 17.38% among those aged 5 and above.',
-        src: 'Statistik Kesejahteraan Rakyat 2026' },
-      { id: 'DIG-2407', level: 'FAKTA', a: 'BENAR',
-        q_ID: 'Jumlah usaha e-commerce pada tahun 2024 mencapai 4,40 juta usaha, meningkat 15,3 persen dibandingkan tahun 2023.',
-        exp_ID: 'Usaha e-commerce tumbuh 15,3% dari 2023 menjadi 4,40 juta usaha pada 2024.',
-        q_EN: 'The number of e-commerce businesses in 2024 reached 4.40 million, up 15.3 percent compared to 2023.',
-        exp_EN: 'E-commerce businesses grew by 15.3% from 2023 to reach 4.40 million in 2024.',
-        src: 'Statistik E-Commerce 2024' },
-      { id: 'DIG-2408', level: 'FAKTA', a: 'BENAR',
-        q_ID: 'Sebanyak 97,38 persen dari seluruh usaha e-commerce pada tahun 2024 merupakan Usaha Mikro.',
-        exp_ID: 'Mayoritas mutlak usaha e-commerce (97,38%) berada pada skala Usaha Mikro.',
-        q_EN: 'As much as 97.38 percent of all e-commerce businesses in 2024 were Micro Enterprises.',
-        exp_EN: 'The vast majority of e-commerce businesses (97.38%) were Micro Enterprises.',
-        src: 'Statistik E-Commerce 2024' },
-      { id: 'DIG-2409', level: 'FAKTA', a: 'SALAH',
-        q_ID: 'Nilai transaksi e-commerce pada tahun 2024 tercatat sebesar Rp144,08 triliun.',
-        exp_ID: 'Nilai transaksi e-commerce tahun 2024 mencapai Rp1.288,93 triliun, sedangkan 144.084.671 entitas adalah jumlah akumulasi rekening penerima pinjaman fintech P2P lending.',
-        q_EN: 'E-commerce transaction value in 2024 was recorded at IDR 144.08 trillion.',
-        exp_EN: 'E-commerce transaction value in 2024 reached IDR 1,288.93 trillion, while 144,084,671 entities was the cumulative borrower accounts in fintech P2P lending.',
-        src: 'Statistik E-Commerce 2024' },
-      { id: 'DIG-2410', level: 'FAKTA', a: 'BENAR',
-        q_ID: 'Rata-rata pengeluaran rumah tangga untuk komunikasi/internet per bulan tercatat sebesar Rp220,22 ribu.',
-        exp_ID: 'Pengeluaran rata-rata rumah tangga untuk komunikasi/internet per bulan adalah Rp220,22 ribu.',
-        q_EN: 'Average monthly household expenditure on communication/internet was IDR 220.22 thousand.',
-        exp_EN: 'Average household spending on communication/internet per month was IDR 220.22 thousand.',
-        src: 'Statistik Telekomunikasi Indonesia 2025' },
-      { id: 'DIG-2411', level: 'FAKTA', a: 'BENAR',
-        q_ID: 'Persentase penduduk berumur 5 tahun ke atas yang memiliki atau menguasai telepon seluler tercatat sebesar 70,75 persen.',
-        exp_ID: 'Sebanyak 70,75% penduduk usia 5+ memiliki atau menguasai telepon seluler.',
-        q_EN: 'The share of population aged 5 and above owning or using a mobile phone was 70.75 percent.',
-        exp_EN: 'Around 70.75% of people aged 5+ owned or used a mobile phone.',
-        src: 'Statistik Telekomunikasi Indonesia 2025' },
-      { id: 'DIG-2412', level: 'FAKTA', a: 'SALAH',
-        q_ID: 'Pengguna internet di Indonesia didominasi oleh Generasi Milenial (32,65%), disusul oleh Generasi Z (30,45%).',
-        exp_ID: 'Urutannya terbalik: pengguna internet terbanyak adalah Generasi Z (kelahiran 1997–2012) sebesar 32,65%, disusul Generasi Milenial (kelahiran 1981-1996) sebesar 30,45%.',
-        q_EN: 'Internet users in Indonesia were led by Millennials (32.65%), followed by Gen Z (30.45%).',
-        exp_EN: 'The order is reversed: Gen Z (born 1997–2012) led at 32.65%, followed by Millennials (born 1981–1996) at 30.45%.',
-        src: 'Statistik Telekomunikasi Indonesia 2025' },
-      { id: 'DIG-2413', level: 'FAKTA', a: 'BENAR',
-        q_ID: 'PDB Jasa Keuangan dan Asuransi pada Triwulan III 2026 mencapai Rp270,1 triliun dengan laju pertumbuhan y-on-y sebesar 8,47 persen.',
-        exp_ID: 'Kategori Jasa Keuangan dan Asuransi menyumbang 4,01% terhadap PDB Indonesia dan tumbuh 8,47% (y-on-y) pada Triwulan III 2026.',
-        q_EN: 'Financial and Insurance Services GDP in Q3 2026 reached IDR 270.1 trillion with 8.47 percent y-on-y growth.',
-        exp_EN: 'Financial and Insurance Services contributed 4.01% of Indonesia’s GDP and grew 8.47% y-on-y in Q3 2026.',
-        src: 'BRS Pertumbuhan Ekonomi Indonesia Triwulan III-2026' },
-      { id: 'DIG-2414', level: 'FAKTA', a: 'SALAH',
-        q_ID: 'Distribusi usaha e-commerce berdasarkan provinsi pada tahun 2024 paling banyak tersebar merata di luar Pulau Jawa dibanding di Pulau Jawa.',
-        exp_ID: 'Usaha e-commerce pada 2024 paling banyak terkonsentrasi di provinsi-provinsi Pulau Jawa, khususnya Jawa Barat, Jawa Timur, Jawa Tengah, dan DKI Jakarta.',
-        q_EN: 'E-commerce businesses by province in 2024 were mostly spread outside Java rather than in Java.',
-        exp_EN: 'E-commerce businesses in 2024 were concentrated in Java provinces, especially West Java, East Java, Central Java, and DKI Jakarta.',
-        src: 'Statistik E-Commerce 2024' }
-    ]
-  };
+  // BANK 28 SOAL GABUNGAN (DARI EXCEL BANK SOAL BPS)
+  const QUESTION_BANK = [
+    { id: 'BPS-01', level: 'MUDAH', a: 'BENAR',
+      q_ID: 'Kepanjangan BPS adalah Badan Pusat Statistik.',
+      exp_ID: 'BPS merupakan singkatan resmi dari Badan Pusat Statistik.',
+      q_EN: 'BPS stands for Badan Pusat Statistik (Statistics Indonesia).',
+      exp_EN: 'BPS is the official abbreviation of Badan Pusat Statistik.',
+      src: 'Kelembagaan Badan Pusat Statistik' },
+    { id: 'BPS-02', level: 'MUDAH', a: 'BENAR',
+      q_ID: 'Website resmi Badan Pusat Statistik dapat diakses pada alamat bps.go.id.',
+      exp_ID: 'Portal resmi Badan Pusat Statistik berada di domain bps.go.id.',
+      q_EN: 'The official website of Statistics Indonesia can be accessed at bps.go.id.',
+      exp_EN: 'The official BPS web portal is located at bps.go.id.',
+      src: 'Portal Layanan Data Resmi BPS (bps.go.id)' },
+    { id: 'BPS-03', level: 'MUDAH', a: 'SALAH',
+      q_ID: 'Data-data yang diakses di website BPS berbayar.',
+      exp_ID: 'Data yang diakses di website resmi BPS (bps.go.id) bersifat terbuka dan gratis untuk masyarakat.',
+      q_EN: 'Data accessed on the BPS website requires a paid subscription.',
+      exp_EN: 'Statistical data on the official BPS website (bps.go.id) is free for public access.',
+      src: 'Layanan Informasi Publik BPS' },
+    { id: 'BPS-05', level: 'MUDAH', a: 'BENAR',
+      q_ID: 'Produk statistik BPS yang berbentuk visualisasi data dan disajikan menggunakan ilustrasi, grafik, dan teks disebut Infografis.',
+      exp_ID: 'Infografis merangkum indikator dan temuan statistik melalui ilustrasi, grafik, dan teks ringkas.',
+      q_EN: 'A BPS statistical product that visualizes data using illustrations, charts, and text is called an Infographic.',
+      exp_EN: 'Infographics present statistical insights visually through illustrations, charts, and concise text.',
+      src: 'Produk Diseminasi Statistik BPS' },
+    { id: 'BPS-06', level: 'FAKTA', a: 'BENAR',
+      q_ID: 'Di antara data yang dikumpulkan secara berkala oleh BPS, Inflasi merupakan data yang dikumpulkan secara bulanan.',
+      exp_ID: 'Inflasi dikumpulkan dan dirilis secara bulanan, berbeda dengan TPT, pertumbuhan ekonomi, maupun IPM.',
+      q_EN: 'Among the periodic statistics collected by BPS, Inflation is collected on a monthly basis.',
+      exp_EN: 'Inflation is collected and released monthly, unlike unemployment rates, GDP growth, or HDI.',
+      src: 'Jadwal Rilis Indikator Strategis BPS' },
+    { id: 'BPS-07', level: 'MUDAH', a: 'BENAR',
+      q_ID: 'Jenis sensus yang dilakukan oleh BPS berjumlah 3 jenis.',
+      exp_ID: 'BPS menyelenggarakan 3 jenis sensus utama: Sensus Penduduk, Sensus Pertanian, dan Sensus Ekonomi.',
+      q_EN: 'There are 3 main types of censuses conducted by BPS.',
+      exp_EN: 'BPS conducts 3 major censuses: the Population Census, Agricultural Census, and Economic Census.',
+      src: 'Undang-Undang Statistik & Kegiatan Sensus BPS' },
+    { id: 'BPS-08', level: 'MUDAH', a: 'BENAR',
+      q_ID: 'Kepanjangan PST pada layanan satu pintu BPS adalah Pelayanan Statistik Terpadu.',
+      exp_ID: 'PST adalah singkatan dari Pelayanan Statistik Terpadu sebagai layanan satu pintu akses data BPS.',
+      q_EN: 'PST in BPS’s one-stop service stands for Pelayanan Statistik Terpadu (Integrated Statistical Service).',
+      exp_EN: 'PST stands for Pelayanan Statistik Terpadu, BPS’s integrated public service gateway.',
+      src: 'Pelayanan Statistik Terpadu (pst.bps.go.id)' },
+    { id: 'BPS-09', level: 'MUDAH', a: 'BENAR',
+      q_ID: 'Selain website, pengguna juga dapat mengakses data dengan praktis di HP melalui aplikasi Allstats BPS.',
+      exp_ID: 'Allstats BPS adalah aplikasi resmi di smartphone untuk mengakses indikator dan publikasi statistik BPS.',
+      q_EN: 'Besides the website, users can conveniently access BPS data on mobile phones via the Allstats BPS app.',
+      exp_EN: 'Allstats BPS is the official mobile application for accessing BPS statistical indicators and releases.',
+      src: 'Layanan Digital BPS (Allstats BPS)' },
+    { id: 'BPS-10', level: 'MUDAH', a: 'BENAR',
+      q_ID: 'Sensus adalah kegiatan pendataan seluruh populasi yang dilakukan BPS setiap 10 tahun sekali.',
+      exp_ID: 'Sensus mendata seluruh populasi/unit objek pada periode rutin 10 tahunan.',
+      q_EN: 'A census is a complete enumeration of the entire population conducted by BPS every 10 years.',
+      exp_EN: 'A census covers the entire target population on a regular 10-year cycle.',
+      src: 'Metodologi Pengumpulan Data BPS' },
+    { id: 'BPS-11', level: 'MUDAH', a: 'BENAR',
+      q_ID: 'Kegiatan sensus yang dilaksanakan oleh BPS pada tahun 2026 adalah Sensus Ekonomi.',
+      exp_ID: 'Sensus besar yang diselenggarakan BPS pada tahun 2026 adalah Sensus Ekonomi (SE2026).',
+      q_EN: 'The national census conducted by BPS in 2026 is the Economic Census.',
+      exp_EN: 'The major census scheduled by BPS in 2026 is the Economic Census (SE2026).',
+      src: 'Sensus Ekonomi 2026 (SE2026)' },
+    { id: 'BPS-12', level: 'MUDAH', a: 'BENAR',
+      q_ID: 'Kepanjangan BRS pada produk statistik BPS adalah Berita Resmi Statistik.',
+      exp_ID: 'BRS merupakan singkatan dari Berita Resmi Statistik yang memuat rilis indikator strategis terbaru.',
+      q_EN: 'BRS in BPS statistical releases stands for Berita Resmi Statistik (Official Statistical Release).',
+      exp_EN: 'BRS stands for Berita Resmi Statistik, BPS’s official periodic statistical release.',
+      src: 'Produk Diseminasi Statistik BPS' },
+    { id: 'BPS-14', level: 'FAKTA', a: 'BENAR',
+      q_ID: 'Pada daftar publikasi yang tersedia, Statistik Pendidikan 2026 tercatat sebagai publikasi terakhir yang diterbitkan di website BPS.',
+      exp_ID: 'Statistik Pendidikan 2026 merupakan kunci publikasi terakhir yang tercantum pada daftar publikasi BPS.',
+      q_EN: 'Among the listed publications, Education Statistics 2026 is recorded as the latest release on the BPS website.',
+      exp_EN: 'Education Statistics 2026 is the latest release listed in the BPS publication catalog.',
+      src: 'Katalog Publikasi Website BPS' },
+    { id: 'BPS-15', level: 'MUDAH', a: 'BENAR',
+      q_ID: 'Ilustrasi ikon sensus dengan simbol pertanian (🌾) merujuk pada Sensus Pertanian.',
+      exp_ID: 'Simbol tanaman padi/pertanian (🌾) melambangkan kegiatan Sensus Pertanian BPS.',
+      q_EN: 'The census icon featuring an agricultural crop symbol (🌾) refers to the Agricultural Census.',
+      exp_EN: 'The crop symbol (🌾) represents BPS’s Agricultural Census.',
+      src: 'Identitas Kegiatan Sensus BPS' },
+    { id: 'BPS-16', level: 'MUDAH', a: 'BENAR',
+      q_ID: 'Username resmi Instagram BPS adalah @bps_statistics.',
+      exp_ID: 'Akun resmi Instagram Badan Pusat Statistik menggunakan username @bps_statistics.',
+      q_EN: 'The official Instagram username of Statistics Indonesia (BPS) is @bps_statistics.',
+      exp_EN: 'BPS’s official Instagram handle is @bps_statistics.',
+      src: 'Media Sosial Resmi BPS (@bps_statistics)' },
+    { id: 'BPS-18', level: 'MUDAH', a: 'SALAH',
+      q_ID: 'Kuning termasuk salah satu warna utama pada logo BPS bersama Oranye, Hijau, dan Biru.',
+      exp_ID: 'Logo BPS hanya memiliki 3 warna utama yaitu Biru, Oranye, dan Hijau (tanpa warna Kuning).',
+      q_EN: 'Yellow is one of the primary colors of the BPS logo alongside Orange, Green, and Blue.',
+      exp_EN: 'The BPS logo consists of three primary colors—Blue, Orange, and Green—excluding Yellow.',
+      src: 'Pedoman Identitas Visual Logo BPS' },
+    { id: 'BPS-19', level: 'FAKTA', a: 'SALAH',
+      q_ID: 'Sensus yang dilakukan untuk mengumpulkan karakteristik penduduk setiap 10 tahun sekali pada tahun berakhiran nol disebut Sensus Ekonomi.',
+      exp_ID: 'Sensus yang dilaksanakan setiap tahun berakhiran nol untuk mendata karakteristik penduduk adalah Sensus Penduduk (bukan Sensus Ekonomi).',
+      q_EN: 'The decennial census conducted in years ending in zero to collect population characteristics is called the Economic Census.',
+      exp_EN: 'The census conducted in years ending in zero to collect population data is the Population Census, not the Economic Census.',
+      src: 'Siklus Sensus 10 Tahunan BPS' },
+    { id: 'BPS-20', level: 'MUDAH', a: 'SALAH',
+      q_ID: 'Kantor perwakilan BPS tersedia hanya di tingkat provinsi.',
+      exp_ID: 'Kantor perwakilan BPS tersedia tidak hanya di tingkat provinsi, tetapi juga hingga tingkat kabupaten/kota.',
+      q_EN: 'BPS representative offices are only available at the provincial level.',
+      exp_EN: 'BPS has representative offices at both provincial and regency/municipal levels.',
+      src: 'Struktur Organisasi Badan Pusat Statistik' },
+    { id: 'BPS-22', level: 'MUDAH', a: 'BENAR',
+      q_ID: 'Warna Biru melambangkan Sensus Penduduk.',
+      exp_ID: 'Warna Biru menjadi identitas visual utama Sensus Penduduk BPS.',
+      q_EN: 'Blue is the signature color representing the Population Census.',
+      exp_EN: 'Blue represents BPS’s Population Census visual identity.',
+      src: 'Identitas Visual Sensus Penduduk BPS' },
+    { id: 'BPS-23', level: 'MUDAH', a: 'BENAR',
+      q_ID: 'Sensus Ekonomi tahun 2026 dikenal dengan nama SE2026.',
+      exp_ID: 'SE2026 adalah singkatan resmi dari Sensus Ekonomi 2026.',
+      q_EN: 'The 2026 Economic Census is officially abbreviated as SE2026.',
+      exp_EN: 'SE2026 is the official abbreviation for Sensus Ekonomi 2026.',
+      src: 'Sensus Ekonomi 2026 (SE2026)' },
+    { id: 'BPS-24', level: 'FAKTA', a: 'BENAR',
+      q_ID: 'BPS merupakan lembaga pemerintah yang bertanggung jawab langsung kepada Presiden.',
+      exp_ID: 'BPS adalah Lembaga Pemerintah Nonkementerian yang berada di bawah dan bertanggung jawab langsung kepada Presiden.',
+      q_EN: 'BPS is a government institution directly accountable to the President.',
+      exp_EN: 'BPS is a Non-Ministerial Government Institution reporting directly to the President.',
+      src: 'Kelembagaan Badan Pusat Statistik' },
+    { id: 'BPS-25', level: 'FAKTA', a: 'SALAH',
+      q_ID: 'Data Mikro adalah data tentang karakteristik unit populasi terperinci yang mencantumkan identitas.',
+      exp_ID: 'Data Mikro tidak mencantumkan identitas responden/unit karena kerahasiaan data individu dijamin oleh undang-undang.',
+      q_EN: 'Microdata refers to detailed unit-level population characteristics that include personal identities.',
+      exp_EN: 'Microdata is anonymized and never discloses individual identities, as protected by statistical law.',
+      src: 'Standar Pelayanan Data Mikro BPS' },
+    { id: 'BPS-26', level: 'FAKTA', a: 'BENAR',
+      q_ID: 'Masyarakat dapat mengajukan konsultasi mengenai data dan metadata statistik melalui layanan PST BPS secara gratis.',
+      exp_ID: 'Layanan konsultasi data dan metadata melalui Pelayanan Statistik Terpadu (PST) BPS tidak dipungut biaya (gratis).',
+      q_EN: 'The public can request consultations on statistical data and metadata via BPS’s PST service free of charge.',
+      exp_EN: 'Data and metadata consultations through BPS’s Integrated Statistical Service (PST) are completely free.',
+      src: 'Pelayanan Statistik Terpadu (pst.bps.go.id)' },
+    { id: 'BPS-27', level: 'MUDAH', a: 'SALAH',
+      q_ID: 'Perwakilan BPS tersedia hingga level desa.',
+      exp_ID: 'Kantor perwakilan BPS berada hingga tingkat kabupaten/kota, bukan hingga level desa.',
+      q_EN: 'BPS maintains permanent representative offices down to the village level.',
+      exp_EN: 'BPS representative offices operate down to the regency/city level, not the village level.',
+      src: 'Struktur Organisasi Badan Pusat Statistik' },
+    { id: 'BPS-28', level: 'FAKTA', a: 'BENAR',
+      q_ID: 'Apabila ingin mengetahui karakteristik seluruh unit usaha di Indonesia, kegiatan sensus yang paling relevan adalah Sensus Ekonomi.',
+      exp_ID: 'Sensus Ekonomi memotret karakteristik seluruh aktivitas/unit usaha nonpertanian di Indonesia.',
+      q_EN: 'To understand the characteristics of all business units across Indonesia, the most relevant census is the Economic Census.',
+      exp_EN: 'The Economic Census captures comprehensive characteristics of business establishments across Indonesia.',
+      src: 'Pedoman Sensus Ekonomi BPS' },
+    { id: 'BPS-29', level: 'FAKTA', a: 'BENAR',
+      q_ID: 'BPS melakukan survei secara berkala bertujuan untuk memantau perkembangan kondisi sosial dan ekonomi masyarakat.',
+      exp_ID: 'Survei berkala dilakukan untuk memantau dinamika kondisi sosial dan ekonomi masyarakat secara lebih cepat dan rutin.',
+      q_EN: 'BPS conducts periodic surveys to monitor developments in society’s social and economic conditions.',
+      exp_EN: 'Periodic surveys track ongoing social and economic trends between decennial censuses.',
+      src: 'Metodologi Survei Statistik BPS' },
+    { id: 'BPS-30', level: 'FAKTA', a: 'BENAR',
+      q_ID: 'Masyarakat dapat memanfaatkan layanan Konsultasi Statistik untuk mendapatkan informasi mengenai metodologi dan variabel statistik.',
+      exp_ID: 'Layanan Konsultasi Statistik membantu pengguna memahami metodologi, konsep, definisi, dan variabel data BPS.',
+      q_EN: 'The public can use Statistical Consultation services to obtain information on statistical methodologies and variables.',
+      exp_EN: 'Statistical Consultation provides guidance on data methodologies, definitions, and variables.',
+      src: 'Pelayanan Statistik Terpadu (pst.bps.go.id)' },
+    { id: 'BPS-31', level: 'FAKTA', a: 'SALAH',
+      q_ID: 'Indeks Harga Saham Gabungan (IHSG) termasuk salah satu data yang dihasilkan oleh BPS.',
+      exp_ID: 'IHSG bukan data yang dihasilkan oleh BPS; data yang dihasilkan BPS antara lain Inflasi, TPAK, dan Nilai Tukar Petani (NTP).',
+      q_EN: 'The Jakarta Composite Index (IHSG) is one of the official indicators produced by BPS.',
+      exp_EN: 'IHSG is not produced by BPS; official BPS indicators include Inflation, Labor Force Participation Rate (TPAK), and Farmer Terms of Trade (NTP).',
+      src: 'Daftar Indikator Statistik Resmi BPS' },
+    { id: 'BPS-32', level: 'FAKTA', a: 'SALAH',
+      q_ID: 'Alamat kantor BPS RI berada di Jl. Budi Utomo 6-8 Jakarta 10710.',
+      exp_ID: 'Alamat resmi kantor pusat BPS RI adalah di Jl. Dr. Sutomo 6-8, Jakarta 10710 (bukan Jl. Budi Utomo).',
+      q_EN: 'The headquarters of BPS RI is located at Jl. Budi Utomo 6-8, Jakarta 10710.',
+      exp_EN: 'BPS RI’s official headquarters address is Jl. Dr. Sutomo 6-8, Jakarta 10710.',
+      src: 'Profil Kantor Pusat BPS RI' },
+    { id: 'BPS-34', level: 'FAKTA', a: 'BENAR',
+      q_ID: 'Peraturan yang mendasari pengenaan tarif nol rupiah adalah Peraturan BPS nomor 2 Tahun 2019.',
+      exp_ID: 'Pengenaan tarif nol rupiah pada layanan statistik tertentu diatur dalam Peraturan BPS Nomor 2 Tahun 2019.',
+      q_EN: 'The regulation governing zero-rupiah tariff services at BPS is BPS Regulation No. 2 of 2019.',
+      exp_EN: 'Zero-rupiah tariff eligibility for specific statistical services is governed by BPS Regulation No. 2 of 2019.',
+      src: 'Peraturan BPS Nomor 2 Tahun 2019' },
+    { id: 'BPS-35', level: 'MUDAH', a: 'BENAR',
+      q_ID: 'Layanan Pelayanan Statistik Terpadu (PST) dapat diakses secara online melalui web pst.bps.go.id.',
+      exp_ID: 'Portal layanan daring Pelayanan Statistik Terpadu BPS dapat diakses langsung melalui pst.bps.go.id.',
+      q_EN: 'Integrated Statistical Services (PST) can be accessed online via pst.bps.go.id.',
+      exp_EN: 'BPS’s online Integrated Statistical Service portal is accessible at pst.bps.go.id.',
+      src: 'Pelayanan Statistik Terpadu (pst.bps.go.id)' }
+  ];
 
   const RESULT_CATEGORIES = {
     RED: {
@@ -958,8 +882,8 @@
       bg: ['#7F1D1D', '#07173D'],
       title: 'THE CURIOUS EXPLORER',
       mbtiTag: 'Tipe: D-EXP • Penjelajah Fakta',
-      msg_ID: 'Rasa ingin tahumu tinggi! Banyak fakta menarik menantimu—saatnya menjelajahi lebih banyak data resmi BPS.',
-      msg_EN: 'Your curiosity is sparked! Plenty of fascinating facts await—time to explore more official BPS data.'
+      msg_ID: 'Rasa ingin tahumu tinggi! Banyak fakta seru seputar layanan & statistik BPS menantimu di bps.go.id.',
+      msg_EN: 'Your curiosity is sparked! Plenty of interesting facts about BPS services & data await you at bps.go.id.'
     },
     ORANGE: {
       key: 'ORANGE',
@@ -969,8 +893,8 @@
       bg: ['#581C87', '#07173D'],
       title: 'THE GROWING LEARNER',
       mbtiTag: 'Tipe: D-LRN • Pembelajar Adaptif',
-      msg_ID: 'Kamu sudah mulai peka membaca tren! Terus asah insting datamu dengan statistik akurat agar makin tajam.',
-      msg_EN: 'You are starting to spot key trends! Keep sharpening your data instincts with reliable statistics.'
+      msg_ID: 'Kamu sudah mulai mengenal layanan & statistik BPS! Terus eksplorasi data resmi agar literasi datamu makin tajam.',
+      msg_EN: 'You are getting familiar with BPS services & statistics! Keep exploring official data to sharpen your literacy.'
     },
     BLUE: {
       key: 'BLUE',
@@ -980,8 +904,8 @@
       bg: ['#1E3A8A', '#07173D'],
       title: 'THE DATA DETECTIVE',
       mbtiTag: 'Tipe: D-DET • Analis Kritis',
-      msg_ID: 'Jeli dan teliti! Kamu mahir membedakan fakta resmi dan mitos. Pertahankan kebiasaan cek data sebelum percaya!',
-      msg_EN: 'Sharp and analytical! You excel at separating official facts from myths. Keep verifying before trusting!'
+      msg_ID: 'Jeli dan teliti! Kamu paham seluk-beluk layanan data BPS dan mahir membedakan fakta dari mitos.',
+      msg_EN: 'Sharp and analytical! You know BPS data services well and excel at separating facts from myths.'
     },
     GREEN: {
       key: 'GREEN',
@@ -991,16 +915,15 @@
       bg: ['#14532D', '#07173D'],
       title: 'THE STATISTICS INSIDER',
       mbtiTag: 'Tipe: D-INS • Master Literasi Data',
-      msg_ID: 'Sempurna 5/5! Kamu adalah pakar literasi data sejati yang selalu menjadikan statistik resmi sebagai kompas keputusan.',
-      msg_EN: 'Flawless 5/5! You are a true data literacy master who always relies on official statistics as your compass.'
+      msg_ID: 'Sempurna 5/5! Kamu adalah sahabat sejati data BPS yang menguasai seluruh layanan dan literasi statistik resmi.',
+      msg_EN: 'Flawless 5/5! You are a true BPS data insider who masters official statistical services and literacy.'
     }
   };
 
   const appState = {
     lang: 'ID',
     screen: 'idle',
-    selectedGame: 'FINANCIAL',
-    recentIds: { FINANCIAL: [], DIGITAL: [] },
+    recentIds: [],
     sessionQuestions: [],
     currentRoundIdx: 0,
     score: 0,
@@ -1068,7 +991,6 @@
 
   const screens = {
     idle: document.getElementById('screen-idle'),
-    select: document.getElementById('screen-select'),
     verify: document.getElementById('screen-verify'),
     play: document.getElementById('screen-play'),
     card: document.getElementById('screen-card')
@@ -1124,10 +1046,7 @@
       const catKey = params.get('c') || getCategoryForScore(score).key;
       const cat = RESULT_CATEGORIES[catKey] || getCategoryForScore(score);
       const name = decodeURIComponent(params.get('n') || 'Data Explorer');
-      const gParam = params.get('g');
-      const gameTitle = gParam === 'D'
-        ? 'Digital Trust Detective'
-        : (gParam === 'F' ? 'Financial Awareness' : (gParam || 'Financial Awareness'));
+      const challengeTitle = 'BPS Statistics & Literacy Quiz';
       const dateStr = new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
       const token = params.get('id') || 'BPS2026';
       const urlLang = params.get('l');
@@ -1139,7 +1058,7 @@
       appState.latestResult = {
         score,
         category: cat,
-        gameTitle,
+        gameTitle: challengeTitle,
         token,
         dateStr,
         participantName: name
@@ -1380,9 +1299,8 @@
     }
   }
 
-  function enterPracticeScreen(gameType) {
+  function enterPracticeScreen() {
     SoundFX.playClick();
-    appState.selectedGame = gameType;
     appState.verifyStep = 1;
     renderVerifyStep();
     switchScreen('verify');
@@ -1399,8 +1317,9 @@
     const btnLabel = document.getElementById('btn-verify-label');
     const isEn = appState.lang === 'EN';
 
-    const gamePrefix = appState.selectedGame === 'DIGITAL' ? 'GAME 02 • DIGITAL TRUST DETECTIVE' : 'GAME 01 • FINANCIAL AWARENESS';
-    document.getElementById('verify-game-label').textContent = `${gamePrefix} (${appState.verifyStep}/2)`;
+    document.getElementById('verify-game-label').textContent = isEn
+      ? `GESTURE CONTROL PRACTICE • STEP ${appState.verifyStep}/2`
+      : `LATIHAN KONTROL GESTUR • LANGKAH ${appState.verifyStep}/2`;
 
     document.getElementById('verify-hold-pct').textContent = '0%';
     bar.style.width = '0%';
@@ -1432,9 +1351,9 @@
     }
   }
 
-  function pickFiveQuestions(gameType) {
-    const pool = QUESTION_BANK[gameType];
-    const recent = appState.recentIds[gameType] || [];
+  function pickFiveQuestions() {
+    const pool = QUESTION_BANK;
+    const recent = appState.recentIds || [];
     const shuffle = (arr) => {
       const copy = [...arr];
       for (let i = copy.length - 1; i > 0; i--) {
@@ -1465,17 +1384,15 @@
       [combined[0], combined[easyIdx]] = [combined[easyIdx], combined[0]];
     }
 
-    appState.recentIds[gameType] = [...combined.map(c => c.id), ...recent].slice(0, 10);
+    appState.recentIds = [...combined.map(c => c.id), ...recent].slice(0, 15);
     return combined;
   }
 
   function startQuizSession() {
     clearFeedbackTimers();
-    appState.sessionQuestions = pickFiveQuestions(appState.selectedGame);
+    appState.sessionQuestions = pickFiveQuestions();
     appState.currentRoundIdx = 0;
     appState.score = 0;
-    document.getElementById('play-game-title').textContent =
-      appState.selectedGame === 'DIGITAL' ? 'DIGITAL TRUST DETECTIVE' : 'FINANCIAL AWARENESS';
     switchScreen('play');
     loadRound(0);
   }
@@ -1619,14 +1536,14 @@
     clearInterval(appState.roundTimerInterval);
     clearFeedbackTimers();
     const cat = getCategoryForScore(appState.score);
-    const gameTitle = appState.selectedGame === 'DIGITAL' ? 'Digital Trust Detective' : 'Financial Awareness';
+    const challengeTitle = 'BPS Statistics & Literacy Quiz';
     const token = Math.random().toString(36).substring(2, 8).toUpperCase();
     const dateStr = new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
 
     appState.latestResult = {
       score: appState.score,
       category: cat,
-      gameTitle,
+      gameTitle: challengeTitle,
       token,
       dateStr,
       participantName: 'Data Explorer'
@@ -1634,7 +1551,7 @@
 
     appState.analyticsLogs.push({
       timestamp: new Date().toISOString(),
-      game: gameTitle,
+      game: challengeTitle,
       score: appState.score,
       category: cat.key
     });
@@ -1658,9 +1575,8 @@
       ? `${window.location.origin}${window.location.pathname}`
       : PUBLIC_QR_BASE_URL;
 
-    const gameCode = res.gameTitle.includes('Digital') ? 'D' : 'F';
     const safeName = encodeURIComponent((res.participantName || 'Data Explorer').slice(0, 18));
-    const hashPayload = `#card=1&n=${safeName}&g=${gameCode}&s=${res.score}&c=${res.category.key}&id=${res.token}&l=${appState.lang}`;
+    const hashPayload = `#card=1&n=${safeName}&s=${res.score}&c=${res.category.key}&id=${res.token}&l=${appState.lang}`;
 
     const cardShareUrl = `${baseUrl}${hashPayload}`;
 
@@ -1740,7 +1656,7 @@
     ctx.textAlign = 'center';
     ctx.fillStyle = '#7DD3FC';
     ctx.font = '700 28px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(`CHALLENGE: ${res.gameTitle.toUpperCase()}`, W / 2, 274);
+    ctx.fillText('BPS STATISTICS & LITERACY CHALLENGE', W / 2, 274);
 
     drawMbtiCharacterIllustration(ctx, W / 2, 585, res.category);
 
@@ -2056,16 +1972,13 @@
     applyLanguage();
   });
 
-  document.getElementById('btn-to-select').addEventListener('click', () => {
-    SoundFX.playClick();
-    switchScreen('select');
+  document.getElementById('btn-start-game').addEventListener('click', () => {
+    enterPracticeScreen();
   });
   document.getElementById('btn-back-idle').addEventListener('click', () => {
     SoundFX.playClick();
     switchScreen('idle');
   });
-  document.getElementById('btn-pick-financial').addEventListener('click', () => enterPracticeScreen('FINANCIAL'));
-  document.getElementById('btn-pick-digital').addEventListener('click', () => enterPracticeScreen('DIGITAL'));
 
   document.getElementById('btn-verify-touch').addEventListener('click', () => {
     triggerActionFromInput(appState.verifyStep === 1 ? 'BENAR' : 'SALAH');
@@ -2113,10 +2026,6 @@
     SoundFX.playClick();
     startQuizSession();
   });
-  document.getElementById('btn-switch-game').addEventListener('click', () => {
-    SoundFX.playClick();
-    switchScreen('select');
-  });
   document.getElementById('btn-finish-session').addEventListener('click', () => {
     SoundFX.playClick();
     resetToIdle();
@@ -2155,7 +2064,7 @@
 
   document.getElementById('btn-export-csv').addEventListener('click', () => {
     SoundFX.playClick();
-    const rows = [['waktu', 'game', 'skor', 'kategori'], ...appState.analyticsLogs.map(l => [l.timestamp, l.game, l.score, l.category])];
+    const rows = [['waktu', 'sesi', 'skor', 'kategori'], ...appState.analyticsLogs.map(l => [l.timestamp, l.game, l.score, l.category])];
     const blob = new Blob([rows.map(r => r.join(',')).join('\n')], { type: 'text/csv;charset=utf-8;' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
@@ -2178,6 +2087,3 @@
 </script>
 </body>
 </html>
-```[cite: 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-
-Kalau pas dites di kiosk 49 inch ada detail yang masih perlu disesuaikan lagi, langsung kabari aja ya!

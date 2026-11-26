@@ -228,7 +228,7 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- PAGE 01: LANDING PAGE (LANGSUNG MULAI KE LATIHAN GESTUR)              -->
+  <!-- PAGE 01: LANDING PAGE                                                 -->
   <!-- ===================================================================== -->
   <main id="screen-idle" class="flex-1 w-full flex flex-col justify-between p-5 text-center z-10 overflow-y-auto no-scrollbar">
     <div class="my-auto flex flex-col items-center space-y-5">
@@ -268,7 +268,7 @@
         "Explore the Data. Discover the Facts. Build the Trust."
       </p>
       <p data-i18n="hero_sub" class="text-xs sm:text-sm text-slate-200/95 max-w-sm leading-relaxed">
-        Uji pengetahuanmu seputar BPS, sensus, layanan data &amp; literasi statistik pakai gestur tangan (5 soal cepat), lalu dapatkan kartu karaktermu!
+        Uji pengetahuanmu seputar BPS, sensus, layanan data &amp; literasi statistik pakai gestur tangan (7 soal cepat), lalu dapatkan kartu karaktermu!
       </p>
 
       <button id="btn-start-game" class="btn-primary-glow animate-pulse-glow w-full py-5 px-6 rounded-2xl text-white font-display font-extrabold text-2xl tracking-wide shadow-xl flex items-center justify-center gap-3 active:scale-95 transition">
@@ -340,7 +340,7 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- PAGE 03: QUIZ SCREEN (5 SOAL DARI BANK 28 SOAL GABUNGAN)              -->
+  <!-- PAGE 03: QUIZ SCREEN (7 SOAL DARI BANK 28 SOAL GABUNGAN)              -->
   <!-- ===================================================================== -->
   <section id="screen-play" class="hidden flex-1 w-full flex flex-col justify-between p-5 z-10">
     <div class="glass-panel rounded-2xl p-4 border-purple-400/30">
@@ -348,7 +348,7 @@
         <div>
           <div id="play-game-title" data-i18n="quiz_header_title" class="text-xs font-extrabold uppercase tracking-wider text-purple-300">STATISTICS FOR DIGITAL TRUST</div>
           <div class="font-display text-xl font-extrabold text-white">
-            <span data-i18n="q_label">Pertanyaan</span> <span id="display-round-num" class="text-purple-300">1</span> / 5
+            <span data-i18n="q_label">Pertanyaan</span> <span id="display-round-num" class="text-purple-300">1</span> / 7
           </div>
         </div>
         <div class="text-right">
@@ -512,16 +512,16 @@
         </div>
         <div class="bg-slate-950/80 border border-purple-400/25 p-3 rounded-2xl">
           <div class="text-xs text-slate-400">Rata-rata Skor</div>
-          <div id="stat-avg-score" class="font-display text-2xl font-extrabold text-purple-300 mt-0.5">0.0/5</div>
+          <div id="stat-avg-score" class="font-display text-2xl font-extrabold text-purple-300 mt-0.5">0.0/7</div>
         </div>
       </div>
 
       <div class="bg-slate-950/80 border border-purple-400/25 rounded-2xl p-3.5 space-y-2 text-xs">
         <div class="font-bold text-purple-300 uppercase">Distribusi 4 Karakter Statistik</div>
-        <div class="flex justify-between"><span>🔴 The Curious Explorer (0-1):</span><strong id="dist-RED">0</strong></div>
-        <div class="flex justify-between"><span>🟣 The Growing Learner (2):</span><strong id="dist-ORANGE">0</strong></div>
-        <div class="flex justify-between"><span>🔵 The Data Detective (3-4):</span><strong id="dist-BLUE">0</strong></div>
-        <div class="flex justify-between"><span>🟢 The Statistics Insider (5):</span><strong id="dist-GREEN">0</strong></div>
+        <div class="flex justify-between"><span>🔴 The Curious Explorer (0-2):</span><strong id="dist-RED">0</strong></div>
+        <div class="flex justify-between"><span>🟣 The Growing Learner (3-4):</span><strong id="dist-ORANGE">0</strong></div>
+        <div class="flex justify-between"><span>🔵 The Data Detective (5-6):</span><strong id="dist-BLUE">0</strong></div>
+        <div class="flex justify-between"><span>🟢 The Statistics Insider (7):</span><strong id="dist-GREEN">0</strong></div>
       </div>
 
       <div class="bg-slate-950/80 border border-purple-400/25 rounded-2xl p-3.5 space-y-2 text-xs">
@@ -555,7 +555,7 @@
       word_true: "BENAR",
       word_false: "SALAH",
       hero_badge: "BPS Statistics & Digital Literacy Challenge",
-      hero_sub: "Uji pengetahuanmu seputar BPS, sensus, layanan data & literasi statistik pakai gestur tangan (5 soal cepat), lalu dapatkan kartu karaktermu!",
+      hero_sub: "Uji pengetahuanmu seputar BPS, sensus, layanan data & literasi statistik pakai gestur tangan (7 soal cepat), lalu dapatkan kartu karaktermu!",
       btn_start: "MULAI BERMAIN",
       privacy_note: '<strong class="text-purple-300">Aman & Privat:</strong> Kamera hanya membaca gestur tangan secara langsung dan tidak merekam wajah atau menyimpan data pribadi.',
       btn_back_home: "← Layar Awal",
@@ -590,7 +590,7 @@
       word_true: "TRUE",
       word_false: "FALSE",
       hero_badge: "BPS Statistics & Digital Literacy Challenge",
-      hero_sub: "Test your knowledge about BPS, censuses, data services & statistical literacy using hand gestures (5 quick questions), and unlock your character card!",
+      hero_sub: "Test your knowledge about BPS, censuses, data services & statistical literacy using hand gestures (7 quick questions), and unlock your character card!",
       btn_start: "START PLAYING",
       privacy_note: '<strong class="text-purple-300">Safe & Private:</strong> The camera only detects hand gestures in real time and never records faces or personal data.',
       btn_back_home: "← Home",
@@ -666,7 +666,7 @@
       await this.init();
       if (!this.synth) return;
       const now = Tone.now();
-      if (score >= 3) {
+      if (score >= 5) {
         this.synth.triggerAttackRelease(["C4", "E4", "G4"], "16n", now);
         this.synth.triggerAttackRelease(["E4", "G4", "C5"], "16n", now + 0.14);
         this.synth.triggerAttackRelease(["G4", "B4", "D5"], "16n", now + 0.28);
@@ -680,7 +680,7 @@
   };
 
   const CONFIG = {
-    TOTAL_ROUNDS: 5,
+    TOTAL_ROUNDS: 7,
     ROUND_DURATION_MS: 20000,
     FEEDBACK_DURATION_MS: 15000,
     HOLD_MS: 650,
@@ -689,7 +689,7 @@
     MIN_HAND_SIZE: 0.06
   };
 
-  // BANK 28 SOAL GABUNGAN (DARI EXCEL BANK SOAL BPS)
+  // BANK 28 SOAL GABUNGAN (DARI EXCEL BANK SOAL BPS — DENGAN PENJELASAN & PERTANYAAN REVISI TERBARU)
   const QUESTION_BANK = [
     { id: 'BPS-01', level: 'MUDAH', a: 'BENAR',
       q_ID: 'Kepanjangan BPS adalah Badan Pusat Statistik.',
@@ -723,9 +723,9 @@
       src: 'Jadwal Rilis Indikator Strategis BPS' },
     { id: 'BPS-07', level: 'MUDAH', a: 'BENAR',
       q_ID: 'Jenis sensus yang dilakukan oleh BPS berjumlah 3 jenis.',
-      exp_ID: 'BPS menyelenggarakan 3 jenis sensus utama: Sensus Penduduk, Sensus Pertanian, dan Sensus Ekonomi.',
+      exp_ID: 'Ada 3 sensus : Sensus Penduduk, Sensus Ekonomi, dan Sensus Pertanian.',
       q_EN: 'There are 3 main types of censuses conducted by BPS.',
-      exp_EN: 'BPS conducts 3 major censuses: the Population Census, Agricultural Census, and Economic Census.',
+      exp_EN: 'There are 3 censuses: Population Census, Economic Census, and Agricultural Census.',
       src: 'Undang-Undang Statistik & Kegiatan Sensus BPS' },
     { id: 'BPS-08', level: 'MUDAH', a: 'BENAR',
       q_ID: 'Kepanjangan PST pada layanan satu pintu BPS adalah Pelayanan Statistik Terpadu.',
@@ -759,9 +759,9 @@
       src: 'Produk Diseminasi Statistik BPS' },
     { id: 'BPS-14', level: 'FAKTA', a: 'BENAR',
       q_ID: 'Pada daftar publikasi yang tersedia, Statistik Pendidikan 2026 tercatat sebagai publikasi terakhir yang diterbitkan di website BPS.',
-      exp_ID: 'Statistik Pendidikan 2026 merupakan kunci publikasi terakhir yang tercantum pada daftar publikasi BPS.',
+      exp_ID: 'Statistik Pendidikan 2026 adalah publikasi terbaru yang dirilis oleh BPS.',
       q_EN: 'Among the listed publications, Education Statistics 2026 is recorded as the latest release on the BPS website.',
-      exp_EN: 'Education Statistics 2026 is the latest release listed in the BPS publication catalog.',
+      exp_EN: 'Education Statistics 2026 is the latest publication released by BPS.',
       src: 'Katalog Publikasi Website BPS' },
     { id: 'BPS-15', level: 'MUDAH', a: 'BENAR',
       q_ID: 'Ilustrasi ikon sensus dengan simbol pertanian (🌾) merujuk pada Sensus Pertanian.',
@@ -776,9 +776,9 @@
       exp_EN: 'BPS’s official Instagram handle is @bps_statistics.',
       src: 'Media Sosial Resmi BPS (@bps_statistics)' },
     { id: 'BPS-18', level: 'MUDAH', a: 'SALAH',
-      q_ID: 'Kuning termasuk salah satu warna utama pada logo BPS bersama Oranye, Hijau, dan Biru.',
+      q_ID: 'Kuning adalah salah satu warna BPS.',
       exp_ID: 'Logo BPS hanya memiliki 3 warna utama yaitu Biru, Oranye, dan Hijau (tanpa warna Kuning).',
-      q_EN: 'Yellow is one of the primary colors of the BPS logo alongside Orange, Green, and Blue.',
+      q_EN: 'Yellow is one of BPS’s official colors.',
       exp_EN: 'The BPS logo consists of three primary colors—Blue, Orange, and Green—excluding Yellow.',
       src: 'Pedoman Identitas Visual Logo BPS' },
     { id: 'BPS-19', level: 'FAKTA', a: 'SALAH',
@@ -789,9 +789,9 @@
       src: 'Siklus Sensus 10 Tahunan BPS' },
     { id: 'BPS-20', level: 'MUDAH', a: 'SALAH',
       q_ID: 'Kantor perwakilan BPS tersedia hanya di tingkat provinsi.',
-      exp_ID: 'Kantor perwakilan BPS tersedia tidak hanya di tingkat provinsi, tetapi juga hingga tingkat kabupaten/kota.',
+      exp_ID: 'Kantor BPS tersedia di tingkat Provinsi dan Kabupaten/Kota.',
       q_EN: 'BPS representative offices are only available at the provincial level.',
-      exp_EN: 'BPS has representative offices at both provincial and regency/municipal levels.',
+      exp_EN: 'BPS offices are available at both the Provincial and Regency/Municipal levels.',
       src: 'Struktur Organisasi Badan Pusat Statistik' },
     { id: 'BPS-22', level: 'MUDAH', a: 'BENAR',
       q_ID: 'Warna Biru melambangkan Sensus Penduduk.',
@@ -825,9 +825,9 @@
       src: 'Pelayanan Statistik Terpadu (pst.bps.go.id)' },
     { id: 'BPS-27', level: 'MUDAH', a: 'SALAH',
       q_ID: 'Perwakilan BPS tersedia hingga level desa.',
-      exp_ID: 'Kantor perwakilan BPS berada hingga tingkat kabupaten/kota, bukan hingga level desa.',
+      exp_ID: 'Kantor BPS tersedia di tingkat Provinsi dan Kabupaten/Kota.',
       q_EN: 'BPS maintains permanent representative offices down to the village level.',
-      exp_EN: 'BPS representative offices operate down to the regency/city level, not the village level.',
+      exp_EN: 'BPS offices are available at both the Provincial and Regency/Municipal levels.',
       src: 'Struktur Organisasi Badan Pusat Statistik' },
     { id: 'BPS-28', level: 'FAKTA', a: 'BENAR',
       q_ID: 'Apabila ingin mengetahui karakteristik seluruh unit usaha di Indonesia, kegiatan sensus yang paling relevan adalah Sensus Ekonomi.',
@@ -915,8 +915,8 @@
       bg: ['#14532D', '#07173D'],
       title: 'THE STATISTICS INSIDER',
       mbtiTag: 'Tipe: D-INS • Master Literasi Data',
-      msg_ID: 'Sempurna 5/5! Kamu adalah sahabat sejati data BPS yang menguasai seluruh layanan dan literasi statistik resmi.',
-      msg_EN: 'Flawless 5/5! You are a true BPS data insider who masters official statistical services and literacy.'
+      msg_ID: 'Sempurna 7/7! Kamu adalah sahabat sejati data BPS yang menguasai seluruh layanan dan literasi statistik resmi.',
+      msg_EN: 'Flawless 7/7! You are a true BPS data insider who masters official statistical services and literacy.'
     }
   };
 
@@ -1042,7 +1042,7 @@
 
     const params = new URLSearchParams(rawQuery);
     if (params.get('card') === '1') {
-      const score = Math.min(5, Math.max(0, Number(params.get('s')) || 0));
+      const score = Math.min(CONFIG.TOTAL_ROUNDS, Math.max(0, Number(params.get('s')) || 0));
       const catKey = params.get('c') || getCategoryForScore(score).key;
       const cat = RESULT_CATEGORIES[catKey] || getCategoryForScore(score);
       const name = decodeURIComponent(params.get('n') || 'Data Explorer');
@@ -1351,7 +1351,7 @@
     }
   }
 
-  function pickFiveQuestions() {
+  function pickSevenQuestions() {
     const pool = QUESTION_BANK;
     const recent = appState.recentIds || [];
     const shuffle = (arr) => {
@@ -1366,7 +1366,7 @@
     const truePool = pool.filter(item => item.a === 'BENAR');
     const falsePool = pool.filter(item => item.a === 'SALAH');
 
-    const trueCount = Math.random() < 0.5 ? 3 : 2;
+    const trueCount = Math.random() < 0.5 ? 4 : 3;
     const falseCount = CONFIG.TOTAL_ROUNDS - trueCount;
 
     const pickFromSubPool = (subPool, count) => {
@@ -1384,13 +1384,13 @@
       [combined[0], combined[easyIdx]] = [combined[easyIdx], combined[0]];
     }
 
-    appState.recentIds = [...combined.map(c => c.id), ...recent].slice(0, 15);
+    appState.recentIds = [...combined.map(c => c.id), ...recent].slice(0, 14);
     return combined;
   }
 
   function startQuizSession() {
     clearFeedbackTimers();
-    appState.sessionQuestions = pickFiveQuestions();
+    appState.sessionQuestions = pickSevenQuestions();
     appState.currentRoundIdx = 0;
     appState.score = 0;
     switchScreen('play');
@@ -1526,9 +1526,9 @@
   }
 
   function getCategoryForScore(score) {
-    if (score <= 1) return RESULT_CATEGORIES.RED;
-    if (score === 2) return RESULT_CATEGORIES.ORANGE;
-    if (score <= 4) return RESULT_CATEGORIES.BLUE;
+    if (score <= 2) return RESULT_CATEGORIES.RED;
+    if (score <= 4) return RESULT_CATEGORIES.ORANGE;
+    if (score <= 6) return RESULT_CATEGORIES.BLUE;
     return RESULT_CATEGORIES.GREEN;
   }
 
@@ -1699,7 +1699,7 @@
 
     ctx.fillStyle = res.category.accentLight;
     ctx.font = '800 58px "Space Grotesk", sans-serif';
-    ctx.fillText(`${res.score} / 5`, W / 2, 1272);
+    ctx.fillText(`${res.score} / 7`, W / 2, 1272);
     ctx.fillStyle = '#CBD5E1';
     ctx.font = '700 22px "Plus Jakarta Sans", sans-serif';
     ctx.fillText(dict.card_final_score, W / 2, 1304);
@@ -2042,7 +2042,7 @@
     const logs = appState.analyticsLogs;
     document.getElementById('stat-total-sessions').textContent = String(logs.length);
     const avg = logs.length ? (logs.reduce((s, x) => s + x.score, 0) / logs.length).toFixed(1) : '0.0';
-    document.getElementById('stat-avg-score').textContent = `${avg}/5`;
+    document.getElementById('stat-avg-score').textContent = `${avg}/7`;
 
     const dist = { RED: 0, ORANGE: 0, BLUE: 0, GREEN: 0 };
     logs.forEach(l => dist[l.category]++);

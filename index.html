@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+1<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
@@ -215,7 +215,7 @@
         <div class="flex items-center justify-between gap-2">
           <span data-i18n="cam_title" class="text-[11px] font-extrabold uppercase tracking-wider text-purple-300">Kontrol Gestur Tangan</span>
           <span id="fps-counter" class="text-[10px] font-mono-num text-slate-300 bg-slate-950/80 px-1.5 py-0.5 rounded border border-purple-400/25">-- FPS</span>
-        </div>
+   1s1qA☆1I     </div>
         <p id="gesture-live-feedback" class="text-sm text-white font-bold mt-1 leading-snug">
           Angkat 👍 (Benar) atau ✋ (Salah)
         </p>
@@ -340,7 +340,7 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- PAGE 03: QUIZ SCREEN (7 SOAL DARI BANK 28 SOAL GABUNGAN)              -->
+  <!-- PAGE 03: QUIZ SCREEN (7 SOAL: 6 DARI BANK UTAMA + 1 SOAL KHUSUS)      -->
   <!-- ===================================================================== -->
   <section id="screen-play" class="hidden flex-1 w-full flex flex-col justify-between p-5 z-10">
     <div class="glass-panel rounded-2xl p-4 border-purple-400/30">
@@ -689,7 +689,47 @@
     MIN_HAND_SIZE: 0.06
   };
 
-  // BANK 28 SOAL GABUNGAN (DARI EXCEL BANK SOAL BPS — DENGAN PENJELASAN & PERTANYAAN REVISI TERBARU)
+  // 6 SOAL WAJIB (MINIMAL 1 MUNCUL DI SETIAP 7 PERTANYAAN)
+  const SPECIAL_QUESTIONS = [
+    { id: 'SPC-01', level: 'FAKTA', a: 'SALAH',
+      q_ID: 'Menurut statistik e-commerce, pengguna internet didominasi oleh gen millenial.',
+      exp_ID: 'Pengguna internet terbanyak di Indonesia adalah Gen Z.',
+      q_EN: 'According to e-commerce statistics, internet users are dominated by Millennials.',
+      exp_EN: 'The largest group of internet users in Indonesia is Gen Z.',
+      src: 'Statistik Telekomunikasi Indonesia / E-Commerce (BPS)' },
+    { id: 'SPC-02', level: 'FAKTA', a: 'BENAR',
+      q_ID: 'Berdasarkan hasil SUSENAS Maret 2026, Pengeluaran konsumsi makanan lebih besar dibandingkan konsumsi non makanan.',
+      exp_ID: 'Berdasarkan hasil SUSENAS Maret 2026, pengeluaran konsumsi makanan lebih besar dibandingkan konsumsi non makanan.',
+      q_EN: 'Based on the March 2026 SUSENAS results, food consumption expenditure is greater than non-food consumption.',
+      exp_EN: 'Based on the March 2026 SUSENAS results, food consumption expenditure exceeds non-food consumption.',
+      src: 'SUSENAS Maret 2026 (BPS)' },
+    { id: 'SPC-03', level: 'FAKTA', a: 'BENAR',
+      q_ID: 'Pertumbuhan ekonomi Jasa Keuangan dan Asuransi mencapai 8,47 persen di Triwulan 3 2026.',
+      exp_ID: 'Pertumbuhan ekonomi kategori Jasa Keuangan dan Asuransi (y-on-y) mencapai 8,47 persen pada Triwulan III 2026.',
+      q_EN: 'Economic growth in Financial and Insurance Services reached 8.47 percent in Q3 2026.',
+      exp_EN: 'Year-on-year growth in Financial and Insurance Services reached 8.47 percent in Q3 2026.',
+      src: 'BRS Pertumbuhan Ekonomi Indonesia Triwulan III-2026' },
+    { id: 'SPC-04', level: 'FAKTA', a: 'SALAH',
+      q_ID: 'Rata-rata pengeluaran per kapita pada Maret 2026 adalah 1,66 juta per bulan, menandakan pengeluaran dalam satu rumah tangga per bulan mencapai 1,66 juta rupiah.',
+      exp_ID: 'Pengeluaran per kapita menggambarkan pengeluaran per orang, bukan per rumah tangga atau keluarga.',
+      q_EN: 'Average per capita expenditure in March 2026 was IDR 1.66 million per month, meaning monthly spending per household was IDR 1.66 million.',
+      exp_EN: 'Per capita expenditure reflects spending per individual person, not per household or family.',
+      src: 'Pengeluaran Untuk Konsumsi Penduduk Indonesia Maret 2026 (BPS)' },
+    { id: 'SPC-05', level: 'FAKTA', a: 'SALAH',
+      q_ID: 'Berdasarkan hasil SUPAS 2025, jumlah penduduk Indonesia mencapai 184 juta orang.',
+      exp_ID: 'Berdasarkan hasil SUPAS 2025, jumlah penduduk Indonesia mencapai sekitar 274,67 juta orang.',
+      q_EN: 'Based on the 2025 SUPAS results, Indonesia’s population reached 184 million people.',
+      exp_EN: 'Based on the 2025 SUPAS results, Indonesia’s population reached approximately 274.67 million people.',
+      src: 'Hasil Survei Penduduk Antar Sensus (SUPAS 2025)' },
+    { id: 'SPC-06', level: 'FAKTA', a: 'SALAH',
+      q_ID: 'Tingkat pengangguran pada Agustus 2026 adalah 4,75 persen menandakan bahwa dari seluruh penduduk Indonesia, 4,75 persennya menganggur.',
+      exp_ID: 'Artinya, 4,75 persen dari seluruh angkatan kerja adalah pengangguran, bukan dibandingkan dengan seluruh penduduk Indonesia.',
+      q_EN: 'The 4.75 percent unemployment rate in August 2026 means that 4.75 percent of Indonesia’s total population is unemployed.',
+      exp_EN: 'It means 4.75 percent of the total labor force is unemployed, not compared to the entire population.',
+      src: 'BRS Keadaan Ketenagakerjaan Indonesia Agustus 2026' }
+  ];
+
+  // BANK 28 SOAL UTAMA (6 SOAL DIAMBIL DARI SINI SETIAP SESI)
   const QUESTION_BANK = [
     { id: 'BPS-01', level: 'MUDAH', a: 'BENAR',
       q_ID: 'Kepanjangan BPS adalah Badan Pusat Statistik.',
@@ -764,9 +804,9 @@
       exp_EN: 'Education Statistics 2026 is the latest publication released by BPS.',
       src: 'Katalog Publikasi Website BPS' },
     { id: 'BPS-15', level: 'MUDAH', a: 'BENAR',
-      q_ID: 'Ilustrasi ikon sensus dengan simbol pertanian (🌾) merujuk pada Sensus Pertanian.',
+      q_ID: 'Ilustrasi ikon sensus dengan simbol (🌾) merujuk pada Sensus Pertanian.',
       exp_ID: 'Simbol tanaman padi/pertanian (🌾) melambangkan kegiatan Sensus Pertanian BPS.',
-      q_EN: 'The census icon featuring an agricultural crop symbol (🌾) refers to the Agricultural Census.',
+      q_EN: 'The symbol (🌾) refers to the Agricultural Census.',
       exp_EN: 'The crop symbol (🌾) represents BPS’s Agricultural Census.',
       src: 'Identitas Kegiatan Sensus BPS' },
     { id: 'BPS-16', level: 'MUDAH', a: 'BENAR',
@@ -924,6 +964,7 @@
     lang: 'ID',
     screen: 'idle',
     recentIds: [],
+    recentSpecialIds: [],
     sessionQuestions: [],
     currentRoundIdx: 0,
     score: 0,
@@ -1351,9 +1392,8 @@
     }
   }
 
+  // PILIH 7 SOAL: 1 SOAL DARI SPECIAL_QUESTIONS + 6 SOAL DARI QUESTION_BANK
   function pickSevenQuestions() {
-    const pool = QUESTION_BANK;
-    const recent = appState.recentIds || [];
     const shuffle = (arr) => {
       const copy = [...arr];
       for (let i = copy.length - 1; i > 0; i--) {
@@ -1363,28 +1403,41 @@
       return copy;
     };
 
-    const truePool = pool.filter(item => item.a === 'BENAR');
-    const falsePool = pool.filter(item => item.a === 'SALAH');
-
-    const trueCount = Math.random() < 0.5 ? 4 : 3;
-    const falseCount = CONFIG.TOTAL_ROUNDS - trueCount;
-
-    const pickFromSubPool = (subPool, count) => {
-      const fresh = shuffle(subPool.filter(i => !recent.includes(i.id)));
-      const stale = shuffle(subPool.filter(i => recent.includes(i.id)));
+    const pickFromSubPool = (subPool, count, recentList) => {
+      const fresh = shuffle(subPool.filter(i => !recentList.includes(i.id)));
+      const stale = shuffle(subPool.filter(i => recentList.includes(i.id)));
       return [...fresh, ...stale].slice(0, count);
     };
 
-    const chosenTrue = pickFromSubPool(truePool, trueCount);
-    const chosenFalse = pickFromSubPool(falsePool, falseCount);
-    let combined = shuffle([...chosenTrue, ...chosenFalse]);
+    // 1. Pilih tepat 1 soal wajib dari 6 SPECIAL_QUESTIONS
+    const chosenSpecial = pickFromSubPool(SPECIAL_QUESTIONS, 1, appState.recentSpecialIds || []);
+    appState.recentSpecialIds = [chosenSpecial[0].id, ...(appState.recentSpecialIds || [])].slice(0, 4);
 
+    // 2. Pilih 6 soal dari QUESTION_BANK agar total BENAR/SALAH seimbang (3-4 BENAR & 3-4 SALAH)
+    const targetTrueTotal = Math.random() < 0.5 ? 4 : 3;
+    const specialIsTrue = chosenSpecial[0].a === 'BENAR' ? 1 : 0;
+    const neededMainTrue = Math.max(1, Math.min(5, targetTrueTotal - specialIsTrue));
+    const neededMainFalse = 6 - neededMainTrue;
+
+    const mainTruePool = QUESTION_BANK.filter(item => item.a === 'BENAR');
+    const mainFalsePool = QUESTION_BANK.filter(item => item.a === 'SALAH');
+    const recentMain = appState.recentIds || [];
+
+    const chosenMainTrue = pickFromSubPool(mainTruePool, neededMainTrue, recentMain);
+    const chosenMainFalse = pickFromSubPool(mainFalsePool, neededMainFalse, recentMain);
+    const chosenMain = [...chosenMainTrue, ...chosenMainFalse];
+
+    appState.recentIds = [...chosenMain.map(c => c.id), ...recentMain].slice(0, 14);
+
+    // 3. Gabungkan (1 special + 6 bank utama = 7 soal) dan acak urutannya
+    let combined = shuffle([...chosenSpecial, ...chosenMain]);
+
+    // Pastikan soal pertama bertingkat MUDAH agar ramah pembuka
     const easyIdx = combined.findIndex(q => q.level === 'MUDAH');
     if (easyIdx > 0) {
       [combined[0], combined[easyIdx]] = [combined[easyIdx], combined[0]];
     }
 
-    appState.recentIds = [...combined.map(c => c.id), ...recent].slice(0, 14);
     return combined;
   }
 
